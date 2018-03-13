@@ -3,11 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
+import java.util.*;
 /**
  *
  * @author edenruffell
  */
-public class OverrideRequest {
+public class OverrideRequest extends Request{
     
 }

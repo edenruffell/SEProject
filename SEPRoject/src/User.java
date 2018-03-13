@@ -8,17 +8,20 @@
  *
  * @author csja3
  */
+import java.util.*;
 public class User {
-    private int currency = 10;
+    private int currency;
     private String name;
     private String password;
-    private boolean registered = false;
+    private boolean registered;
     
  public User(int i, String n, String p)
     {
         currency = i;
         name = n;
         password = p;
+        registered = false;
+        
     } 
  
  public boolean Register(){

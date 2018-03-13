@@ -8,6 +8,6 @@
  *
  * @author edenruffell
  */
-public class RepeatBookingRequest {
+public class RepeatBookingRequest extends Request{
     
 }
