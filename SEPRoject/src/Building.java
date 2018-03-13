@@ -4,10 +4,7 @@
  * and open the template in the editor.
  */
 import java.util.*;
-/**
- *
- * @author edenruffell
- */
+@author edenruffell
 public class Building{
     
 
@@ -15,19 +12,28 @@ public class Building{
     private String name;
     int numRooms;
 
-    public Building(int i)
-{
-    
-}
 
-    
+  
     public Building(String name, int number){
         this.name = name;
         numRooms = number;
-        
+    }
+
+    
+    public String getBuildingName(){
+        return name;
     }
     
     public void setBuildingName(String name){
         this.name = name;
     }
+    
+    public int getNumRooms(String name){
+        return numRooms;
+    }
+    
+    public void setNumRooms(int number){
+        numRooms = number;
+    }
+    
 }
