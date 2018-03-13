@@ -10,26 +10,30 @@ import java.util.*;
  */
 public class Building{
     
-<<<<<<< HEAD
     HashMap<Room, Boolean> roomList = new HashMap<>();
     private String name;
     int numRooms;
-=======
-    public Building(int i)
-{
-    
-}
-}
 
->>>>>>> fd010fb307358bb5c539fb1b089da0570744f9de
-    
     public Building(String name, int number){
         this.name = name;
         numRooms = number;
         
     }
     
+    public String getBuildingName(){
+        return name;
+    }
+    
     public void setBuildingName(String name){
         this.name = name;
     }
+    
+    public int getNumRooms(String name){
+        return numRooms;
+    }
+    
+    public void setNumRooms(int number){
+        numRooms = number;
+    }
+    
 }
