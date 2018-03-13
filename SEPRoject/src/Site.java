@@ -10,4 +10,6 @@
  */
 public class Site {
     
+    Building a = new Building();
+    
 }
