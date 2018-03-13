@@ -9,5 +9,6 @@
  * @author edenruffell
  */
 public class Room {
-    
+    String name;
+    String status;
 }
