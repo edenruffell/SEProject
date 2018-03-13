@@ -13,7 +13,7 @@ public class Building {
     
     public Building(int i)
 {
-    rooms[] = new Room[i];
+    
 }
 }
 
