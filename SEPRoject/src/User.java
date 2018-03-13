@@ -6,8 +6,10 @@
 
 /**
  *
- * @author edenruffell
+ * @author csja3
  */
 public class User {
-    
+    int currency = 10;
+    String name;
+    String password;
 }
