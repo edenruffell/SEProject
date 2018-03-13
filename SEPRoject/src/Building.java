@@ -20,7 +20,20 @@ public class Building{
         
     }
     
+    public String getBuildingName(){
+        return name;
+    }
+    
     public void setBuildingName(String name){
         this.name = name;
     }
+    
+    public int getNumRooms(String name){
+        return numRooms;
+    }
+    
+    public void setNumRooms(int number){
+        numRooms = number;
+    }
+    
 }
