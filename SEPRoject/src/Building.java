@@ -8,13 +8,19 @@ import java.util.*;
  *
  * @author edenruffell
  */
-public class Building {
-    private Room rooms[]; 
+public class Building{
     
-    public Building(int i)
-{
-    rooms[] = new Room[i];
-}
-}
-
+    HashMap<Room, Boolean> roomList = new HashMap<>();
+    private String name;
+    int numRooms;
     
+    public Building(String name, int number){
+        this.name = name;
+        numRooms = number;
+        
+    }
+    
+    public void setBuildingName(String name){
+        this.name = name;
+    }
+}
