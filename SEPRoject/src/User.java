@@ -9,7 +9,23 @@
  * @author csja3
  */
 public class User {
-    int currency = 10;
-    String name;
-    String password;
+    private int currency = 10;
+    private String name;
+    private String password;
+    private boolean registered = false;
+    
+ public User(int i, String n, String p)
+    {
+        currency = i;
+        name = n;
+        password = p;
+    } 
+ 
+ public boolean Register(){
+    registered = true;
+    return true;
 }
+
+}
+
+
