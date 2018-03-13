@@ -10,6 +10,10 @@
  */
 public class Site {
     
-    Building a = new Building();
+    String name;
+    
+    public Site(String name){
+        this.name = name;
+    }
     
 }
