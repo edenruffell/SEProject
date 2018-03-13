@@ -3,8 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-import java.util.*;
-@author edenruffell
+
+/**
+ *
+ * @author edenruffell
+ */
+    import java.util.*;
+
 public class Building{
     
 
@@ -16,7 +21,7 @@ public class Building{
   
     public Building(String name, int number){
         this.name = name;
-        numRooms = number;
+        this.numRooms = number;
     }
 
     
@@ -37,3 +42,4 @@ public class Building{
     }
     
 }
+
