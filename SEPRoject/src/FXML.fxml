@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.text.*?>
 <?import java.lang.*?>
 <?import java.util.*?>
 <?import javafx.scene.*?>
@@ -10,12 +14,28 @@
    <children>
       <Pane prefHeight="400.0" prefWidth="600.0">
          <children>
-            <Label layoutX="147.0" layoutY="122.0" text="Username:" />
-            <Label layoutX="147.0" layoutY="167.0" text="Password" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" height="400.0" stroke="BLACK" strokeType="INSIDE" width="600.0">
+               <fill>
+                  <LinearGradient endX="0.5240384615384617" endY="0.028846153846153848" startX="0.5096153846153846" startY="0.9519230769230769">
+                     <stops>
+                        <Stop color="#3685cf4b" />
+                        <Stop color="#3685cf4b" offset="0.007434944237918215" />
+                        <Stop color="#3484cf" offset="1.0" />
+                     </stops>
+                  </LinearGradient>
+               </fill>
+            </Rectangle>
+            <Label layoutX="147.0" layoutY="122.0" text="Username:" textFill="WHITE" />
+            <Label layoutX="147.0" layoutY="167.0" text="Password" textFill="WHITE" />
             <PasswordField layoutX="287.0" layoutY="162.0" />
             <TextField layoutX="287.0" layoutY="117.0" />
             <Button layoutX="147.0" layoutY="246.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="103.0" text="Register" />
             <Button layoutX="351.0" layoutY="246.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="103.0" text="Login" />
+            <Text fill="WHITE" layoutX="179.0" layoutY="68.0" strokeType="OUTSIDE" strokeWidth="0.0" text="BookingPLUS">
+               <font>
+                  <Font name="Arial Rounded MT Bold" size="36.0" />
+               </font>
+            </Text>
          </children>
       </Pane>
    </children>
