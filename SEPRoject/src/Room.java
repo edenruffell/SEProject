@@ -26,8 +26,7 @@ public class Room {
     }
     
     public void setRoomName(String name){
-        name = name;
-        return;
+        this.name = name;
     }
     
     public int getCapacity(){
@@ -36,17 +35,17 @@ public class Room {
     
     public void setCapacity(int cap){
         capacity = cap;
-        return;
     }
     
     public String getComputers(){
-        if(computers) return "Yes.";
-        else return "No.";
+        if(computers) return "Yes";
+        else return "No";
     }
     
     public void setComputers(boolean comp){
         computers = comp;
     }
+    
     
     public String getBuildingName(){
         return buildingName;

@@ -11,9 +11,18 @@ import java.util.*;
 public class Teacher extends User {
     String department;
     
-    public Teacher(String n, String p, String d){ 
-        super(20, n, p);
+    
+    public Teacher(String n, String p, String d, String type){ 
+        super(30, n, p, type);
         department = d;
-}
+       
+    }
+    
+    
+    public void setDepartment(String department){
+        this.department = department;
+    }
+    
+    
     
 }

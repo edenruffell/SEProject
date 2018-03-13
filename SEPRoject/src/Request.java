@@ -10,4 +10,15 @@
  */
 public class Request {
     
+    String name;
+    String requestType;
+    
+
+        public Request(User user, String requestType){
+
+            user.name = name;
+            this.requestType = requestType;
+
+        }   
+
 }

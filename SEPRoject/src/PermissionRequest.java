@@ -10,4 +10,20 @@
  */
 public class PermissionRequest extends Request{
     
+    
+    User user;
+    
+    
+    
+    public PermissionRequest(User user, RoomBooking roombooking, int startDate, int endDate, String requestType){
+    
+        super(user, requestType);
+        this.user = user;
+        
+        
+    
+    
+    }
+   
 }
+  

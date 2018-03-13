@@ -8,10 +8,10 @@ import java.util.*;
  *
  * @author edenruffell
  */
-public class Student extends User{
+ public class Student extends User{
     
-    public Student(String n, String p){ 
-        super(20, n, p);
+    public Student(String n, String p, String type){ 
+        super(15, n, p, type);
         
 }
 }

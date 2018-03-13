@@ -10,17 +10,19 @@
  */
 import java.util.*;
 public class User {
-    private int currency;
-    private String name;
-    private String password;
-    private boolean registered;
+    int currency;
+    String name;
+    String password;
+    boolean registered;
+    String type;
     
- public User(int i, String n, String p)
+ public User(int i, String n, String p, String type)
     {
-        currency = i;
-        name = n;
-        password = p;
-        registered = false;
+        this.currency = i;
+        this.name = n;
+        this.password = p;
+        this.registered = false;
+        this.type = type; 
         
     } 
  
@@ -29,6 +31,12 @@ public class User {
     return true;
 }
 
+ 
+ public String getName(){
+     
+     return name;
+ 
+ }
 }
 
 
