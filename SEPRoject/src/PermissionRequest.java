@@ -8,6 +8,6 @@
  *
  * @author edenruffell
  */
-public class PermissionRequest {
+public class PermissionRequest extends Request{
     
 }
