@@ -10,4 +10,10 @@
  */
 public class Site {
     
+    String name;
+    
+    public Site(String name){
+        this.name = name;
+    }
+    
 }
