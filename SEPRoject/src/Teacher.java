@@ -12,9 +12,9 @@ public class Teacher extends User {
     String department;
     
     
-    public Teacher(String n, String p, String d, String type){ 
-        super(30, n, p, type);
-        department = d;
+    public Teacher(String name, String password, String department, String type){ 
+        super(30, name, password, type);
+        this.department = department;
        
     }
     
@@ -23,6 +23,21 @@ public class Teacher extends User {
         this.department = department;
     }
     
+    
+    public boolean makeBooking(Room room,int date,int startTime, int endTime) {
+
+        
+        if (this.currency>0) {
+            RoomBooking rm = new RoomBooking(this.name, room, date, startTime, endTime ); 
+            return true;
+        }
+        else {
+            System.out.println("Cannot make booking due to unsufficient quota ");
+            return false;
+        }
+
+
+}
     
     
 }

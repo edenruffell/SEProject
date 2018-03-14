@@ -13,21 +13,22 @@ public class User {
     int currency;
     String name;
     String password;
-    boolean registered;
+    boolean registered = false;
+    boolean loggedIn = false;
     String type;
+    ArrayList<RoomBooking> bookings = new ArrayList<>();
     
- public User(int i, String n, String p, String type)
+ public User(int currency, String name, String password, String type)
     {
-        this.currency = i;
-        this.name = n;
-        this.password = p;
-        this.registered = false;
+        this.currency = currency;
+        this.name = name;
+        this.password = password;
         this.type = type; 
         
     } 
  
- public boolean Register(){
-    registered = true;
+ public boolean Register(String email, String password){
+    this.registered = true;
     return true;
 }
 
@@ -37,6 +38,45 @@ public class User {
      return name;
  
  }
+ 
+ 
+ 
+ 
+ public boolean LogIn(String username, String password){
+     
+     
+     if(username.equals(this.name) && password.equals(this.password)) loggedIn = true;
+     else {
+         System.out.println("Incorrect username or password. Please try again");
+        
+         }
+     
+      return loggedIn;
+ 
+     
+ }
+ 
+ 
+ public void changePassword(String newpassword){
+ 
+     this.password = newpassword;
+     
+ 
+ }
+ 
+ /*public Room searchBuilding(Building building){
+ 
+     
+        return room;
+ }*/
+ 
+  /*public Room searchTime(){
+ 
+     
+        return room;
+ }*/
+ 
+ 
 }
 
 

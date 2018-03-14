@@ -20,15 +20,15 @@ public class RoomBooking {
     
    
     
-    public RoomBooking(User user, String room, int date, int ID, int startTime, int endTime){
+    public RoomBooking(String owner, Room room, int date, int startTime, int endTime){
         
         hoursBooked = endTime - startTime;
-        this.room = room;
+        this.room = room.name;
         this.date = date;
-        this.ID = ID;
+        this.ID = 0;
         this.startTime = startTime;
         this.endTime = endTime;
-        user.name = owner;
+        this.owner = owner;
         
         
     }

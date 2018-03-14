@@ -10,8 +10,23 @@ import java.util.*;
  */
  public class Student extends User{
     
-    public Student(String n, String p, String type){ 
-        super(15, n, p, type);
+    public Student(String name, String password, String type){ 
+        super(15, name, password, type);
         
 }
+    
+     public boolean makeBooking(Room room,int date,int startTime, int endTime) {
+
+        
+        if (this.currency>0) {
+            RoomBooking rm = new RoomBooking(this.name, room, date, startTime, endTime ); 
+            return true;
+        }
+        else {
+            System.out.println("Cannot make booking due to unsufficient quota ");
+            return false;
+        }
+
+    
+     }
 }

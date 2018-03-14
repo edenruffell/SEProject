@@ -8,6 +8,20 @@
  *
  * @author edenruffell
  */
-public class Administrator {
+public class Administrator extends User {
+    
+   
+    
+    
+    public Administrator(String name, String password, String type){ 
+        super(0, name, password, type);
+       
+       
+    }
+    
+    
+   
+    
+    
     
 }
