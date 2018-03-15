@@ -1,3 +1,6 @@
+
+import java.util.HashMap;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -11,6 +14,8 @@
 public class Site {
     
     String name;
+    HashMap<Room, Boolean> buildingList = new HashMap<>();
+    
     
     public Site(String name){
         this.name = name;
@@ -26,4 +31,6 @@ public class Site {
     
         return name;
     }
+    
+    
 }

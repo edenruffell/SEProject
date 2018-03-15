@@ -13,6 +13,7 @@ public class OverrideRequest extends Request{
     
   
    RoomBooking roombooking;
+   String requestType = "Override";
   
     
     

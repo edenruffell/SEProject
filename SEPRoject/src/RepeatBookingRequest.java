@@ -13,6 +13,7 @@ public class RepeatBookingRequest extends Request{
     int startDate;
     int endDate;
     RoomBooking roombooking;
+     String requestType = "RepeatRoomBooking";
     
     
     
