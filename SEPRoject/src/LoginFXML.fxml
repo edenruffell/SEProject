@@ -33,7 +33,7 @@
                <effect>
                   <DropShadow color="#616060" />
                </effect></Button>
-            <Button fx:id="login" layoutX="351.0" layoutY="246.0" mnemonicParsing="false" onAction="#showMainMenu" prefHeight="38.0" prefWidth="103.0" style="-fx-background-color: white;" text="Login">
+            <Button fx:id="login" layoutX="351.0" layoutY="246.0" mnemonicParsing="false" onAction="#Login" prefHeight="38.0" prefWidth="103.0" style="-fx-background-color: white;" text="Login">
                <effect>
                   <DropShadow color="#616060" />
                </effect></Button>
@@ -43,6 +43,7 @@
                </font>
             </Text>
             <Label fx:id="errorLabel" layoutX="147.0" layoutY="200.0" prefHeight="38.0" prefWidth="305.0" wrapText="true" />
+            <Label fx:id="isConnected" layoutX="8.0" layoutY="368.0" prefHeight="27.0" prefWidth="82.0" text="Status" textFill="RED" />
          </children>
       </Pane>
    </children>
