@@ -10,9 +10,8 @@ import java.util.*;
  */
  public class Student extends User{
     
-    public Student(String name, String password, String type){ 
-        super(15, name, password, type);
-        
+    public Student(String name, String password){ 
+        super(15, name, password, "Student");        
 }
     
      public boolean makeBooking(Room room,int date,int startTime, int endTime) {
