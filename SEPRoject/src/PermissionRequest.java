@@ -12,6 +12,8 @@ public class PermissionRequest extends Request{
     
     
     User user;
+    String requestType = "Permission";
+    
     
     
     

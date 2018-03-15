@@ -12,6 +12,7 @@ public class Request {
     
     String name;
     String requestType;
+    boolean completed = false;
     
 
         public Request(User user, String requestType){
