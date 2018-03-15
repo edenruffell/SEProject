@@ -13,7 +13,7 @@ import javafx.fxml.Initializable;
  *
  * @author AliyahButt1
  */
-public class FXMLController implements Initializable {
+public class STMainController implements Initializable {
 
     /**
      * Initializes the controller class.
@@ -22,4 +22,5 @@ public class FXMLController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
     }    
+    
 }

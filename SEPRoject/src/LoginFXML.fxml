@@ -10,7 +10,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="FXMLController">
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="LoginController">
    <children>
       <Pane prefHeight="400.0" prefWidth="600.0">
          <children>
@@ -27,13 +27,13 @@
             </Rectangle>
             <Label layoutX="147.0" layoutY="122.0" text="Username:" textFill="WHITE" />
             <Label layoutX="147.0" layoutY="167.0" text="Password" textFill="WHITE" />
-            <PasswordField layoutX="287.0" layoutY="162.0" />
-            <TextField layoutX="287.0" layoutY="117.0" />
-            <Button layoutX="147.0" layoutY="246.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="103.0" style="-fx-background-color: white;" text="Register">
+            <PasswordField fx:id="pwTextField" layoutX="287.0" layoutY="162.0" promptText="Enter password." />
+            <TextField fx:id="userTextField" layoutX="287.0" layoutY="117.0" promptText="Enter username." />
+            <Button fx:id="register" layoutX="147.0" layoutY="246.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="103.0" style="-fx-background-color: white;" text="Register">
                <effect>
                   <DropShadow color="#616060" />
                </effect></Button>
-            <Button layoutX="351.0" layoutY="246.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="103.0" style="-fx-background-color: white;" text="Login">
+            <Button fx:id="login" layoutX="351.0" layoutY="246.0" mnemonicParsing="false" onAction="#showMainMenu" prefHeight="38.0" prefWidth="103.0" style="-fx-background-color: white;" text="Login">
                <effect>
                   <DropShadow color="#616060" />
                </effect></Button>
@@ -42,6 +42,7 @@
                   <Font name="Arial Rounded MT Bold" size="36.0" />
                </font>
             </Text>
+            <Label fx:id="errorLabel" layoutX="147.0" layoutY="200.0" prefHeight="38.0" prefWidth="305.0" wrapText="true" />
          </children>
       </Pane>
    </children>
