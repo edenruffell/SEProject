@@ -42,18 +42,8 @@ public class User {
  
  
  
- public boolean LogIn(String username, String password){
-     
-     
-     if(username.equals(this.name) && password.equals(this.password)) loggedIn = true;
-     else {
-         System.out.println("Incorrect username or password. Please try again");
-        
-         }
-     
-      return loggedIn;
- 
-     
+ public void setLogIn(){
+     loggedIn = true;     
  }
  
  
