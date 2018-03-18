@@ -17,7 +17,7 @@ public class Request {
 
         public Request(User user, String requestType){
 
-            user.name = name;
+             name = user.getName();
             this.requestType = requestType;
 
         }   

@@ -30,8 +30,8 @@ public class OverrideRequest extends Request{
     public String changeBooking(User user){
     
         
-        if(user.type.equals("T")){
-        roombooking.setOwner(user.name);
+        if(user.getType().equals("T")){
+        roombooking.setOwner(user.getName());
         
            
         return "Override Approved";

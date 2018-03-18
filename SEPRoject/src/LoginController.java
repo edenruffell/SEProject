@@ -25,7 +25,7 @@ import javafx.stage.Stage;
  */
 public class LoginController implements Initializable {
     
-    LoginModel loginModel = new LoginModel();
+    protected LoginModel loginModel = new LoginModel();
     @FXML private Label isConnected;
     @FXML private TextField userTextField;
     @FXML private TextField pwTextField;

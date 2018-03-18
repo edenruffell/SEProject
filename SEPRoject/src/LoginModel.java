@@ -44,11 +44,11 @@ public class LoginModel {
             if(resultSet.next()){
                 
                 String[] list = new String[6];
-                list[0] = resultSet.getObject("USERNAME").toString();
-                list[1] = resultSet.getObject("PASSWORD").toString();
-                list[2] = resultSet.getObject("FNAME").toString();
-                list[3] = resultSet.getObject("LNAME").toString();
-                list[4] = resultSet.getObject("UTYPE").toString();
+                list[0] = resultSet.getString("USERNAME");
+                list[1] = resultSet.getString("PASSWORD");
+                list[2] = resultSet.getString("FNAME");
+                list[3] = resultSet.getString("LNAME");
+                list[4] = resultSet.getString("UTYPE");
                 list[5] = resultSet.getObject("ALLOWANCE").toString();
                 
                 return list;
@@ -60,27 +60,6 @@ public class LoginModel {
         } finally {
             preparedS.close();
             resultSet.close();
-        }
-    }
-    
-    public void update(int allowance, String username) throws SQLException {
-        PreparedStatement preparedS = null;
-        
-        String query = "UPDATE USER SET ALLOWANCE = ? "
-                        + " WHERE USERNAME = ?";
- 
-        try {
-            preparedS = connection.prepareStatement(query);
- 
-            // set the corresponding param
-            preparedS.setInt(1, allowance);
-            preparedS.setString(2, username);
-            // update 
-            preparedS.executeUpdate();
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        } finally {
-            preparedS.close();
         }
     }
     
