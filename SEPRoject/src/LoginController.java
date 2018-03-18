@@ -48,6 +48,7 @@ public class LoginController implements Initializable {
                     STMainController main = (STMainController)loader.getController();
                     main.setUser(checkType(data[4], username, password));
                     main.setName(data[2], data[3]);
+                    main.setAllowance(data[5]);
                     Scene mainMenuScene = new Scene(mainMenu);
                     Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow();
                     window.setScene(mainMenuScene);

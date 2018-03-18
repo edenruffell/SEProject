@@ -26,8 +26,10 @@ import javafx.stage.Stage;
  */
 public class STMainController implements Initializable {
 
-    @FXML private Label name; 
+    @FXML private Label nameLabel; 
     @FXML private Button logout;
+    @FXML private Label allowLabel;
+    @FXML private Label typeLabel;
     
     User user;
     /**
@@ -49,14 +51,21 @@ public class STMainController implements Initializable {
     }
     
     public void setName(String fname, String lname){
-        name.setText(fname + " " + lname);
+        nameLabel.setText(fname + " " + lname);
+    }
+    
+    public void setAllowance(String allow){
+        allowLabel.setText("Allowance: " + allow + "hours");
+        user.setAllowance(Integer.parseInt(allow));
     }
 
     public void setUser(User user){
         this.user = user;
         
-        if(user instanceof Teacher) System.out.println("teach");
-        else if(user instanceof Student) System.out.println("Student");
+        if(user instanceof Teacher) typeLabel.setText("Teacher");
+        else if(user instanceof Student) typeLabel.setText("Student");
+        
+        
     }    
     
 }

@@ -25,7 +25,7 @@ public class Teacher extends User {
     public boolean makeBooking(Room room,int date,int startTime, int endTime) {
 
         
-        if (this.currency>0) {
+        if (this.allowance>0) {
             RoomBooking rm = new RoomBooking(this.name, room, date, startTime, endTime ); 
             return true;
         }

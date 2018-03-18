@@ -43,12 +43,13 @@ public class LoginModel {
             
             if(resultSet.next()){
                 
-                String[] list = new String[5];
+                String[] list = new String[6];
                 list[0] = resultSet.getObject("USERNAME").toString();
                 list[1] = resultSet.getObject("PASSWORD").toString();
                 list[2] = resultSet.getObject("FNAME").toString();
                 list[3] = resultSet.getObject("LNAME").toString();
                 list[4] = resultSet.getObject("UTYPE").toString();
+                list[5] = resultSet.getObject("ALLOWANCE").toString();
                 
                 return list;
             } else return null;
@@ -62,52 +63,29 @@ public class LoginModel {
         }
     }
     
-   /* public boolean isLogin(String user, String pass) throws SQLException{
+    public void update(int allowance, String username) throws SQLException {
         PreparedStatement preparedS = null;
-        ResultSet resultSet = null;
-        String query = "SELECT * FROM USER WHERE USERNAME = ? AND PASSWORD = ?";
-        try{
+        
+        String query = "UPDATE USER SET ALLOWANCE = ? "
+                        + " WHERE USERNAME = ?";
+ 
+        try {
             preparedS = connection.prepareStatement(query);
-            preparedS.setString(1, user);
-            preparedS.setString(2, pass);
-            
-            resultSet = preparedS.executeQuery();
-            
-            if(resultSet.next()) return true;
-            else return false;
-        }catch(Exception e){
-            System.out.println(e);
-            return false;
-            
+ 
+            // set the corresponding param
+            preparedS.setInt(1, allowance);
+            preparedS.setString(2, username);
+            // update 
+            preparedS.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
         } finally {
             preparedS.close();
-            resultSet.close();
         }
-    } */
+    }
     
-//    public User checkType(String user, String pass) throws SQLException{
-//        PreparedStatement preparedS = null;
-//        ResultSet resultSet = null;
-//        String query = "SELECT * FROM USER WHERE USERNAME = ?";
-//        try{
-//            preparedS = connection.prepareStatement(query);
-//            preparedS.setString(1, user);
-//            
-//            resultSet = preparedS.executeQuery();
-//
-//            Object o = resultSet.getObject("UTYPE");
-//            String type = o.toString();
-//
-//           
-//            
-//            
-//        }catch(Exception e){
-//            System.out.println(e);
-//            return null;
-//            
-//        } finally {
-//            preparedS.close();
-//            resultSet.close();
-//        }
-//    }
+    
+    
+    
+   
 }
