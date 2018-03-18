@@ -13,8 +13,8 @@ public class Administrator extends User {
    
     
     
-    public Administrator(String name, String password, String type){ 
-        super(0, name, password, type);
+    public Administrator(String name, String password){ 
+        super(0, name, password, "Administrator");
        
        
     }

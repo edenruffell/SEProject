@@ -33,49 +33,32 @@ public class LoginController implements Initializable {
     @FXML private Button register;
     @FXML private Button login;
     
-    /**
-     * Initialises the controller class.
-     */
-    
-    
-  /*  public void showMainMenu(ActionEvent event){
-        if(userTextField.getText().equals("")||pwTextField.getText().equals("")){
-            errorLabel.setText("Username or password cannot be blank.");
-        }else if(userTextField.getText().equals("a")&&pwTextField.getText().equals("a")){
-                
-                try {
-                    Parent mainMenu = FXMLLoader.load(getClass().getResource("STMain.fxml"));
-                    Scene mainMenuScene = new Scene(mainMenu);
-            
-                    //get Stage
-                    Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow();
-            
-                    window.setScene(mainMenuScene);
-                    window.show();
-                } catch (IOException ex) {
-                Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                
-                
-            }else errorLabel.setText("Incorrect username or password. Please try again."); 
-    }*/
-    
     public void Login(ActionEvent event){
         try {
-            if(loginModel.isLogin(userTextField.getText(), pwTextField.getText())){
+                String username = userTextField.getText();
+                String password = pwTextField.getText();
+                String[] data = loginModel.getData(username, password);
+                
+            if(data!=null){
             try {
-                    Parent mainMenu = FXMLLoader.load(getClass().getResource("STMain.fxml"));
+                    //load new screen
+                    FXMLLoader loader = new FXMLLoader();
+                    Parent mainMenu = loader.load(getClass().getResource("STMain.fxml").openStream());
+                    //pass on user info
+                    STMainController main = (STMainController)loader.getController();
+                    main.setUser(checkType(data[4], username, password));
+                    main.setName(data[2], data[3]);
+                    main.setAllowance(data[5]);
                     Scene mainMenuScene = new Scene(mainMenu);
-            
-                    //get Stage
                     Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow();
-            
                     window.setScene(mainMenuScene);
                     window.show();
+                    loginModel.connection.close();
+                    
                 } catch (IOException ex) {
                 Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
                 }
-            }else if(userTextField.getText().equals("")||pwTextField.getText().equals("")){
+            }else if(username.equals("")||password.equals("")){
             errorLabel.setText("Username or password cannot be blank.");
         }else errorLabel.setText("Incorrect username or password. Please try again.");
         } catch (SQLException ex) {
@@ -89,5 +72,19 @@ public class LoginController implements Initializable {
         
         if(loginModel.isConnected()) isConnected.setText("Connected");
         else isConnected.setText("Not connected");
+    }
+    
+    private User checkType(String type, String user, String pass){
+        
+        if(type.equals("Student")){
+               Student s = new Student(user, pass);
+               return s;
+           }else if(type.equals("Teacher")){
+               Teacher t = new Teacher(user, pass);
+               return t;
+           }else{
+               Administrator a = new Administrator(user, pass);
+               return a;
+           }
     }
 }
