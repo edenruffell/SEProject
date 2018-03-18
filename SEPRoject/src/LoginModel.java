@@ -17,7 +17,7 @@ public class LoginModel {
     public LoginModel(){
        connection = SQLiteConnection.Connector();
        if(connection == null){
-           System.out.println("Cannot connect to DB.");
+           System.out.println("Cannot connect to Data Base.");
        } 
     }
     

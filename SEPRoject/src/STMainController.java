@@ -32,6 +32,7 @@ import javafx.stage.Stage;
 public class STMainController implements Initializable {
 
     @FXML private Label nameLabel; 
+    @FXML private Button requests;
     @FXML private Button logout;
     @FXML private Label allowLabel;
     @FXML private Label typeLabel;
@@ -47,7 +48,12 @@ public class STMainController implements Initializable {
     @FXML private Pane viewPane;
     @FXML private Pane searchPane;
     
+<<<<<<< HEAD
+    
+    
+=======
     protected ObservableList<RoomBooking> bookings;
+>>>>>>> 4d2a8d0a2ea41e325a15b7cae3f6050697735ebf
     protected STMainModel model = new STMainModel();
     User user;
     /**
@@ -99,6 +105,9 @@ public class STMainController implements Initializable {
         table.setItems(bookings);
     }
     
+<<<<<<< HEAD
+}
+=======
 //    public void selectRow(){
 //        int i = table.getSelectionModel().getSelectedIndex();
 //        System.out.println(i);
@@ -128,3 +137,4 @@ public class STMainController implements Initializable {
         return updated;
     }
 }
+>>>>>>> 4d2a8d0a2ea41e325a15b7cae3f6050697735ebf

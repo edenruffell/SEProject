@@ -10,13 +10,13 @@
  */
 import java.util.*;
 public class User {
-    private int allowance;
-    private String name;
-    private String password;
-    private boolean registered = false;
-    private boolean loggedIn = false;
-    private String type;
-    private ArrayList<RoomBooking> bookings = new ArrayList<>();
+     int allowance;
+     String name;
+     String password;
+     boolean registered = false;
+     boolean loggedIn = false;
+     String type;
+     ArrayList<RoomBooking> bookings = new ArrayList<>();
     
  public User(int allowance, String name, String password, String type)
     {
