@@ -30,7 +30,7 @@ private int hoursBooked;
         startTime = sTime;
         endTime = eTime;
         
-        hoursBooked = split(sTime) - split(eTime);  
+        hoursBooked = split(eTime) - split(sTime);  
     }
 
     public int getID() {
