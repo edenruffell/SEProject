@@ -58,9 +58,31 @@ public class Administrator extends User {
     }
     
     
+  public void searchBooking(User user){
   
+      System.out.println(user.bookings.toString());
+      
+     
+  }
+    
+    
+   public void editBooking(RoomBooking roombooking, User user){
    
-    
-    
+       // roombooking.setOwner(User user);
+       // roombooking.setTime(String sTime, String eTime)
+      
+   
+   }
+   
+   
+   public void overrideBooking(RoomBooking roombooking, RepeatBookingRequest rbq){
+   
+       // roombooking.setOwner(rbq.name);
+       // roombooking.setTime(String sTime, String eTime)
+      
+   
+   }
+   
+   
     
 }

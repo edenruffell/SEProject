@@ -31,6 +31,7 @@ import javafx.stage.Stage;
 public class STMainController implements Initializable {
 
     @FXML private Label nameLabel; 
+    @FXML private Button requests;
     @FXML private Button logout;
     @FXML private Label allowLabel;
     @FXML private Label typeLabel;
@@ -41,6 +42,7 @@ public class STMainController implements Initializable {
     @FXML private TableColumn<RoomBooking, String> dateCol;
     @FXML private TableColumn<RoomBooking, String> sTimeCol;
     @FXML private TableColumn<RoomBooking, String> eTimeCol;
+    
     
     
     protected STMainModel model = new STMainModel();
@@ -92,4 +94,5 @@ public class STMainController implements Initializable {
         eTimeCol.setCellValueFactory(new PropertyValueFactory<>("endTime"));
         table.setItems(bookings);
     }
+    
 }
