@@ -14,7 +14,7 @@ import java.util.HashMap;
 public class Site {
     
     String name;
-    HashMap<Room, Boolean> buildingList = new HashMap<>();
+    HashMap<String, Building> buildingList = new HashMap<>();
     
     
     public Site(String name){
@@ -32,5 +32,17 @@ public class Site {
         return name;
     }
     
+    
+    public void addBuilding( Building building){
+        
+        buildingList.put(building.name, building);
+    
+    }
+    
+    public void removeBuilding(String buildingName){
+    
+    
+        buildingList.remove(buildingName);
+    }
     
 }
