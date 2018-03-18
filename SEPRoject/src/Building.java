@@ -13,8 +13,8 @@
 public class Building{
     
 
-    HashMap<Room, Boolean> roomList = new HashMap<>();
-    private String name;
+    HashMap<String, Room > roomList = new HashMap<>();
+     String name;
     int numRooms;
 
 
@@ -39,6 +39,18 @@ public class Building{
     
     public void setNumRooms(int number){
         numRooms = number;
+    }
+    
+    public void addRoom(Room room){
+        
+        roomList.put(room.name,room);
+    
+    }
+    
+    public void removeRoom(String roomName){
+    
+    
+        roomList.remove(roomName);
     }
     
 }

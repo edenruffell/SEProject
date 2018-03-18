@@ -20,6 +20,45 @@ public class Administrator extends User {
     }
     
     
+    public void addRoom(String name, String building, int cap, boolean comp, Building thebuilding){
+      
+    Room room = new Room (name, building, cap, comp);
+    
+    thebuilding.addRoom(room);
+    
+  
+   
+    }
+    
+    
+    public void removeRoom(String name, Building theBuilding){
+     
+     theBuilding.removeRoom(name);
+        
+        
+     }
+    
+    public void addBuilding(String name, int number, Site theSite){
+      
+    Building building = new Building (name, number);
+    
+    theSite.addBuilding(building);
+    
+  
+ 
+    }
+    
+    public void removeBuilding(String name, Site theSite){
+      
+    
+    
+    theSite.removeBuilding(name);
+    
+
+    }
+    
+    
+  
    
     
     
