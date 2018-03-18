@@ -21,6 +21,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 /**
@@ -34,6 +35,7 @@ public class STMainController implements Initializable {
     @FXML private Button logout;
     @FXML private Label allowLabel;
     @FXML private Label typeLabel;
+    @FXML private Label errorLabel;
     @FXML private TableView<RoomBooking> table;
     @FXML private TableColumn<RoomBooking, Integer> idCol;
     @FXML private TableColumn<RoomBooking, String> buildCol;
@@ -41,8 +43,11 @@ public class STMainController implements Initializable {
     @FXML private TableColumn<RoomBooking, String> dateCol;
     @FXML private TableColumn<RoomBooking, String> sTimeCol;
     @FXML private TableColumn<RoomBooking, String> eTimeCol;
+    @FXML private Button cancel;
+    @FXML private Pane viewPane;
+    @FXML private Pane searchPane;
     
-    
+    protected ObservableList<RoomBooking> bookings;
     protected STMainModel model = new STMainModel();
     User user;
     /**
@@ -50,7 +55,6 @@ public class STMainController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
     }
     
     public void Logout(ActionEvent event) throws IOException{
@@ -72,7 +76,7 @@ public class STMainController implements Initializable {
     }
     
     public void setAllowance(String allow){
-        allowLabel.setText("Allowance: " + allow + "hours");
+        allowLabel.setText("Allowance: " + allow + " hours");
         user.setAllowance(Integer.parseInt(allow));
     }
 
@@ -83,7 +87,9 @@ public class STMainController implements Initializable {
     }
     
     public void viewBookings() throws SQLException{
-        ObservableList<RoomBooking> bookings = model.getBooking(user.getName());
+        searchPane.setVisible(false);
+        viewPane.setVisible(true);
+        bookings = model.getBooking(user.getName());
         idCol.setCellValueFactory(new PropertyValueFactory<>("ID"));
         buildCol.setCellValueFactory(new PropertyValueFactory<>("building"));
         roomCol.setCellValueFactory(new PropertyValueFactory<>("room"));
@@ -91,5 +97,34 @@ public class STMainController implements Initializable {
         sTimeCol.setCellValueFactory(new PropertyValueFactory<>("startTime"));
         eTimeCol.setCellValueFactory(new PropertyValueFactory<>("endTime"));
         table.setItems(bookings);
+    }
+    
+//    public void selectRow(){
+//        int i = table.getSelectionModel().getSelectedIndex();
+//        System.out.println(i);
+//        System.out.println(bookings.get(i).getID() + " " + bookings.get(i).getID()
+//            + bookings.get(i).getDate() + " " + bookings.get(i).getStartTime());
+//    }
+    
+    public void cancelBooking() throws SQLException{
+        try{
+            int selectedIndex = table.getSelectionModel().getSelectedIndex();
+            RoomBooking booking = bookings.get(selectedIndex);
+            model.update(updateAllowance(booking), user.getName());
+            model.removeBooking(booking.getID());
+            table.getItems().remove(selectedIndex);
+            
+        }catch(ArrayIndexOutOfBoundsException a){
+            errorLabel.setText("No bookings have been selected.");            
+        }     
+    }
+    
+    private int updateAllowance(RoomBooking booking){
+        int old = user.getAllowance();
+        int add = booking.getHoursBooked();
+        int updated = old + add;
+        setAllowance(Integer.toString(updated));
+        
+        return updated;
     }
 }
