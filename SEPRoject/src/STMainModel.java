@@ -91,4 +91,24 @@ public class STMainModel {
         return list;
     }
     
+    public void removeBooking(int ID) throws SQLException{
+        PreparedStatement preparedS = null;
+        
+        String query = "DELETE FROM BOOKING"
+                        + " WHERE ID = ?";
+ 
+        try {
+            preparedS = connection.prepareStatement(query);
+ 
+            // set the corresponding param
+            preparedS.setInt(1, ID);
+            // update 
+            preparedS.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        } finally {
+            preparedS.close();
+        }
+    }
+        
 }
