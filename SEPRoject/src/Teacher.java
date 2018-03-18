@@ -16,23 +16,17 @@ public class Teacher extends User {
        
     }
     
-    
-//    public void setDepartment(String department){
-//        this.department = department;
+//    public boolean makeBooking(Room room,int date,String startTime, String endTime) {
+//
+//        
+//        if (this.getAllowance()>0) {
+//            RoomBooking rm = new RoomBooking(this.getName(), room, date, startTime, endTime ); 
+//            return true;
+//        }
+//        else {
+//            System.out.println("Cannot make booking due to unsufficient quota ");
+//            return false;
+//        }
 //    }
-    
-    
-    public boolean makeBooking(Room room,int date,int startTime, int endTime) {
-
-        
-        if (this.allowance>0) {
-            RoomBooking rm = new RoomBooking(this.name, room, date, startTime, endTime ); 
-            return true;
-        }
-        else {
-            System.out.println("Cannot make booking due to unsufficient quota ");
-            return false;
-        }
-    }
     
 }

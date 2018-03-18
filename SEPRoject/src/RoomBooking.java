@@ -10,29 +10,66 @@
  */
 public class RoomBooking {
     
-    String owner;
-    String room;
-    int date;
-    int ID;
-    int startTime;
-    int endTime;
-    int hoursBooked; 
+private int ID;
+private String owner;
+private String building;
+private String room;
+private String date;
+private String startTime;
+private String endTime;
+private int hoursBooked;
     
    
     
-    public RoomBooking(String owner, Room room, int date, int startTime, int endTime){
-        
-        hoursBooked = endTime - startTime;
-        this.room = room.name;
-        this.date = date;
-        this.ID = 0;
-        this.startTime = startTime;
-        this.endTime = endTime;
+    public RoomBooking(int ID, String owner, String build, String room, String date, String sTime, String eTime){ 
+        this.ID = ID;
         this.owner = owner;
+        building = build;
+        this.room = room;
+        this.date = date;
+        startTime = sTime;
+        endTime = eTime;
         
-        
+        hoursBooked = split(sTime) - split(eTime);  
     }
+
+    public int getID() {
+        return ID;
+    }
+
+    public String getOwner() {
+        return owner;
+    }
+
+    public String getBuilding() {
+        return building;
+    }
+
+    public String getRoom() {
+        return room;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public String getStartTime() {
+        return startTime;
+    }
+
+    public String getEndTime() {
+        return endTime;
+    }
+
+    public int getHoursBooked() {
+        return hoursBooked;
+    }    
     
+    private int split(String time){
+        String[] list = time.split(":");
+        
+        return Integer.parseInt(list[0]);
+    }
     
       public void setOwner(String owner){
     
@@ -40,41 +77,9 @@ public class RoomBooking {
           
     }
       
-      public void setTime(int sTime, int eTime){
+      public void setTime(String sTime, String eTime){
       
             this.startTime = sTime;
             this.endTime = eTime;
       }
-      
-    public String getRoom(){
-
-            return room;
-    }
-    
-    
-    public String getOwner(){
-            
-            return owner;
-    }
-   
-    
-    
-    public int getHoursBooked(){
-    
-            return hoursBooked;
-    }
-    
-    public int getID(){
-    
-            return ID;
-    }
-    
-    public int getDate(){
-    
-            return date;
-    }
-    
-    
-    
-    
 }

@@ -10,13 +10,13 @@
  */
 import java.util.*;
 public class User {
-    int allowance;
-    String name;
-    String password;
-    boolean registered = false;
-    boolean loggedIn = false;
-    String type;
-    ArrayList<RoomBooking> bookings = new ArrayList<>();
+    private int allowance;
+    private String name;
+    private String password;
+    private boolean registered = false;
+    private boolean loggedIn = false;
+    private String type;
+    private ArrayList<RoomBooking> bookings = new ArrayList<>();
     
  public User(int allowance, String name, String password, String type)
     {
@@ -25,18 +25,27 @@ public class User {
         this.password = password;
         this.type = type; 
         
-    } 
+    }
+ 
+ public String getType() {
+        return type;
+    }
+ 
+ public int getAllowance() {
+        return allowance;
+    }
+
+    public String getPassword() {
+        return password;
+    }
  
  public boolean Register(String email, String password){
     this.registered = true;
     return true;
 }
-
  
- public String getName(){
-     
+ public String getName(){ 
      return name;
- 
  }
  
  

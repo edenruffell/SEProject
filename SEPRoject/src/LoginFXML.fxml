@@ -27,8 +27,8 @@
             </Rectangle>
             <Label layoutX="147.0" layoutY="122.0" text="Username:" textFill="WHITE" />
             <Label layoutX="147.0" layoutY="167.0" text="Password" textFill="WHITE" />
-            <PasswordField fx:id="pwTextField" layoutX="287.0" layoutY="162.0" promptText="Enter password." />
             <TextField fx:id="userTextField" layoutX="287.0" layoutY="117.0" promptText="Enter username." />
+            <PasswordField fx:id="pwTextField" layoutX="287.0" layoutY="162.0" promptText="Enter password." />
             <Button fx:id="register" layoutX="147.0" layoutY="246.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="103.0" style="-fx-background-color: white;" text="Register">
                <effect>
                   <DropShadow color="#616060" />
