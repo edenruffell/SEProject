@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
+import com.jfoenix.controls.*;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -27,11 +27,11 @@ public class LoginController implements Initializable {
     
     protected LoginModel loginModel = new LoginModel();
     @FXML private Label isConnected;
-    @FXML private TextField userTextField;
-    @FXML private TextField pwTextField;
+    @FXML private JFXTextField userTextField;
+    @FXML private JFXPasswordField pwTextField;
     @FXML private Label errorLabel;
-    @FXML private Button register;
-    @FXML private Button login;
+    @FXML private JFXButton register;
+    @FXML private JFXButton login;
     
     public void Login(ActionEvent event){
         try {

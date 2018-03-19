@@ -93,11 +93,6 @@ public class STMainModel {
         return list;
     }
     
-    
-    
-    
-    
-    
     public void removeBooking(int ID) throws SQLException{
         PreparedStatement preparedS = null;
         

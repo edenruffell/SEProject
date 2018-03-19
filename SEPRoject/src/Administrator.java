@@ -9,27 +9,18 @@
  * @author edenruffell
  */
 public class Administrator extends User {
-    
-   
-    
-    
+
     public Administrator(String name, String password){ 
         super(0, name, password, "Administrator");
        
        
-    }
-    
+    } 
     
     public void addRoom(String site, String building, String name,int cap, String comp, Building roombuilding){
-      
+
     Room room = new Room (site,building,name, cap, comp);
-    
     roombuilding.addRoom(room);
-    
-  
-   
     }
-    
     
     public void removeRoom(String name, Building theBuilding){
      

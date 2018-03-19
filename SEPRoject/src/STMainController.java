@@ -10,7 +10,6 @@ import java.sql.SQLException;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -37,7 +36,7 @@ public class STMainController implements Initializable {
     @FXML private Label allowLabel;
     @FXML private Label typeLabel;
     @FXML private Label errorLabel;
-    @FXML private TableView<RoomBooking> table;
+    @FXML private TableView<RoomBooking> bookingTable;
     @FXML private TableColumn<RoomBooking, Integer> idCol;
     //@FXML private TableColumn<RoomBooking, String> siteCol;
     @FXML private TableColumn<RoomBooking, String> buildCol;
@@ -46,24 +45,19 @@ public class STMainController implements Initializable {
     @FXML private TableColumn<RoomBooking, String> sTimeCol;
     @FXML private TableColumn<RoomBooking, String> eTimeCol;
     
-    @FXML private TableView<Room> table2;
+    @FXML private TableView<Room> resultsTable;
     @FXML private TableColumn<Room, String> siteCol;
     @FXML private TableColumn<Room, String> rbuildingCol;
     @FXML private TableColumn<Room, String> rnameCol;
     @FXML private TableColumn<Room, String> capacityCol;
     @FXML private TableColumn<Room, String> computerCol;
-   
-    
     
     @FXML private Button cancel;
     @FXML private Pane viewPane;
     @FXML private Pane searchPane;
     
-
-
     protected ObservableList<RoomBooking> bookings;
     protected ObservableList<Room> rooms;
-
     protected STMainModel model = new STMainModel();
     
     User user;
@@ -116,15 +110,14 @@ public class STMainController implements Initializable {
         dateCol.setCellValueFactory(new PropertyValueFactory<>("date"));
         sTimeCol.setCellValueFactory(new PropertyValueFactory<>("startTime"));
         eTimeCol.setCellValueFactory(new PropertyValueFactory<>("endTime"));
-        table.setItems(bookings);
+        bookingTable.setItems(bookings);
         
         
     }
     
-    
      public void searchRooms() throws SQLException{
-        searchPane.setVisible(true);
         viewPane.setVisible(false);
+        searchPane.setVisible(true);
         rooms = model.searchRooms();
         siteCol.setCellValueFactory(new PropertyValueFactory<>("Site"));
        // siteCol.setCellValueFactory(new PropertyValueFactory<>("site"));
@@ -132,27 +125,20 @@ public class STMainController implements Initializable {
         rnameCol.setCellValueFactory(new PropertyValueFactory<>("Name"));
         capacityCol.setCellValueFactory(new PropertyValueFactory<>("Capacity"));
         computerCol.setCellValueFactory(new PropertyValueFactory<>("Computers"));
-        table2.setItems(rooms);
+        resultsTable.setItems(rooms);
         
         
     }
-   
-//    public void selectRow(){
-//        int i = table.getSelectionModel().getSelectedIndex();
-//        System.out.println(i);
-//        System.out.println(bookings.get(i).getID() + " " + bookings.get(i).getID()
-//            + bookings.get(i).getDate() + " " + bookings.get(i).getStartTime());
-//    }
-    
+
     public void cancelBooking() throws SQLException{
         try{
-            int selectedIndex = table.getSelectionModel().getSelectedIndex();
+            int selectedIndex = bookingTable.getSelectionModel().getSelectedIndex();
             RoomBooking booking = bookings.get(selectedIndex);
             model.update(updateAllowance(booking), user.getName());
             model.removeBooking(booking.getID());
-            table.getItems().remove(selectedIndex);
+            bookingTable.getItems().remove(selectedIndex);
             
-        }catch(ArrayIndexOutOfBoundsException a){
+        }catch(Exception a){
             errorLabel.setText("No bookings have been selected.");            
         }     
     }
@@ -164,19 +150,5 @@ public class STMainController implements Initializable {
         setAllowance(Integer.toString(updated));
         
         return updated;
-    }
-    
-    
-    
-    
-   
-        
-       
-    
-    
-    
-    
-    
-    
+    }    
 }
-
