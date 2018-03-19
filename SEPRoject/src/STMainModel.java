@@ -25,7 +25,7 @@ public class STMainModel {
        connection = SQLiteConnection.Connector();
        if(connection == null){
            System.out.println("Cannot connect to DB.");
-       } 
+       }
     }
     
     public boolean isConnected(){
@@ -89,8 +89,8 @@ public class STMainModel {
         } finally {
             ps.close();
             rs.close();
+            return list;
         }
-        return list;
     }
     
     public void removeBooking(int ID) throws SQLException{
