@@ -28,10 +28,10 @@ public class LoginController implements Initializable {
     protected LoginModel loginModel = new LoginModel();
     @FXML private Label isConnected;
     @FXML private JFXTextField userTextField;
-    @FXML private TextField pwTextField;
+    @FXML private JFXPasswordField pwTextField;
     @FXML private Label errorLabel;
-    @FXML private Button register;
-    @FXML private Button login;
+    @FXML private JFXButton register;
+    @FXML private JFXButton login;
     
     public void Login(ActionEvent event){
         try {
