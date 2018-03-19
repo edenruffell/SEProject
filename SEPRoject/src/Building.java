@@ -53,5 +53,9 @@ public class Building{
         roomList.remove(roomName);
     }
     
+    public HashMap<String, Room> getRooms(){
+    
+      return roomList;
+    }
 }
 

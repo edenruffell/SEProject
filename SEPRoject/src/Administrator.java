@@ -14,13 +14,12 @@ public class Administrator extends User {
         super(0, name, password, "Administrator");
        
        
-    }
- 
-    public void addRoom(String name, String building, int cap, boolean comp, Building thebuilding){
-      
-    Room room = new Room (name, building, cap, comp);
+    } 
     
-    thebuilding.addRoom(room);
+    public void addRoom(String site, String building, String name,int cap, String comp, Building roombuilding){
+
+    Room room = new Room (site,building,name, cap, comp);
+    roombuilding.addRoom(room);
     }
     
     public void removeRoom(String name, Building theBuilding){
