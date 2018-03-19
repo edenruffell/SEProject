@@ -25,7 +25,7 @@ public class STMainModel {
        connection = SQLiteConnection.Connector();
        if(connection == null){
            System.out.println("Cannot connect to DB.");
-       } 
+       }
     }
     
     public boolean isConnected(){
@@ -88,7 +88,7 @@ public class STMainModel {
             return null;
         } finally {
             ps.close();
-            rs.close();
+            rs.close(); 
         }
         return list;
     }

@@ -10,6 +10,7 @@ import java.sql.SQLException;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -31,14 +32,13 @@ import javafx.stage.Stage;
 public class STMainController implements Initializable {
 
     @FXML private Label nameLabel; 
-    @FXML private Button requests;
+  //  @FXML private Button requests;
     @FXML private Button logout;
     @FXML private Label allowLabel;
     @FXML private Label typeLabel;
     @FXML private Label errorLabel;
     @FXML private TableView<RoomBooking> bookingTable;
     @FXML private TableColumn<RoomBooking, Integer> idCol;
-    //@FXML private TableColumn<RoomBooking, String> siteCol;
     @FXML private TableColumn<RoomBooking, String> buildCol;
     @FXML private TableColumn<RoomBooking, String> roomCol;
     @FXML private TableColumn<RoomBooking, String> dateCol;
@@ -104,15 +104,12 @@ public class STMainController implements Initializable {
         viewPane.setVisible(true);
         bookings = model.getBooking(user.getName());
         idCol.setCellValueFactory(new PropertyValueFactory<>("ID"));
-       // siteCol.setCellValueFactory(new PropertyValueFactory<>("site"));
         buildCol.setCellValueFactory(new PropertyValueFactory<>("building"));
         roomCol.setCellValueFactory(new PropertyValueFactory<>("room"));
         dateCol.setCellValueFactory(new PropertyValueFactory<>("date"));
         sTimeCol.setCellValueFactory(new PropertyValueFactory<>("startTime"));
         eTimeCol.setCellValueFactory(new PropertyValueFactory<>("endTime"));
-        bookingTable.setItems(bookings);
-        
-        
+        bookingTable.setItems(bookings);   
     }
     
      public void searchRooms() throws SQLException{
