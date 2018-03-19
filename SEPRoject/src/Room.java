@@ -9,16 +9,26 @@
  * @author edenruffell
  */
 public class Room {
+    String site;
     String name;
     String buildingName;
     int capacity;
-    boolean computers;
+    String computers;
     
-    public Room(String name, String building, int cap, boolean comp){
+    public Room(String site, String building, String name,int cap, String comp){
         this.name = name;
         buildingName = building;
         capacity = cap;
         computers = comp;
+        this.site = site;
+    }
+    
+    public Room(){
+        this.name = null;
+        buildingName = null;
+        capacity = 0;
+        computers = null;
+        site = null;
     }
     
     public String getRoomName(){
@@ -38,11 +48,10 @@ public class Room {
     }
     
     public String getComputers(){
-        if(computers) return "Yes";
-        else return "No";
+        return computers;
     }
     
-    public void setComputers(boolean comp){
+    public void setComputers(String comp){
         computers = comp;
     }
     

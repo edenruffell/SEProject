@@ -39,11 +39,22 @@ public class STMainController implements Initializable {
     @FXML private Label errorLabel;
     @FXML private TableView<RoomBooking> table;
     @FXML private TableColumn<RoomBooking, Integer> idCol;
+    //@FXML private TableColumn<RoomBooking, String> siteCol;
     @FXML private TableColumn<RoomBooking, String> buildCol;
     @FXML private TableColumn<RoomBooking, String> roomCol;
     @FXML private TableColumn<RoomBooking, String> dateCol;
     @FXML private TableColumn<RoomBooking, String> sTimeCol;
     @FXML private TableColumn<RoomBooking, String> eTimeCol;
+    
+    @FXML private TableView<Room> table2;
+    @FXML private TableColumn<Room, String> siteCol;
+    @FXML private TableColumn<Room, String> rbuildingCol;
+    @FXML private TableColumn<Room, String> rnameCol;
+    @FXML private TableColumn<Room, String> capacityCol;
+    @FXML private TableColumn<Room, String> computerCol;
+   
+    
+    
     @FXML private Button cancel;
     @FXML private Pane viewPane;
     @FXML private Pane searchPane;
@@ -51,6 +62,7 @@ public class STMainController implements Initializable {
 
 
     protected ObservableList<RoomBooking> bookings;
+    protected ObservableList<Room> rooms;
 
     protected STMainModel model = new STMainModel();
     User user;
@@ -90,20 +102,40 @@ public class STMainController implements Initializable {
         else if(user instanceof Student) typeLabel.setText("Student");        
     }
     
+
+    
     public void viewBookings() throws SQLException{
         searchPane.setVisible(false);
         viewPane.setVisible(true);
         bookings = model.getBooking(user.getName());
         idCol.setCellValueFactory(new PropertyValueFactory<>("ID"));
+       // siteCol.setCellValueFactory(new PropertyValueFactory<>("site"));
         buildCol.setCellValueFactory(new PropertyValueFactory<>("building"));
         roomCol.setCellValueFactory(new PropertyValueFactory<>("room"));
         dateCol.setCellValueFactory(new PropertyValueFactory<>("date"));
         sTimeCol.setCellValueFactory(new PropertyValueFactory<>("startTime"));
         eTimeCol.setCellValueFactory(new PropertyValueFactory<>("endTime"));
         table.setItems(bookings);
+        
+        
     }
     
-
+    
+     public void searchRooms() throws SQLException{
+        searchPane.setVisible(true);
+        viewPane.setVisible(false);
+        rooms = model.searchRooms();
+        siteCol.setCellValueFactory(new PropertyValueFactory<>("Site"));
+       // siteCol.setCellValueFactory(new PropertyValueFactory<>("site"));
+        rbuildingCol.setCellValueFactory(new PropertyValueFactory<>("Building"));
+        rnameCol.setCellValueFactory(new PropertyValueFactory<>("Name"));
+        capacityCol.setCellValueFactory(new PropertyValueFactory<>("Capacity"));
+        computerCol.setCellValueFactory(new PropertyValueFactory<>("Computers"));
+        table2.setItems(rooms);
+        
+        
+    }
+   
 //    public void selectRow(){
 //        int i = table.getSelectionModel().getSelectedIndex();
 //        System.out.println(i);
@@ -132,5 +164,18 @@ public class STMainController implements Initializable {
         
         return updated;
     }
+    
+    
+    
+    
+   
+        
+       
+    
+    
+    
+    
+    
+    
 }
 

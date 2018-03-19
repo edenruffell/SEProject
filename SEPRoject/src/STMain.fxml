@@ -11,6 +11,25 @@
 <AnchorPane id="AnchorPane" prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="STMainController">
    <children>
       <Pane fx:id="searchPane" layoutX="145.0" prefHeight="500.0" prefWidth="555.0" />
+      <children>
+            <TableView fx:id="table" layoutY="81.0" prefHeight="375.0" prefWidth="555.0">
+              <columns>
+                <TableColumn fx:id="siteCol" editable="false" prefWidth="65.0" resizable="false" text="Site" />
+                <TableColumn fx:id="rbuildingCol" editable="false" prefWidth="95.0" text="Building" />
+                  <TableColumn fx:id="rnameCol" editable="false" prefWidth="75.0" text="Room" />
+                  <TableColumn fx:id="capacityCol" prefWidth="119.0" text="Capacity" />
+                  <TableColumn fx:id="computerCol" editable="false" prefWidth="100.0" text="Computer" />
+              </columns>
+            </TableView>
+            <Button fx:id="cancel" layoutX="14.0" layoutY="460.0" mnemonicParsing="false" onAction="#cancelBooking" prefHeight="35.0" prefWidth="140.0" style="-fx-background-color: white;" text="Cancel Booking" textAlignment="CENTER" />
+            <Text layoutX="12.0" layoutY="70.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Your Bookings:" wrappingWidth="145.0">
+               <font>
+                  <Font name="Arial" size="21.0" />
+               </font>
+            </Text>
+            <Label layoutX="355.0" layoutY="54.0" prefHeight="23.0" prefWidth="185.0" text="Label" />
+         </children></Pane>
+      
       <Pane fx:id="viewPane" layoutX="145.0" prefHeight="500.0" prefWidth="555.0" style="-fx-border-color: grey;">
          <children>
             <TableView fx:id="table" layoutY="81.0" prefHeight="375.0" prefWidth="555.0">
@@ -35,7 +54,7 @@
          <children>
             <Label fx:id="nameLabel" alignment="CENTER" layoutY="14.0" prefHeight="35.0" prefWidth="145.0" text="Name" textAlignment="CENTER" />
             <Label fx:id="typeLabel" alignment="CENTER" layoutY="458.0" prefHeight="35.0" prefWidth="145.0" text="accType" textAlignment="CENTER" />
-            <Button fx:id="logout11" layoutX="3.0" layoutY="125.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="140.0" style="-fx-background-color: white;" text="Search" textAlignment="CENTER" />
+            <Button fx:id="logout11" layoutX="3.0" layoutY="125.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="140.0" style="-fx-background-color: white;" text="Search" textAlignment="CENTER" onAction="#searchRooms" />
             <Button fx:id="logout1" layoutX="3.0" layoutY="165.0" mnemonicParsing="false" onMouseClicked="#viewBookings" prefHeight="35.0" prefWidth="140.0" style="-fx-background-color: white;" text="View Bookings" textAlignment="CENTER" />
             <Button fx:id="logout" layoutX="3.0" layoutY="205.0" mnemonicParsing="false" onAction="#Logout" prefHeight="35.0" prefWidth="140.0" style="-fx-background-color: white;" text="Logout" textAlignment="CENTER" />
             <Label fx:id="allowLabel" alignment="CENTER" layoutX="2.0" layoutY="359.0" prefHeight="35.0" prefWidth="145.0" text="Allowance:" textAlignment="CENTER" />

@@ -20,11 +20,11 @@ public class Administrator extends User {
     }
     
     
-    public void addRoom(String name, String building, int cap, boolean comp, Building thebuilding){
+    public void addRoom(String site, String building, String name,int cap, String comp, Building roombuilding){
       
-    Room room = new Room (name, building, cap, comp);
+    Room room = new Room (site,building,name, cap, comp);
     
-    thebuilding.addRoom(room);
+    roombuilding.addRoom(room);
     
   
    
