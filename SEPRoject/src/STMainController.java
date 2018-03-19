@@ -99,7 +99,7 @@ public class STMainController implements Initializable {
         eTimeCol.setCellValueFactory(new PropertyValueFactory<>("endTime"));
         table.setItems(bookings);
     }
-
+    
     public void cancelBooking() throws SQLException{
         try{
             int selectedIndex = table.getSelectionModel().getSelectedIndex();
