@@ -48,12 +48,7 @@ public class STMainController implements Initializable {
     @FXML private Pane viewPane;
     @FXML private Pane searchPane;
     
-<<<<<<< HEAD
-    
-    
-=======
     protected ObservableList<RoomBooking> bookings;
->>>>>>> 4d2a8d0a2ea41e325a15b7cae3f6050697735ebf
     protected STMainModel model = new STMainModel();
     User user;
     /**
@@ -104,17 +99,7 @@ public class STMainController implements Initializable {
         eTimeCol.setCellValueFactory(new PropertyValueFactory<>("endTime"));
         table.setItems(bookings);
     }
-    
-<<<<<<< HEAD
-}
-=======
-//    public void selectRow(){
-//        int i = table.getSelectionModel().getSelectedIndex();
-//        System.out.println(i);
-//        System.out.println(bookings.get(i).getID() + " " + bookings.get(i).getID()
-//            + bookings.get(i).getDate() + " " + bookings.get(i).getStartTime());
-//    }
-    
+
     public void cancelBooking() throws SQLException{
         try{
             int selectedIndex = table.getSelectionModel().getSelectedIndex();
@@ -137,4 +122,3 @@ public class STMainController implements Initializable {
         return updated;
     }
 }
->>>>>>> 4d2a8d0a2ea41e325a15b7cae3f6050697735ebf
