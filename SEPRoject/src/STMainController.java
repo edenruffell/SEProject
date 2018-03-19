@@ -108,7 +108,7 @@ public class STMainController implements Initializable {
             model.removeBooking(booking.getID());
             table.getItems().remove(selectedIndex);
             
-        }catch(ArrayIndexOutOfBoundsException a){
+        }catch(Exception a){
             errorLabel.setText("No bookings have been selected.");            
         }     
     }
