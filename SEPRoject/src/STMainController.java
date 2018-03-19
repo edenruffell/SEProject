@@ -62,6 +62,7 @@ public class STMainController implements Initializable {
     protected ObservableList<RoomBooking> bookings;
     protected ObservableList<Room> rooms;
     protected STMainModel model = new STMainModel();
+    
     User user;
     /**
      * Initialises the controller class.
