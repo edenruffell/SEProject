@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 
+import com.jfoenix.controls.JFXButton;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -37,6 +38,10 @@ public class STMainController implements Initializable {
     @FXML private Label allowLabel;
     @FXML private Label typeLabel;
     @FXML private Label errorLabel;
+    @FXML private Label searchError;
+    
+    @FXML private Pane viewPane;
+    @FXML private Button cancel;
     @FXML private TableView<RoomBooking> bookingTable;
     @FXML private TableColumn<RoomBooking, Integer> idCol;
     @FXML private TableColumn<RoomBooking, String> buildCol;
@@ -44,7 +49,12 @@ public class STMainController implements Initializable {
     @FXML private TableColumn<RoomBooking, String> dateCol;
     @FXML private TableColumn<RoomBooking, String> sTimeCol;
     @FXML private TableColumn<RoomBooking, String> eTimeCol;
-    
+
+    @FXML private Pane searchPane;
+    @FXML private ComboBox siteBox;
+    @FXML private ComboBox buildingBox;
+    @FXML private ComboBox roomBox;
+    @FXML private JFXButton findRooms;
     @FXML private TableView<Room> resultsTable;
     @FXML private TableColumn<Room, String> siteCol;
     @FXML private TableColumn<Room, String> rbuildingCol;
@@ -52,11 +62,10 @@ public class STMainController implements Initializable {
     @FXML private TableColumn<Room, String> capacityCol;
     @FXML private TableColumn<Room, String> computerCol;
     
-    @FXML private Button cancel;
-    @FXML private Pane viewPane;
-    @FXML private Pane searchPane;
-    
     protected ObservableList<RoomBooking> bookings;
+    protected ObservableList<String> siteList;
+    protected ObservableList<String> buildingList = FXCollections.observableArrayList();
+    protected ObservableList<String> roomList = FXCollections.observableArrayList();
     protected ObservableList<Room> rooms;
     protected STMainModel model = new STMainModel();
     
@@ -66,6 +75,14 @@ public class STMainController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        searchPane.setVisible(false);
+        viewPane.setVisible(false);
+        try {
+            siteList = model.getSites();
+        } catch (SQLException ex) {
+            Logger.getLogger(STMainController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        siteBox.setItems(siteList);
     }
     
     public void Logout(ActionEvent event) throws IOException{
@@ -112,10 +129,33 @@ public class STMainController implements Initializable {
         bookingTable.setItems(bookings);   
     }
     
-     public void searchRooms() throws SQLException{
+    public void search(){
         viewPane.setVisible(false);
         searchPane.setVisible(true);
-        rooms = model.searchRooms();
+    }
+    
+    public void setBuildings() throws SQLException{
+        try{
+            String selected = siteBox.getSelectionModel().getSelectedItem().toString();
+            buildingList = model.getBuildings(selected);
+            buildingBox.setItems(buildingList);
+        }catch(NullPointerException e){
+            searchError.setText("Please select a site."); 
+        }
+    }
+    
+    public void setRooms() throws SQLException{
+        try{
+            String selected = buildingBox.getSelectionModel().getSelectedItem().toString();
+            roomList = model.getRooms(selected);
+            roomBox.setItems(roomList);
+        }catch(NullPointerException e){
+            searchError.setText("Please select a building."); 
+        }
+    }
+    
+     public void searchRooms() throws SQLException{        
+      //  rooms = model.searchRooms();
         siteCol.setCellValueFactory(new PropertyValueFactory<>("Site"));
        // siteCol.setCellValueFactory(new PropertyValueFactory<>("site"));
         rbuildingCol.setCellValueFactory(new PropertyValueFactory<>("Building"));

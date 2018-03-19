@@ -12,11 +12,8 @@ import java.sql.*;
  * @author AliyahButt1
  */
 
-import java.util.ArrayList;
-import java.util.Observable;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javax.swing.JOptionPane;
 
 public class STMainModel {
     Connection connection;
@@ -113,15 +110,62 @@ public class STMainModel {
         }
     }
     
+    public ObservableList<String> getSites() throws SQLException{
+              
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        ObservableList<String> list = FXCollections.observableArrayList();
+        
+        String query = "SELECT DISTINCT SITE FROM ROOMS";
  
+ 
+        try{
+            ps = connection.prepareStatement(query);
+            
+            rs = ps.executeQuery();
+            
+            while(rs.next()) list.add(rs.getString("SITE"));
+            
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            return null;
+        } finally {
+            ps.close();
+            rs.close();
+        }
+        return list;
+    }
+    
+    public ObservableList<String> getBuildings(String site) throws SQLException{
+              
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        ObservableList<String> list = FXCollections.observableArrayList();
+        
+        String query = "SELECT DISTINCT BUILDING FROM ROOMS "
+                        + "WHERE SITE = ?";
+        try{
+            ps = connection.prepareStatement(query);
+            ps.setString(1, site);
+            
+            rs = ps.executeQuery();
+            
+            while(rs.next()) list.add(rs.getString("BUILDING"));
+            
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            return null;
+        } finally {
+            ps.close();
+            rs.close();
+        }
+        return list;
+    }
     
     
-    public ObservableList<Room> searchRooms() throws SQLException{
-        
-       String[] choices = { "Arts One", "Arts two", "Bancroft Road", "Engineering", "Francis Bancroft", "G.E. Fogg","Geography","G.O. Jones","Graduate Centre", "Laws","Lock Keepers","Maths","Peoples Palace","Queens"};
-        String input = (String) JOptionPane.showInputDialog(null, "Choose Building: ",
-        "Search for Room", JOptionPane.QUESTION_MESSAGE, null, choices, choices[1]); // Initial choice
-        
+    
+    public ObservableList<Room> searchRooms(String building) throws SQLException{
+              
         PreparedStatement ps = null;
         ResultSet rs = null;
         ObservableList<Room> list = FXCollections.observableArrayList();
@@ -132,7 +176,7 @@ public class STMainModel {
  
         try{
             ps = connection.prepareStatement(query);
-            ps.setString(1,input);
+            ps.setString(1, building);
             
             rs = ps.executeQuery();
             Room a = new Room();
@@ -146,6 +190,32 @@ public class STMainModel {
                     list.add(a);
              
             }           
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            return null;
+        } finally {
+            ps.close();
+            rs.close();
+        }
+        return list;
+    }
+    
+    public ObservableList<String> getRooms(String building) throws SQLException{
+              
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        ObservableList<String> list = FXCollections.observableArrayList();
+        
+        String query = "SELECT DISTINCT ROOM FROM ROOMS "
+                        + "WHERE BUILDING = ?";
+        try{
+            ps = connection.prepareStatement(query);
+            ps.setString(1, building);
+            
+            rs = ps.executeQuery();
+            
+            while(rs.next()) list.add(rs.getString("ROOM"));
+            
         } catch (SQLException e) {
             System.out.println(e.getMessage());
             return null;

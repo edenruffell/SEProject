@@ -37,14 +37,14 @@
                   <DropShadow color="#93d9db" />
                </effect>
             </Text>
-            <Label fx:id="errorLabel" layoutX="147.0" layoutY="200.0" prefHeight="38.0" prefWidth="305.0" wrapText="true" />
+            <Label fx:id="errorLabel" layoutX="147.0" layoutY="234.0" prefHeight="38.0" prefWidth="305.0" textFill="WHITE" wrapText="true" />
             <Label fx:id="isConnected" layoutX="8.0" layoutY="368.0" prefHeight="27.0" prefWidth="82.0" text="Status" textFill="#006064" />
-            <JFXTextField fx:id="userTextField" alignment="CENTER" focusColor="#78e4c9" labelFloat="true" layoutX="216.0" layoutY="140.0" promptText="USERNAME" unFocusColor="#78e4c9" />
-            <JFXPasswordField fx:id="pwTextField" focusColor="#78e4c9" labelFloat="true" layoutX="217.0" layoutY="200.0" promptText="PASSWORD" unFocusColor="#78e4c9" />
-            <JFXButton fx:id="register" buttonType="RAISED" layoutX="172.0" layoutY="269.0" prefHeight="35.0" prefWidth="80.0" style="-fx-border-color: white;" text="Register" textAlignment="CENTER" textFill="WHITE" />
-            <FontAwesomeIconView fill="WHITE" glyphName="USER_CIRCLE_ALT" layoutX="200.0" layoutY="163.0" size="20" />
-            <FontAwesomeIconView fill="WHITE" glyphName="KEY" layoutX="201.0" layoutY="221.0" size="20" />
-            <JFXButton fx:id="login" buttonType="RAISED" layoutX="330.0" layoutY="269.0" onAction="#Login" prefHeight="35.0" prefWidth="80.0" style="-fx-border-color: white;" text="Login" textAlignment="CENTER" textFill="WHITE" />
+            <JFXTextField fx:id="userTextField" alignment="CENTER" focusColor="#78e4c9" labelFloat="true" layoutX="224.0" layoutY="126.0" promptText="USERNAME" unFocusColor="#78e4c9" />
+            <JFXPasswordField fx:id="pwTextField" focusColor="#78e4c9" labelFloat="true" layoutX="225.0" layoutY="186.0" promptText="PASSWORD" unFocusColor="#78e4c9" />
+            <JFXButton fx:id="register" buttonType="RAISED" layoutX="181.0" layoutY="289.0" prefHeight="35.0" prefWidth="80.0" style="-fx-border-color: white;" text="Register" textAlignment="CENTER" textFill="WHITE" />
+            <FontAwesomeIconView fill="WHITE" glyphName="USER_CIRCLE_ALT" layoutX="208.0" layoutY="149.0" size="20" />
+            <FontAwesomeIconView fill="WHITE" glyphName="KEY" layoutX="209.0" layoutY="207.0" size="20" />
+            <JFXButton fx:id="login" buttonType="RAISED" layoutX="339.0" layoutY="289.0" onAction="#Login" prefHeight="35.0" prefWidth="80.0" style="-fx-border-color: white;" text="Login" textAlignment="CENTER" textFill="WHITE" />
          </children>
       </Pane>
    </children>
