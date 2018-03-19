@@ -88,9 +88,9 @@ public class STMainModel {
             return null;
         } finally {
             ps.close();
-            rs.close();
-            return list;
+            rs.close(); 
         }
+        return list;
     }
     
     public void removeBooking(int ID) throws SQLException{
