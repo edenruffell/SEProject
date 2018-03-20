@@ -15,10 +15,10 @@ import java.sql.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-public class STMainModel {
+public class StudentModel {
     Connection connection;
     
-    public STMainModel(){
+    public StudentModel(){
        connection = SQLiteConnection.Connector();
        if(connection == null){
            System.out.println("Cannot connect to DB.");
