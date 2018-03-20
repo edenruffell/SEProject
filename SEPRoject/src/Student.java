@@ -33,7 +33,7 @@ public class Student extends User implements Initializable {
     @FXML private Label typeLabel;
     @FXML private Label errorLabel;
     @FXML private Label searchError;
-    
+       
     @FXML private Pane viewPane;
     @FXML private Button cancel;
     @FXML private TableView<RoomBooking> bookingTable;
@@ -45,9 +45,9 @@ public class Student extends User implements Initializable {
     @FXML private TableColumn<RoomBooking, String> eTimeCol;
 
     @FXML private Pane searchTimePane;
-    @FXML private ComboBox siteBox;
-    @FXML private ComboBox buildingBox;
-    @FXML private ComboBox roomBox;
+    @FXML private JFXComboBox siteBox;
+    @FXML private JFXComboBox buildingBox;
+    @FXML private JFXComboBox roomBox;
     @FXML private JFXButton findTimeButton;
     @FXML private JFXDatePicker datePicker;
     @FXML private TableView<Room> resultsTable;
@@ -176,7 +176,7 @@ public class Student extends User implements Initializable {
             searchError.setText("Please select a building."); 
         }
     }
-    
+
     public void clearLabel(){
         searchError.setText("");
     }
@@ -198,4 +198,4 @@ public class Student extends User implements Initializable {
             searchError.setText("Please select a date.");
         }        
     }      
-}
+ }

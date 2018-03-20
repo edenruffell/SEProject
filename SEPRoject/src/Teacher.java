@@ -18,9 +18,9 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-/**
+ /**
  * FXML Controller class
- *
+  *
  * @author AliyahButt1
  */
 
@@ -30,7 +30,7 @@ public class Teacher extends User implements Initializable {
   //  @FXML private Button requests;
     @FXML private Button logout;
     @FXML private Label allowLabel;
-    @FXML private Label typeLabel;
+   @FXML private Label typeLabel;
     @FXML private Label errorLabel;
     @FXML private Label searchError;
     
@@ -115,7 +115,7 @@ public class Teacher extends User implements Initializable {
         allowance = Integer.parseInt(data[5]);
         typeLabel.setText(userType); 
         
-    }
+     }
     
     @Override
     public void updateAllowance(RoomBooking booking){
@@ -178,14 +178,14 @@ public class Teacher extends User implements Initializable {
     }
     
     public void clearLabel(){
-        searchError.setText("");
-    }
-       
-    public void searchRooms() throws SQLException{
-        try{
-            selectedRoom = roomBox.getSelectionModel().getSelectedItem().toString();
-        }catch(NullPointerException e){
-            searchError.setText("Please select a room.");
+       searchError.setText("");
+   }
+      
+   public void searchRooms() throws SQLException{
+       try{
+           selectedRoom = roomBox.getSelectionModel().getSelectedItem().toString();
+       }catch(NullPointerException e){
+           searchError.setText("Please select a room.");
         }
         try{
             selectedDate = datePicker.getValue().toString();
@@ -198,4 +198,5 @@ public class Teacher extends User implements Initializable {
             searchError.setText("Please select a date.");
         }        
     }      
+
 }
