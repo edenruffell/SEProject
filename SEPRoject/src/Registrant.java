@@ -25,7 +25,7 @@ public class Registrant implements Initializable {
     private String username;
     private String password;
     
-    protected LoginModel loginModel = new LoginModel();
+    protected RegistrantModel loginModel = new RegistrantModel();
     @FXML private Label isConnected;
     @FXML private Label registerLabel;
     @FXML private Label errorLabel;
@@ -54,28 +54,44 @@ public class Registrant implements Initializable {
                 
             if(data!=null){
             try {
+                    if(data[4].equals("Student")){
                     //load new screen
                     FXMLLoader loader = new FXMLLoader();
-                    Parent mainMenu = loader.load(getClass().getResource("STMain.fxml").openStream());
+                    Parent mainMenu = loader.load(getClass().getResource("StudentView.fxml").openStream());
                     //pass on user info
-                    STMainController main = (STMainController)loader.getController();
-                    main.setUser(checkType(data[4], username, password));
-                    main.setName(data[2], data[3]);
-                    main.setAllowance(data[5]);
+                    Student main = (Student)loader.getController();
+                    main.setUserDetails(data);
+                    main.setName();
+                    main.setAllowanceText(data[5]);
                     Scene mainMenuScene = new Scene(mainMenu);
                     Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow();
                     window.setScene(mainMenuScene);
                     window.show();
                     loginModel.connection.close();
+                }else if(data[4].equals("Teacher")){
+                    //load new screen
+                    FXMLLoader loader = new FXMLLoader();
+                    Parent mainMenu = loader.load(getClass().getResource("TeacherView.fxml").openStream());
+                    //pass on user info
+                    Teacher main = (Teacher)loader.getController();
+                    main.setUserDetails(data);
+                    main.setName();
+                    main.setAllowanceText(data[5]);
+                    Scene mainMenuScene = new Scene(mainMenu);
+                    Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow();
+                    window.setScene(mainMenuScene);
+                    window.show();
+                    loginModel.connection.close();
+                }
                     
                 } catch (IOException ex) {
-                Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(Registrant.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }else if(username.equals("")||password.equals("")){
             errorLabel.setText("Username or password cannot be blank.");
         }else errorLabel.setText("Incorrect username or password. Please try again.");
         } catch (SQLException ex) {
-            Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Registrant.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     
@@ -136,19 +152,5 @@ public class Registrant implements Initializable {
         if(loginModel.isConnected()) isConnected.setText("Connected");
         else isConnected.setText("Not connected");
         registerPane.setVisible(false);
-    }
-    
-    private User checkType(String type, String user, String pass){
-        
-        if(type.equals("Student")){
-               Student s = new Student(user, pass);
-               return s;
-           }else if(type.equals("Teacher")){
-               Teacher t = new Teacher(user, pass);
-               return t;
-           }else{
-               Administrator a = new Administrator(user, pass);
-               return a;
-           }
     }
 }
