@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXPasswordField?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.paint.LinearGradient?>
+<?import javafx.scene.paint.Stop?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Registrant">
+   <children>
+      <Pane fx:id="startPane" prefHeight="400.0" prefWidth="600.0">
+         <children>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" height="400.0" stroke="TRANSPARENT" strokeType="INSIDE" width="600.0">
+               <fill>
+                  <LinearGradient endX="0.4759615384615385" endY="0.25" startX="0.47596153846153844" startY="1.0">
+                     <stops>
+                        <Stop color="#93d9db94" />
+                        <Stop color="#93d9db94" offset="0.007434944237918215" />
+                        <Stop color="#006064f5" offset="1.0" />
+                     </stops>
+                  </LinearGradient>
+               </fill>
+            </Rectangle>
+            <Text fill="WHITE" layoutX="179.0" layoutY="68.0" strokeType="OUTSIDE" strokeWidth="0.0" text="BookingPLUS">
+               <font>
+                  <Font name="Arial Rounded MT Bold" size="36.0" />
+               </font>
+               <effect>
+                  <DropShadow color="#93d9db" />
+               </effect>
+            </Text>
+            <Label fx:id="errorLabel" layoutX="147.0" layoutY="234.0" prefHeight="38.0" prefWidth="305.0" textFill="WHITE" wrapText="true" />
+            <Label fx:id="isConnected" layoutX="8.0" layoutY="368.0" prefHeight="27.0" prefWidth="82.0" text="Status" textFill="#006064" />
+            <JFXTextField fx:id="userTextField" alignment="CENTER" focusColor="#78e4c9" labelFloat="true" layoutX="224.0" layoutY="126.0" promptText="USERNAME" unFocusColor="#78e4c9" />
+            <JFXPasswordField fx:id="pwTextField" focusColor="#78e4c9" labelFloat="true" layoutX="225.0" layoutY="186.0" promptText="PASSWORD" unFocusColor="#78e4c9" />
+            <JFXButton fx:id="register" buttonType="RAISED" layoutX="181.0" layoutY="289.0" onMouseClicked="#showRegisterPane" prefHeight="35.0" prefWidth="80.0" style="-fx-border-color: white;" text="Register" textAlignment="CENTER" textFill="WHITE" />
+            <FontAwesomeIconView fill="WHITE" glyphName="USER_CIRCLE_ALT" layoutX="208.0" layoutY="149.0" size="20" />
+            <FontAwesomeIconView fill="WHITE" glyphName="KEY" layoutX="209.0" layoutY="207.0" size="20" />
+            <JFXButton fx:id="login" buttonType="RAISED" layoutX="339.0" layoutY="289.0" onAction="#login" prefHeight="35.0" prefWidth="80.0" style="-fx-border-color: white;" text="Login" textAlignment="CENTER" textFill="WHITE" />
+         </children>
+      </Pane>
+      <Pane fx:id="registerPane" prefHeight="400.0" prefWidth="600.0">
+         <children>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" height="400.0" stroke="TRANSPARENT" strokeType="INSIDE" width="600.0">
+               <fill>
+                  <LinearGradient endX="0.4759615384615385" endY="0.25" startX="0.47596153846153844" startY="1.0">
+                     <stops>
+                        <Stop color="#93d9db94" />
+                        <Stop color="#93d9db94" offset="0.007434944237918215" />
+                        <Stop color="#006064f5" offset="1.0" />
+                     </stops>
+                  </LinearGradient>
+               </fill>
+           </Rectangle>
+            <Text fill="WHITE" layoutX="193.0" layoutY="48.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Registration">
+               <font>
+                  <Font name="Arial Rounded MT Bold" size="36.0" />
+               </font>
+               <effect>
+                  <DropShadow color="#93d9db" />
+               </effect>
+            </Text>
+            <JFXTextField fx:id="fNameField" alignment="CENTER" focusColor="#78e4c9" labelFloat="true" layoutX="133.0" layoutY="77.0" onMouseClicked="#clear" promptText="FIRST NAME" unFocusColor="#78e4c9" />
+            <JFXTextField fx:id="lNameField" alignment="CENTER" focusColor="#78e4c9" labelFloat="true" layoutX="299.0" layoutY="77.0" onMouseClicked="#clear" promptText="SURNAME" unFocusColor="#78e4c9" />
+            <JFXTextField fx:id="usernameField" alignment="CENTER" focusColor="#78e4c9" labelFloat="true" layoutX="217.0" layoutY="153.0" onMouseClicked="#clear" promptText="USERNAME" unFocusColor="#78e4c9" />
+            <JFXPasswordField fx:id="passwordField" focusColor="#78e4c9" labelFloat="true" layoutX="134.0" layoutY="237.0" onMouseClicked="#clear" promptText="PASSWORD" unFocusColor="#78e4c9" />
+            <JFXPasswordField fx:id="retypeField" focusColor="#78e4c9" labelFloat="true" layoutX="300.0" layoutY="237.0" onMouseClicked="#clear" promptText="RETYPE PASSWORD" unFocusColor="#78e4c9" />
+            <JFXButton fx:id="completeRegister" buttonType="RAISED" layoutX="181.0" layoutY="301.0" onMouseClicked="#register" prefHeight="35.0" prefWidth="80.0" style="-fx-border-color: white;" text="Register" textAlignment="CENTER" textFill="WHITE" />
+            <JFXButton fx:id="back" buttonType="RAISED" layoutX="339.0" layoutY="301.0" onMouseClicked="#back" prefHeight="35.0" prefWidth="80.0" style="-fx-border-color: white;" text="Back" textAlignment="CENTER" textFill="WHITE" />
+            <Label fx:id="registerLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="179.0" layoutY="348.0" prefHeight="43.0" prefWidth="241.0" textFill="#006064" wrapText="true" />
+            <Label fx:id="pwErr" alignment="CENTER" contentDisplay="CENTER" layoutX="179.0" layoutY="270.0" prefHeight="27.0" prefWidth="241.0" textFill="WHITE" />
+            <Label fx:id="userErr" alignment="CENTER" contentDisplay="CENTER" layoutX="179.0" layoutY="187.0" prefHeight="42.0" prefWidth="241.0" textFill="WHITE" wrapText="true" />
+            <Label fx:id="namesLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="179.0" layoutY="110.0" prefHeight="43.0" prefWidth="241.0" textFill="WHITE" wrapText="true" />
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>

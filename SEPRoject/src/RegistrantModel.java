@@ -11,10 +11,10 @@ import java.sql.*;
  *
  * @author AliyahButt1
  */
-public class LoginModel {
+public class RegistrantModel {
     Connection connection;
     
-    public LoginModel(){
+    public RegistrantModel(){
        connection = SQLiteConnection.Connector();
        if(connection == null){
            System.out.println("Cannot connect to Data Base.");
@@ -25,7 +25,6 @@ public class LoginModel {
         try{
             return !connection.isClosed();
         } catch (SQLException e){
-            System.out.println("erorrrr");
             e.printStackTrace();
             return false;
         }
