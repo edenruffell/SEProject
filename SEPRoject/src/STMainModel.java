@@ -61,7 +61,7 @@ public class STMainModel {
         ObservableList<RoomBooking> list = FXCollections.observableArrayList();
         
         String query = "SELECT * FROM BOOKING"
-                        + " WHERE OWNER = ?";
+                        + " WHERE OWNER = ? ORDER BY ID ASC";
  
         try{
             ps = connection.prepareStatement(query);
@@ -164,26 +164,29 @@ public class STMainModel {
     
     
     
-    public ObservableList<Room> searchRooms(String building) throws SQLException{
+    public ObservableList<Room> searchRooms(String site, String building, String room, String date) throws SQLException{
               
         PreparedStatement ps = null;
         ResultSet rs = null;
         ObservableList<Room> list = FXCollections.observableArrayList();
         
-        String query = "SELECT * FROM ROOMS"
-                        + " WHERE BUILDING = ?";
+        String query = "SELECT ROOM, CAPACITY, COMPUTERS FROM ROOMS"
+                        + " WHERE SITE = ?"
+                        + "AND BUILDING = ? "
+                        + "AND ROOM = ?";
  
  
         try{
             ps = connection.prepareStatement(query);
-            ps.setString(1, building);
+            ps.setString(1, site);
+            ps.setString(2, building);
+            ps.setString(3, room);
             
             rs = ps.executeQuery();
             Room a = new Room();
             
             while(rs.next()){
-                a = new Room(rs.getString("SITE"),
-                             rs.getString("BUILDING"),
+                a = new Room(site, building,
                              rs.getString("ROOM"),
                              rs.getInt("CAPACITY"),
                              rs.getString("COMPUTERS"));

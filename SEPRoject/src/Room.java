@@ -31,11 +31,11 @@ public class Room {
         site = null;
     }
     
-    public String getRoomName(){
+    public String getName(){
         return name;
     }
     
-    public void setRoomName(String name){
+    public void setName(String name){
         this.name = name;
     }
     
