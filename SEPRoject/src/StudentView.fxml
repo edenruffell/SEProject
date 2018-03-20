@@ -58,7 +58,7 @@
             </JFXButton>
          </children>
       </Pane>
-      <Pane fx:id="viewPane" layoutX="145.0" opacity="0.0" prefHeight="500.0" prefWidth="555.0" style="-fx-border-color: grey;">
+      <Pane fx:id="viewPane" layoutX="145.0" prefHeight="500.0" prefWidth="555.0" style="-fx-border-color: grey;">
          <children>
             <TableView fx:id="bookingTable" layoutY="81.0" prefHeight="368.0" prefWidth="555.0">
               <columns>
@@ -90,8 +90,8 @@
                </font>
             </JFXButton>
             <JFXComboBox fx:id="siteBox" layoutX="2.0" layoutY="14.0" onMouseClicked="#clearLabel" prefHeight="35.0" prefWidth="132.0" promptText="Select a site" visibleRowCount="30" />
-            <JFXComboBox fx:id="buildingBox" layoutX="140.0" layoutY="22.0" onMouseClicked="#setBuildings" onMouseEntered="#clearLabel" prefHeight="27.0" prefWidth="180.0" promptText="Select a building" visibleRowCount="30" />
-            <JFXComboBox fx:id="roomBox" layoutX="327.0" layoutY="22.0" onMouseClicked="#setRooms" onMouseEntered="#clearLabel" prefHeight="27.0" prefWidth="214.0" promptText="Select a room" visibleRowCount="30" />
+            <JFXComboBox fx:id="buildingBox" layoutX="153.0" layoutY="22.0" onMouseClicked="#setBuildings" onMouseEntered="#clearLabel" prefHeight="27.0" prefWidth="201.0" promptText="Select a building" visibleRowCount="30" />
+            <JFXComboBox fx:id="roomBox" layoutX="370.0" layoutY="22.0" onMouseClicked="#setRooms" onMouseEntered="#clearLabel" prefHeight="27.0" prefWidth="171.0" promptText="Select a room" visibleRowCount="30" />
             <TableView fx:id="resultsTable" layoutY="163.0" prefHeight="337.0" prefWidth="563.0">
               <columns>
                 <TableColumn fx:id="rnameCol" prefWidth="121.0" text="Room" />
