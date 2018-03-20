@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 
+import com.jfoenix.controls.*;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -37,6 +38,10 @@ public class STMainController implements Initializable {
     @FXML private Label allowLabel;
     @FXML private Label typeLabel;
     @FXML private Label errorLabel;
+    @FXML private Label searchError;
+    
+    @FXML private Pane viewPane;
+    @FXML private Button cancel;
     @FXML private TableView<RoomBooking> bookingTable;
     @FXML private TableColumn<RoomBooking, Integer> idCol;
     @FXML private TableColumn<RoomBooking, String> buildCol;
@@ -44,19 +49,27 @@ public class STMainController implements Initializable {
     @FXML private TableColumn<RoomBooking, String> dateCol;
     @FXML private TableColumn<RoomBooking, String> sTimeCol;
     @FXML private TableColumn<RoomBooking, String> eTimeCol;
-    
+
+    @FXML private Pane searchTimePane;
+    @FXML private ComboBox siteBox;
+    @FXML private ComboBox buildingBox;
+    @FXML private ComboBox roomBox;
+    @FXML private JFXButton findTimeButton;
+    @FXML private JFXDatePicker datePicker;
     @FXML private TableView<Room> resultsTable;
-    @FXML private TableColumn<Room, String> siteCol;
-    @FXML private TableColumn<Room, String> rbuildingCol;
     @FXML private TableColumn<Room, String> rnameCol;
     @FXML private TableColumn<Room, String> capacityCol;
     @FXML private TableColumn<Room, String> computerCol;
     
-    @FXML private Button cancel;
-    @FXML private Pane viewPane;
-    @FXML private Pane searchPane;
+    private String selectedSite;
+    private String selectedBuilding;
+    private String selectedRoom;
+    private String selectedDate;
     
     protected ObservableList<RoomBooking> bookings;
+    protected ObservableList<String> siteList;
+    protected ObservableList<String> buildingList = FXCollections.observableArrayList();
+    protected ObservableList<String> roomList = FXCollections.observableArrayList();
     protected ObservableList<Room> rooms;
     protected STMainModel model = new STMainModel();
     
@@ -66,6 +79,14 @@ public class STMainController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        searchTimePane.setVisible(false);
+        viewPane.setVisible(false);
+        try {
+            siteList = model.getSites();
+        } catch (SQLException ex) {
+            Logger.getLogger(STMainController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        siteBox.setItems(siteList);
     }
     
     public void Logout(ActionEvent event) throws IOException{
@@ -97,10 +118,17 @@ public class STMainController implements Initializable {
         else if(user instanceof Student) typeLabel.setText("Student");        
     }
     
+        private int updateAllowance(RoomBooking booking){
+        int old = user.getAllowance();
+        int add = booking.getHoursBooked();
+        int updated = old + add;
+        setAllowance(Integer.toString(updated));
+        
+        return updated;
+    }
 
-    
     public void viewBookings() throws SQLException{
-        searchPane.setVisible(false);
+        searchTimePane.setVisible(false);
         viewPane.setVisible(true);
         bookings = model.getBooking(user.getName());
         idCol.setCellValueFactory(new PropertyValueFactory<>("ID"));
@@ -112,22 +140,7 @@ public class STMainController implements Initializable {
         bookingTable.setItems(bookings);   
     }
     
-     public void searchRooms() throws SQLException{
-        viewPane.setVisible(false);
-        searchPane.setVisible(true);
-        rooms = model.searchRooms();
-        siteCol.setCellValueFactory(new PropertyValueFactory<>("Site"));
-       // siteCol.setCellValueFactory(new PropertyValueFactory<>("site"));
-        rbuildingCol.setCellValueFactory(new PropertyValueFactory<>("Building"));
-        rnameCol.setCellValueFactory(new PropertyValueFactory<>("Name"));
-        capacityCol.setCellValueFactory(new PropertyValueFactory<>("Capacity"));
-        computerCol.setCellValueFactory(new PropertyValueFactory<>("Computers"));
-        resultsTable.setItems(rooms);
-        
-        
-    }
-
-    public void cancelBooking() throws SQLException{
+        public void cancelBooking() throws SQLException{
         try{
             int selectedIndex = bookingTable.getSelectionModel().getSelectedIndex();
             RoomBooking booking = bookings.get(selectedIndex);
@@ -140,12 +153,50 @@ public class STMainController implements Initializable {
         }     
     }
     
-    private int updateAllowance(RoomBooking booking){
-        int old = user.getAllowance();
-        int add = booking.getHoursBooked();
-        int updated = old + add;
-        setAllowance(Integer.toString(updated));
-        
-        return updated;
-    }    
+    public void search(){
+        viewPane.setVisible(false);
+        searchTimePane.setVisible(true);
+    }
+    
+    public void setBuildings() throws SQLException{
+        try{
+            selectedSite = siteBox.getSelectionModel().getSelectedItem().toString();
+            buildingList = model.getBuildings(selectedSite);
+            buildingBox.setItems(buildingList);
+        }catch(NullPointerException e){
+            searchError.setText("Please select a site."); 
+        }
+    }
+    
+    public void setRooms() throws SQLException{
+        try{
+            selectedBuilding = buildingBox.getSelectionModel().getSelectedItem().toString();
+            roomList = model.getRooms(selectedBuilding);
+            roomBox.setItems(roomList);
+        }catch(NullPointerException e){
+            searchError.setText("Please select a building."); 
+        }
+    }
+    
+    public void clearLabel(){
+        searchError.setText("");
+    }
+       
+     public void searchRooms() throws SQLException{
+        try{
+            selectedRoom = roomBox.getSelectionModel().getSelectedItem().toString();
+        }catch(NullPointerException e){
+            searchError.setText("Please select a room.");
+        }
+        try{
+            selectedDate = datePicker.getValue().toString();
+            rooms = model.searchRooms(selectedSite, selectedBuilding, selectedRoom, selectedDate);
+            rnameCol.setCellValueFactory(new PropertyValueFactory<>("Name"));
+            capacityCol.setCellValueFactory(new PropertyValueFactory<>("Capacity"));
+            computerCol.setCellValueFactory(new PropertyValueFactory<>("Computers"));
+            resultsTable.setItems(rooms);
+        }catch(NullPointerException e){
+            searchError.setText("Please select a date.");
+        }        
+    }      
 }

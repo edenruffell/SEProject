@@ -12,11 +12,8 @@ import java.sql.*;
  * @author AliyahButt1
  */
 
-import java.util.ArrayList;
-import java.util.Observable;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javax.swing.JOptionPane;
 
 public class STMainModel {
     Connection connection;
@@ -64,7 +61,7 @@ public class STMainModel {
         ObservableList<RoomBooking> list = FXCollections.observableArrayList();
         
         String query = "SELECT * FROM BOOKING"
-                        + " WHERE OWNER = ?";
+                        + " WHERE OWNER = ? ORDER BY ID ASC";
  
         try{
             ps = connection.prepareStatement(query);
@@ -113,39 +110,115 @@ public class STMainModel {
         }
     }
     
- 
-    
-    
-    public ObservableList<Room> searchRooms() throws SQLException{
-        
-       String[] choices = { "Arts One", "Arts two", "Bancroft Road", "Engineering", "Francis Bancroft", "G.E. Fogg","Geography","G.O. Jones","Graduate Centre", "Laws","Lock Keepers","Maths","Peoples Palace","Queens"};
-        String input = (String) JOptionPane.showInputDialog(null, "Choose Building: ",
-        "Search for Room", JOptionPane.QUESTION_MESSAGE, null, choices, choices[1]); // Initial choice
-        
+    public ObservableList<String> getSites() throws SQLException{
+              
         PreparedStatement ps = null;
         ResultSet rs = null;
-        ObservableList<Room> list = FXCollections.observableArrayList();
+        ObservableList<String> list = FXCollections.observableArrayList();
         
-        String query = "SELECT * FROM ROOMS"
-                        + " WHERE BUILDING = ?";
+        String query = "SELECT DISTINCT SITE FROM ROOMS";
  
  
         try{
             ps = connection.prepareStatement(query);
-            ps.setString(1,input);
+            
+            rs = ps.executeQuery();
+            
+            while(rs.next()) list.add(rs.getString("SITE"));
+            
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            return null;
+        } finally {
+            ps.close();
+            rs.close();
+        }
+        return list;
+    }
+    
+    public ObservableList<String> getBuildings(String site) throws SQLException{
+              
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        ObservableList<String> list = FXCollections.observableArrayList();
+        
+        String query = "SELECT DISTINCT BUILDING FROM ROOMS "
+                        + "WHERE SITE = ?";
+        try{
+            ps = connection.prepareStatement(query);
+            ps.setString(1, site);
+            
+            rs = ps.executeQuery();
+            
+            while(rs.next()) list.add(rs.getString("BUILDING"));
+            
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            return null;
+        } finally {
+            ps.close();
+            rs.close();
+        }
+        return list;
+    }
+    
+    
+    
+    public ObservableList<Room> searchRooms(String site, String building, String room, String date) throws SQLException{
+              
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        ObservableList<Room> list = FXCollections.observableArrayList();
+        
+        String query = "SELECT ROOM, CAPACITY, COMPUTERS FROM ROOMS"
+                        + " WHERE SITE = ?"
+                        + "AND BUILDING = ? "
+                        + "AND ROOM = ?";
+ 
+ 
+        try{
+            ps = connection.prepareStatement(query);
+            ps.setString(1, site);
+            ps.setString(2, building);
+            ps.setString(3, room);
             
             rs = ps.executeQuery();
             Room a = new Room();
             
             while(rs.next()){
-                a = new Room(rs.getString("SITE"),
-                             rs.getString("BUILDING"),
+                a = new Room(site, building,
                              rs.getString("ROOM"),
                              rs.getInt("CAPACITY"),
                              rs.getString("COMPUTERS"));
                     list.add(a);
              
             }           
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            return null;
+        } finally {
+            ps.close();
+            rs.close();
+        }
+        return list;
+    }
+    
+    public ObservableList<String> getRooms(String building) throws SQLException{
+              
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        ObservableList<String> list = FXCollections.observableArrayList();
+        
+        String query = "SELECT DISTINCT ROOM FROM ROOMS "
+                        + "WHERE BUILDING = ?";
+        try{
+            ps = connection.prepareStatement(query);
+            ps.setString(1, building);
+            
+            rs = ps.executeQuery();
+            
+            while(rs.next()) list.add(rs.getString("ROOM"));
+            
         } catch (SQLException e) {
             System.out.println(e.getMessage());
             return null;
