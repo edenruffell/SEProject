@@ -45,9 +45,9 @@ public class Student extends User implements Initializable {
     @FXML private TableColumn<RoomBooking, String> eTimeCol;
 
     @FXML private Pane searchTimePane;
-    @FXML private ComboBox siteBox;
-    @FXML private ComboBox buildingBox;
-    @FXML private ComboBox roomBox;
+    @FXML private JFXComboBox siteBox;
+    @FXML private JFXComboBox buildingBox;
+    @FXML private JFXComboBox roomBox;
     @FXML private JFXButton findTimeButton;
     @FXML private JFXDatePicker datePicker;
     @FXML private TableView<Room> resultsTable;
@@ -72,6 +72,8 @@ public class Student extends User implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        roomBox.setVisibleRowCount(30);
+        buildingBox.setVisibleRowCount(20);
         searchTimePane.setVisible(false);
         viewPane.setVisible(false);
         try {
@@ -100,6 +102,7 @@ public class Student extends User implements Initializable {
         nameLabel.setText(fName + " " + lName);
     }
     
+    @Override
     public void setAllowanceText(String allow){
         allowLabel.setText("Allowance: " + allow + " hours");
     }
@@ -138,6 +141,7 @@ public class Student extends User implements Initializable {
         bookingTable.setItems(bookings);   
     }
     
+    @Override
     public void cancelBooking() throws SQLException{
         try{
             int selectedIndex = bookingTable.getSelectionModel().getSelectedIndex();
@@ -181,6 +185,7 @@ public class Student extends User implements Initializable {
         searchError.setText("");
     }
        
+    @Override
     public void searchRooms() throws SQLException{
         try{
             selectedRoom = roomBox.getSelectionModel().getSelectedItem().toString();
