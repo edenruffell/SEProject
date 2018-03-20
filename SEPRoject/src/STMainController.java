@@ -197,6 +197,15 @@ public class STMainController implements Initializable {
             resultsTable.setItems(rooms);
         }catch(NullPointerException e){
             searchError.setText("Please select a date.");
-        }        
+        }     
+        
+        
+        
     }      
+     
+     
+     
+     
+     
+    
 }
