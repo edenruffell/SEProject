@@ -108,6 +108,8 @@ public class StudentModel {
             preparedS.close();
         }
     }
+    
+    
 
     public ObservableList<String> getSites() throws SQLException {
 
@@ -230,7 +232,7 @@ public class StudentModel {
         return list;
     }
 
-    public void makeBooking(Room selectedRoom, String selectedDate, User user, String sTime, String eTime) throws SQLException {
+    public RoomBooking makeBooking(Room selectedRoom, String selectedDate, String user, String sTime, String eTime) throws SQLException {
 
         boolean exists = false;
         PreparedStatement preparedS;
@@ -240,7 +242,7 @@ public class StudentModel {
         String site = selectedRoom.site;
         String building = selectedRoom.buildingName;
         String room = selectedRoom.name;
-        String owner = user.fName;
+        String owner = user;
         String date = selectedDate;
         String startTime = sTime;
         String endTime = eTime;
@@ -320,15 +322,18 @@ public class StudentModel {
                 } finally {
                     preparedS.close();
                 }
+                
+              return a;
             }
         } catch (IllegalArgumentException | SQLException e) {
             System.out.println(e);
+            return null;
 
         } finally {
 
             rs.close();
 
         }
-
+            
     }
 }
