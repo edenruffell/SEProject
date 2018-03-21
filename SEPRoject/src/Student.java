@@ -85,7 +85,7 @@ public class Student extends User implements Initializable {
     @Override
     public void logout(ActionEvent event) throws IOException{
         try {
-            Parent loginMenu = FXMLLoader.load(getClass().getResource("LoginFXML.fxml"));
+            Parent loginMenu = FXMLLoader.load(getClass().getResource("RegistrantView.fxml"));
             Scene loginScene = new Scene(loginMenu);
             Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow();
             window.setScene(loginScene);

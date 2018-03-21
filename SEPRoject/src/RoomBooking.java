@@ -29,9 +29,23 @@ private int hoursBooked;
         this.date = date;
         startTime = sTime;
         endTime = eTime;
-        
         hoursBooked = split(eTime) - split(sTime);  
     }
+    
+    public RoomBooking(){
+
+        this.ID = 0;
+        this.owner = null;
+        building = null;
+        this.room = null;
+        this.date = null;
+        startTime = null;
+        endTime = null;
+        hoursBooked = 0; 
+
+}
+    
+    
 
     public int getID() {
         return ID;
