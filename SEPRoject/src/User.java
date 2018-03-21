@@ -18,6 +18,7 @@ abstract class User {
     abstract void updateAllowance(RoomBooking booking);
     abstract void cancelBooking() throws SQLException;
     abstract void searchRooms() throws SQLException;
+    abstract void makeBooking() throws SQLException;
 }
 
 

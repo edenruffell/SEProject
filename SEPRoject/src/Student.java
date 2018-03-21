@@ -12,12 +12,15 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 /**
@@ -27,59 +30,36 @@ import javafx.stage.Stage;
  */
 public class Student extends User implements Initializable {
 
-    @FXML
-    private Label nameLabel;
-    //  @FXML private Button requests;
-    @FXML
-    private Button logout;
-    @FXML
-    private Label allowLabel;
-    @FXML
-    private Label typeLabel;
-    @FXML
-    private Label errorLabel;
-    @FXML
-    private Label searchError;
+    @FXML private Label nameLabel; 
+  //  @FXML private Button requests;
+    @FXML private Button logout;
+    @FXML private Label allowLabel;
+    @FXML private Label typeLabel;
+    @FXML private Label errorLabel;
+    @FXML private Label searchError;
+       
+    @FXML private Pane viewPane;
+    @FXML private Button cancel;
+    @FXML private TableView<RoomBooking> bookingTable;
+    @FXML private TableColumn<RoomBooking, Integer> idCol;
+    @FXML private TableColumn<RoomBooking, String> buildCol;
+    @FXML private TableColumn<RoomBooking, String> roomCol;
+    @FXML private TableColumn<RoomBooking, String> dateCol;
+    @FXML private TableColumn<RoomBooking, String> sTimeCol;
+    @FXML private TableColumn<RoomBooking, String> eTimeCol;
 
-    @FXML
-    private Pane viewPane;
-    @FXML
-    private Button cancel;
-    @FXML
-    private TableView<RoomBooking> bookingTable;
-    @FXML
-    private TableColumn<RoomBooking, Integer> idCol;
-    @FXML
-    private TableColumn<RoomBooking, String> buildCol;
-    @FXML
-    private TableColumn<RoomBooking, String> roomCol;
-    @FXML
-    private TableColumn<RoomBooking, String> dateCol;
-    @FXML
-    private TableColumn<RoomBooking, String> sTimeCol;
-    @FXML
-    private TableColumn<RoomBooking, String> eTimeCol;
-
-    @FXML
-    private Pane searchTimePane;
-    @FXML
-    private JFXComboBox siteBox;
-    @FXML
-    private JFXComboBox buildingBox;
-    @FXML
-    private JFXComboBox roomBox;
-    @FXML
-    private JFXButton findTimeButton;
-    @FXML
-    private JFXDatePicker datePicker;
-    @FXML
-    private TableView<Room> resultsTable;
-    @FXML
-    private TableColumn<Room, String> rnameCol;
-    @FXML
-    private TableColumn<Room, String> capacityCol;
-    @FXML
-    private TableColumn<Room, String> computerCol;
+    @FXML private Pane searchTimePane;
+    @FXML private Label compLabel;
+    @FXML private Label capLabel;
+    @FXML private JFXComboBox siteBox;
+    @FXML private JFXComboBox buildingBox;
+    @FXML private JFXComboBox roomBox;
+    @FXML private JFXButton findTimeButton;
+    @FXML private JFXDatePicker datePicker;
+    @FXML private TableView<Room.Time> resultsTable;
+    @FXML private TableColumn<Room, String> timeCol;
+    @FXML private TableColumn<Room, String> availableCol;
+    @FXML private JFXPopup popup;
 
     private String selectedSite;
     private String selectedBuilding;
@@ -92,9 +72,10 @@ public class Student extends User implements Initializable {
     protected ObservableList<String> siteList;
     protected ObservableList<String> buildingList = FXCollections.observableArrayList();
     protected ObservableList<String> roomList = FXCollections.observableArrayList();
-    protected ObservableList<Room> rooms;
+    protected ObservableList<Room.Time> times = FXCollections.observableArrayList();
     protected StudentModel model = new StudentModel();
-
+    
+    private Room room;
     /**
      * Initialises the controller class.
      */
@@ -108,6 +89,7 @@ public class Student extends User implements Initializable {
             Logger.getLogger(Student.class.getName()).log(Level.SEVERE, null, ex);
         }
         siteBox.setItems(siteList);
+        initPopUp();
     }
 
     @Override
@@ -208,51 +190,80 @@ public class Student extends User implements Initializable {
     public void clearLabel() {
         searchError.setText("");
     }
-
-    public void searchRooms() throws SQLException {
-        try {
+       
+    public void searchRooms() throws SQLException{
+        resultsTable.getItems().clear();
+        try{
             selectedRoom = roomBox.getSelectionModel().getSelectedItem().toString();
         } catch (NullPointerException e) {
             searchError.setText("Please select a room.");
         }
         try {
             selectedDate = datePicker.getValue().toString();
-            rooms = model.searchRooms(selectedSite, selectedBuilding, selectedRoom, selectedDate);
-            rnameCol.setCellValueFactory(new PropertyValueFactory<>("Name"));
-            capacityCol.setCellValueFactory(new PropertyValueFactory<>("Capacity"));
-            computerCol.setCellValueFactory(new PropertyValueFactory<>("Computers"));
-            resultsTable.setItems(rooms);
-        } catch (NullPointerException e) {
+            room = model.searchRooms(selectedSite, selectedBuilding, selectedRoom, selectedDate);
+            addTimes(room);
+            timeCol.setCellValueFactory(new PropertyValueFactory<>("Time"));
+            availableCol.setCellValueFactory(new PropertyValueFactory<>("Available"));
+            resultsTable.setItems(times);
+            capLabel.setText("Capacity: " + room.getCapacity());
+            compLabel.setText("Computers:" + room.getComputers());
+        }catch(NullPointerException e){
             searchError.setText("Please select a date.");
-        }
+            e.printStackTrace();
+        }        
+    }
+    
+    public void addTimes(Room r){
+        Room.Time[] list = r.getTimeArray();
+        for(int i=0; i<list.length; i++){
+            times.add(list[i]);
+        }     
     }
 
-    public void makeBooking() throws SQLException {
+    @Override
+    void makeBooking() throws SQLException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+//    public void makeBooking() throws SQLException {
+//
+//        try {
+//             
+//            int selectedIndex = resultsTable.getSelectionModel().getSelectedIndex();
+//            
+//            Room room = rooms.get(selectedIndex);
+//            RoomBooking roombooking = new RoomBooking();
+//            roombooking = model.makeBooking(room, selectedDate, username, selectedStartTime,  selectedEndTime);
+//            
+//          /* if (roombooking == null) {
+//               errorLabel.setText("There is a booking already at this time.");
+//               makeBooking();
+//               
+//           }*/
+//          
+//          
+//             updateAllowance(roombooking);
+//             bookings.add(roombooking.getID(), roombooking);
+//            
+//        
+//
+//        } catch (Exception a) {
+//            errorLabel.setText("No Room have been selected.");
+//        }
+//
+//    }
+    
+    public void showPopup(MouseEvent e){
+        if (resultsTable.getItems().isEmpty()) {
+        }else popup.show(JFXPopup.PopupVPosition.TOP, JFXPopup.PopupHPosition.LEFT, e.getX(), e.getY());
+    }
 
-        try {
-             
-            int selectedIndex = resultsTable.getSelectionModel().getSelectedIndex();
-            
-            Room room = rooms.get(selectedIndex);
-            RoomBooking roombooking = new RoomBooking();
-            roombooking = model.makeBooking(room, selectedDate, username, selectedStartTime,  selectedEndTime);
-            
-          /* if (roombooking == null) {
-               errorLabel.setText("There is a booking already at this time.");
-               makeBooking();
-               
-           }*/
-          
-          
-             updateAllowance(roombooking);
-             bookings.add(roombooking.getID(), roombooking);
-            
-        
-
-        } catch (Exception a) {
-            errorLabel.setText("No Room have been selected.");
-        }
-
+    private void initPopUp() {
+        JFXButton b = new JFXButton("Make Booking?");
+        b.setStyle("-fx-background-color: #ffffff; ");
+        b.setPadding(new Insets(10));
+        popup.setContent(b);
+        popup.setSource(resultsTable);
     }
 
 }
