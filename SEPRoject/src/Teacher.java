@@ -198,5 +198,4 @@ public class Teacher extends User implements Initializable {
             searchError.setText("Please select a date.");
         }        
     }      
-
 }
