@@ -14,6 +14,7 @@ public class Room {
     String buildingName;
     int capacity;
     String computers;
+    Time[] list = new Time[10];
     
     public Room(String site, String building, String name,int cap, String comp){
         this.name = name;
@@ -21,16 +22,19 @@ public class Room {
         capacity = cap;
         computers = comp;
         this.site = site;
+        
+        for(int i=9, j=0; i<=18; i++){
+            String time;
+            if(i<10) time = "0" + i + ":00";
+            else time = i + ":00";
+            
+            Time t = new Time(time, true);
+            
+            list[j] = t;
+            j++;
+        }
     }
-    
-    public Room(){
-        this.name = null;
-        buildingName = null;
-        capacity = 0;
-        computers = null;
-        site = null;
-    }
-    
+
     public String getName(){
         return name;
     }
@@ -58,5 +62,37 @@ public class Room {
     
     public String getBuildingName(){
         return buildingName;
-    } 
+    }
+    
+    public void setTimeArray(Time[] list){
+        this.list = list;
+    }
+    
+    public Time[] getTimeArray(){
+        return list;
+    }
+    
+    public class Time {
+    
+        String time;
+        boolean available;
+    
+        public Time(String time, boolean available){
+            this.time = time;
+            this.available = available;
+        
+        }
+
+        public String getTime() {
+            return time;
+        }
+
+        public boolean isAvailable() {
+            return available;
+        }
+        
+        public void setAvailable(boolean available){
+            this.available = available;
+        }
+    }
 }

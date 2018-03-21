@@ -58,7 +58,7 @@
             </JFXButton>
          </children>
       </Pane>
-      <Pane fx:id="viewPane" layoutX="145.0" prefHeight="500.0" prefWidth="555.0" style="-fx-border-color: grey;">
+      <Pane fx:id="viewPane" layoutX="145.0" opacity="0.0" prefHeight="500.0" prefWidth="555.0" style="-fx-border-color: grey;">
          <children>
             <TableView fx:id="bookingTable" layoutY="81.0" prefHeight="368.0" prefWidth="555.0">
               <columns>
@@ -93,12 +93,10 @@
             <JFXComboBox fx:id="buildingBox" layoutX="153.0" layoutY="22.0" onMouseClicked="#setBuildings" onMouseEntered="#clearLabel" prefHeight="27.0" prefWidth="201.0" promptText="Select a building" visibleRowCount="30" />
             <JFXComboBox fx:id="roomBox" layoutX="370.0" layoutY="22.0" onMouseClicked="#setRooms" onMouseEntered="#clearLabel" prefHeight="27.0" prefWidth="171.0" promptText="Select a room" visibleRowCount="30" />
             <TableView fx:id="resultsTable" layoutY="163.0" prefHeight="337.0" prefWidth="563.0">
-              <columns>
-                <TableColumn fx:id="rnameCol" prefWidth="121.0" text="Room" />
-                <TableColumn fx:id="capacityCol" prefWidth="73.0" text="Capacity" />
-                  <TableColumn fx:id="computerCol" prefWidth="92.0" text="Computers" />
-              </columns>
-            </TableView>
+               <columns>
+                  <TableColumn fx:id="timeCol" prefWidth="75.0" text="Time" />
+                  <TableColumn fx:id="availableCol" prefWidth="75.0" text="Available" />
+               </columns></TableView>
             <Label fx:id="searchError" layoutX="311.0" layoutY="75.0" prefHeight="35.0" prefWidth="230.0" textFill="WHITE">
                <font>
                   <Font size="14.0" />
@@ -110,6 +108,16 @@
                </font>
             </Text>
             <JFXDatePicker fx:id="datePicker" layoutX="-7.0" layoutY="76.0" onMouseClicked="#clearLabel" />
+            <Label fx:id="compLabel" layoutX="107.0" layoutY="128.0" prefHeight="30.0" prefWidth="120.0" textFill="WHITE">
+               <font>
+                  <Font name="Arial" size="14.0" />
+               </font>
+            </Label>
+            <Label fx:id="capLabel" layoutX="262.0" layoutY="133.0" prefHeight="30.0" prefWidth="120.0" textFill="WHITE">
+               <font>
+                  <Font name="Arial" size="14.0" />
+               </font>
+            </Label>
          </children></Pane>
    </children>
 </AnchorPane>

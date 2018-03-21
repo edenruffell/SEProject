@@ -45,15 +45,17 @@ public class Student extends User implements Initializable {
     @FXML private TableColumn<RoomBooking, String> eTimeCol;
 
     @FXML private Pane searchTimePane;
+    @FXML private Label compLabel;
+    @FXML private Label capLabel;
     @FXML private JFXComboBox siteBox;
     @FXML private JFXComboBox buildingBox;
     @FXML private JFXComboBox roomBox;
     @FXML private JFXButton findTimeButton;
     @FXML private JFXDatePicker datePicker;
-    @FXML private TableView<Room> resultsTable;
-    @FXML private TableColumn<Room, String> rnameCol;
-    @FXML private TableColumn<Room, String> capacityCol;
-    @FXML private TableColumn<Room, String> computerCol;
+    @FXML private TableView<Room.Time> resultsTable;
+    //@FXML private TableColumn<Room, String> rnameCol;
+    @FXML private TableColumn<Room, String> timeCol;
+    @FXML private TableColumn<Room, String> availableCol;
     
     private String selectedSite;
     private String selectedBuilding;
@@ -64,8 +66,9 @@ public class Student extends User implements Initializable {
     protected ObservableList<String> siteList;
     protected ObservableList<String> buildingList = FXCollections.observableArrayList();
     protected ObservableList<String> roomList = FXCollections.observableArrayList();
-    protected ObservableList<Room> rooms;
+    protected ObservableList<Room.Time> times = FXCollections.observableArrayList();
     protected StudentModel model = new StudentModel();
+    private Room room;
     
     /**
      * Initialises the controller class.
@@ -182,6 +185,7 @@ public class Student extends User implements Initializable {
     }
        
     public void searchRooms() throws SQLException{
+        resultsTable.getItems().clear();
         try{
             selectedRoom = roomBox.getSelectionModel().getSelectedItem().toString();
         }catch(NullPointerException e){
@@ -189,13 +193,26 @@ public class Student extends User implements Initializable {
         }
         try{
             selectedDate = datePicker.getValue().toString();
-            rooms = model.searchRooms(selectedSite, selectedBuilding, selectedRoom, selectedDate);
-            rnameCol.setCellValueFactory(new PropertyValueFactory<>("Name"));
-            capacityCol.setCellValueFactory(new PropertyValueFactory<>("Capacity"));
-            computerCol.setCellValueFactory(new PropertyValueFactory<>("Computers"));
-            resultsTable.setItems(rooms);
+            room = model.searchRooms(selectedSite, selectedBuilding, selectedRoom, selectedDate);
+            addTimes(room);
+            timeCol.setCellValueFactory(new PropertyValueFactory<>("Time"));
+            availableCol.setCellValueFactory(new PropertyValueFactory<>("Available"));
+            resultsTable.setItems(times);
         }catch(NullPointerException e){
             searchError.setText("Please select a date.");
+            e.printStackTrace();
         }        
-    }      
+    }
+    
+    public void addTimes(Room r){
+        Room.Time[] list = r.getTimeArray();
+        for(int i=0; i<list.length; i++){
+            times.add(list[i]);
+        }     
+    }
+
+    @Override
+    void makeBooking() throws SQLException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
  }

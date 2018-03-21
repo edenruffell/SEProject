@@ -189,7 +189,7 @@ public class Teacher extends User implements Initializable {
         }
         try{
             selectedDate = datePicker.getValue().toString();
-            rooms = model.searchRooms(selectedSite, selectedBuilding, selectedRoom, selectedDate);
+           // rooms = model.searchRooms(selectedSite, selectedBuilding, selectedRoom, selectedDate);
             rnameCol.setCellValueFactory(new PropertyValueFactory<>("Name"));
             capacityCol.setCellValueFactory(new PropertyValueFactory<>("Capacity"));
             computerCol.setCellValueFactory(new PropertyValueFactory<>("Computers"));
@@ -198,4 +198,9 @@ public class Teacher extends User implements Initializable {
             searchError.setText("Please select a date.");
         }        
     }      
+
+    @Override
+    void makeBooking() throws SQLException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }

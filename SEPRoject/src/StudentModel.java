@@ -164,12 +164,11 @@ public class StudentModel {
         return list;
     }
 
-    public ObservableList<Room> searchRooms(String site, String building, String room, String date) throws SQLException {
-
+    public Room searchRooms(String site, String building, String room, String date) throws SQLException {
+        Room r = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
-        ObservableList<Room> list = FXCollections.observableArrayList();
-
+        
         String query = "SELECT ROOM, CAPACITY, COMPUTERS FROM ROOMS"
                 + " WHERE SITE = ?"
                 + "AND BUILDING = ? "
@@ -182,24 +181,58 @@ public class StudentModel {
             ps.setString(3, room);
 
             rs = ps.executeQuery();
-            Room a = new Room();
+            
 
-            while (rs.next()) {
-                a = new Room(site, building,
+            if(rs.next()) {
+                r = new Room(site, building,
                         rs.getString("ROOM"),
                         rs.getInt("CAPACITY"),
                         rs.getString("COMPUTERS"));
-                list.add(a);
-
             }
+            r = setBookedTimes(r, building, room, date);
         } catch (SQLException e) {
             System.out.println(e.getMessage());
             return null;
         } finally {
             ps.close();
             rs.close();
+            return r;
         }
-        return list;
+    }
+    
+    public Room setBookedTimes(Room r, String building, String room, String date){
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        Room.Time[] array = r.getTimeArray();
+
+        String query = "SELECT STIME FROM BOOKING"
+                + " WHERE BUILDING = ?"
+                + "AND ROOM = ? "
+                + "AND DATE = ?";
+        try {
+            ps = connection.prepareStatement(query);
+            ps.setString(1, building);
+            ps.setString(2, room);
+            ps.setString(3, date);
+
+            rs = ps.executeQuery();
+            
+
+            if(rs.next()) {
+                String time = rs.getString("STIME");
+
+                for(int i =0; i<array.length; i++){
+                    if(time.equals(array[i].getTime())){
+                        array[i].setAvailable(false);
+                    }
+                }   
+            }
+            r.setTimeArray(array);
+            
+            }catch (SQLException e){
+                System.out.println(e.getMessage());      
+            }
+        return r;
     }
 
     public ObservableList<String> getRooms(String building) throws SQLException {
@@ -230,7 +263,7 @@ public class StudentModel {
         return list;
     }
 
-    public void makeBooking(Room selectedRoom, String selectedDate, User user, String sTime, String eTime) throws SQLException {
+    public void saveBooking(Room selectedRoom, String selectedDate, User user, String sTime, String eTime) throws SQLException {
 
         boolean exists = false;
         PreparedStatement preparedS;
