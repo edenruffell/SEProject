@@ -1,5 +1,7 @@
 
 import com.jfoenix.controls.*;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -9,6 +11,7 @@ import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -37,7 +40,14 @@ public class Student extends User implements Initializable {
     @FXML private Label typeLabel;
     @FXML private Label errorLabel;
     @FXML private Label searchError;
-       
+    @FXML private Label setRoom;
+    @FXML private Label setBuilding;
+    @FXML private Label setDate;
+    @FXML private Label setStart;
+    @FXML private Label setEnd;
+    @FXML private JFXButton confirmBooking;
+    @FXML private Label heading;
+    
     @FXML private Pane viewPane;
     @FXML private Button cancel;
     @FXML private TableView<RoomBooking> bookingTable;
@@ -55,12 +65,14 @@ public class Student extends User implements Initializable {
     @FXML private JFXComboBox buildingBox;
     @FXML private JFXComboBox roomBox;
     @FXML private JFXButton findTimeButton;
+    @FXML private JFXButton back;
     @FXML private JFXDatePicker datePicker;
     @FXML private TableView<Room.Time> resultsTable;
     @FXML private TableColumn<Room, String> timeCol;
     @FXML private TableColumn<Room, String> availableCol;
     @FXML private JFXPopup popup;
-
+    @FXML private Pane bookingPane;
+            
     private String selectedSite;
     private String selectedBuilding;
     private String selectedRoom;
@@ -82,6 +94,7 @@ public class Student extends User implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         searchTimePane.setVisible(false);
+        bookingPane.setVisible(false);
         viewPane.setVisible(true);
         try {
             siteList = model.getSites();
@@ -128,9 +141,8 @@ public class Student extends User implements Initializable {
     }
 
     @Override
-    public void updateAllowance(RoomBooking booking) {
-        int add = booking.getHoursBooked();
-        allowance = allowance + add;
+    public void updateAllowance(int hours) {
+        allowance = allowance + hours;
         setAllowanceText(Integer.toString(allowance));
     }
 
@@ -152,8 +164,8 @@ public class Student extends User implements Initializable {
         try {
             int selectedIndex = bookingTable.getSelectionModel().getSelectedIndex();
             RoomBooking booking = bookings.get(selectedIndex);
-            updateAllowance(booking);
-            model.update(allowance, username);
+            updateAllowance(booking.getHoursBooked());
+            model.updateAllowanceDB(allowance, username);
             model.removeBooking(booking.getID());
             bookingTable.getItems().remove(selectedIndex);
 
@@ -209,7 +221,7 @@ public class Student extends User implements Initializable {
             compLabel.setText("Computers:" + room.getComputers());
         }catch(NullPointerException e){
             searchError.setText("Please select a date.");
-            e.printStackTrace();
+            return;
         }        
     }
     
@@ -221,49 +233,56 @@ public class Student extends User implements Initializable {
     }
 
     @Override
-    void makeBooking() throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void makeBooking() throws SQLException {
+        model.saveBooking(room, setDate.getText(), this.username, setStart.getText(), setEnd.getText());
+        updateAllowance(-1);
+        model.updateAllowanceDB(allowance, username);
+        room = model.searchRooms(selectedSite, selectedBuilding, selectedRoom, selectedDate);
+        resultsTable.getItems().clear();
+        addTimes(room);
+        heading.setText("Booking confirmed!");
+        confirmBooking.setDisable(true);
+        
     }
     
-//    public void makeBooking() throws SQLException {
-//
-//        try {
-//             
-//            int selectedIndex = resultsTable.getSelectionModel().getSelectedIndex();
-//            
-//            Room room = rooms.get(selectedIndex);
-//            RoomBooking roombooking = new RoomBooking();
-//            roombooking = model.makeBooking(room, selectedDate, username, selectedStartTime,  selectedEndTime);
-//            
-//          /* if (roombooking == null) {
-//               errorLabel.setText("There is a booking already at this time.");
-//               makeBooking();
-//               
-//           }*/
-//          
-//          
-//             updateAllowance(roombooking);
-//             bookings.add(roombooking.getID(), roombooking);
-//            
-//        
-//
-//        } catch (Exception a) {
-//            errorLabel.setText("No Room have been selected.");
-//        }
-//
-//    }
-    
     public void showPopup(MouseEvent e){
-        if (resultsTable.getItems().isEmpty()) {
-        }else popup.show(JFXPopup.PopupVPosition.TOP, JFXPopup.PopupHPosition.LEFT, e.getX(), e.getY());
+        String currentRoom = roomBox.getSelectionModel().getSelectedItem().toString();
+        int index = resultsTable.getSelectionModel().getSelectedIndex();
+        if (resultsTable.getItems().isEmpty()){}
+        else if(!times.get(index).isAvailable()){}
+        else if(!currentRoom.equals(room.getName())) searchError.setText("Results do not match current room. Please press \"Find Times\" again.");
+        else popup.show(JFXPopup.PopupVPosition.TOP, JFXPopup.PopupHPosition.LEFT, e.getX(), e.getY());
     }
 
     private void initPopUp() {
         JFXButton b = new JFXButton("Make Booking?");
+        b.setOnAction(new EventHandler<ActionEvent>() {
+        @Override
+        public void handle(ActionEvent event) {
+            int index = resultsTable.getSelectionModel().getSelectedIndex();
+            popup.close();
+            setBuilding.setText(buildingBox.getSelectionModel().getSelectedItem().toString());
+            setRoom.setText("Room: " + roomBox.getSelectionModel().getSelectedItem().toString());
+            setDate.setText(datePicker.getValue().toString());
+            setStart.setText(times.get(index).getTime());
+            setEnd.setText(addHour(times.get(index).getTime()));
+            bookingPane.setVisible(true);
+        }
+    });
         b.setStyle("-fx-background-color: #ffffff; ");
         b.setPadding(new Insets(10));
         popup.setContent(b);
         popup.setSource(resultsTable);
     }
-
+    
+    private String addHour(String time){
+        String[] array = time.split(":");
+        int hour = Integer.parseInt(array[0]);
+        
+        return ((hour+1) + ":00");    
+    }
+    
+    public void back(){
+        bookingPane.setVisible(false);
+    }
 }
