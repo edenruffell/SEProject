@@ -1,5 +1,7 @@
 
 import java.sql.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -33,7 +35,7 @@ public class StudentModel {
         }
     }
 
-    public void update(int allowance, String username) throws SQLException {
+    public void updateAllowanceDB(int allowance, String username) throws SQLException {
         PreparedStatement preparedS = null;
 
         String query = "UPDATE USER SET ALLOWANCE = ? "
@@ -264,109 +266,56 @@ public class StudentModel {
         }
         return list;
     }
+    
+    
+    public void saveBooking(Room room, String date, String username, String sTime, String eTime) throws SQLException{
+        PreparedStatement ps = null;
+        
+        String query = "INSERT INTO BOOKING VALUES(?, ?, ?, ?, ?, ?, ?)";
+        
+        int last = getLastID();
+        
+        try {
+            ps = connection.prepareStatement(query);
 
-//    public void saveBooking(Room selectedRoom, String selectedDate, User user, String sTime, String eTime) throws SQLException {
-//
-//        boolean exists = false;
-//        PreparedStatement preparedS;
-//        ResultSet rs = null;
-//        ObservableList<ResultSet> list = FXCollections.observableArrayList();
-//
-//        String site = selectedRoom.site;
-//        String building = selectedRoom.buildingName;
-//        String room = selectedRoom.name;
-//        String owner = user;
-//        String date = selectedDate;
-//        String startTime = sTime;
-//        String endTime = eTime;
-//
-//        String[] shourMin = sTime.split(":");
-//        int shour = Integer.parseInt(shourMin[0]);
-//        int smins = Integer.parseInt(shourMin[1]);
-//
-//        String[] ehourMin = eTime.split(":");
-//        int ehour = Integer.parseInt(ehourMin[0]);
-//        int emins = Integer.parseInt(ehourMin[1]);
-//
-//        int ID = 1;
-//
-//        try {
-//            String query = "SELECT SITE,BUILDING, ROOM, DATE, STIME, ETIME"
-//                    + " FROM BOOKINGS"
-//                    + " WHERE SITE = ?"
-//                    + "AND BUILDING = ? "
-//                    + "AND ROOM = ?"
-//                    + "AND DATE = ?"
-//                    + "AND STIME = ?"
-//                    + "AND ETIME = ?";
-//
-//            preparedS = connection.prepareStatement(query);
-//            preparedS.setString(1, site);
-//            preparedS.setString(2, building);
-//            preparedS.setString(3, room);
-//            preparedS.setString(4, date);
-//
-//            rs = preparedS.executeQuery();
-//
-//            while (rs.next()) {
-//
-//                String gotSTimes = rs.getString("STIME");
-//                String gotETimes = rs.getString("ETIME");
-//
-//                String[] GotEhourMin = gotETimes.split(":");
-//                int gotehour = Integer.parseInt(GotEhourMin[0]);
-//
-//                String[] GotShourMin = gotSTimes.split(":");
-//                int gotshour = Integer.parseInt(GotShourMin[0]);
-//
-//                if (ehour > gotshour && ehour < gotehour) {
-//
-//                    exists = true;
-//                }
-//
-//                if (shour > gotshour && shour < gotehour) {
-//                    exists = true;
-//                }
-//            }
-//
-//            if (exists) {
-//                throw new IllegalArgumentException("There is already a booking made at this time");
-//            } else {
-//                RoomBooking a = new RoomBooking();
-//
-//                a = new RoomBooking(ID, owner, building, room, date, startTime, endTime);
-//
-//                String query2 = "INSERT INTO USER VALUES(?, ?, ?, ?, ?, ?)";
-//
-//                try {
-//                    preparedS = connection.prepareStatement(query2);
-//                    preparedS.setInt(1, a.getID());
-//                    preparedS.setString(2, a.getOwner());
-//                    preparedS.setString(3, a.getBuilding());
-//                    preparedS.setString(4, a.getRoom());
-//                    preparedS.setString(5, a.getDate());
-//                    preparedS.setString(6, a.getStartTime());
-//                    preparedS.setString(6, a.getEndTime());
-//
-//                    preparedS.executeUpdate();
-//                } catch (SQLException e) {
-//                    System.out.println(e);
-//
-//                } finally {
-//                    preparedS.close();
-//                }
-//                
-//              return a;
-//            }
-//        } catch (IllegalArgumentException | SQLException e) {
-//            System.out.println(e);
-//            return null;
-//
-//        } finally {
-//
-//            rs.close();
-//
-//        }
-//            
-//    }
+            // set the corresponding param
+            ps.setInt(1, last);
+            ps.setString(2, username);
+            ps.setString(3, room.getBuildingName());
+            ps.setString(4, room.getName());
+            ps.setString(5, date);
+            ps.setString(6, sTime);
+            ps.setString(7, eTime);
+            // update 
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        } finally {
+            ps.close();
+        }  
+    }
+    
+    private int getLastID(){
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        int last = -1;
+        try {
+            String query = "SELECT * FROM BOOKING"
+                    + " ORDER BY ID DESC LIMIT 1;";
+            
+            ps = connection.prepareStatement(query);
+            rs = ps.executeQuery();
+            
+            if(rs.next()) {
+                last = rs.getInt("ID") + 1;
+            }
+            
+            ps.close();
+            rs.close();
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(StudentModel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return last;
+    }
 }
