@@ -15,7 +15,7 @@ abstract class User {
     abstract void logout(ActionEvent event) throws IOException;
     abstract void setUserDetails(String[] data);
     abstract void setAllowanceText(String allow);
-    abstract void updateAllowance(RoomBooking booking);
+    abstract void updateAllowance(int hours);
     abstract void cancelBooking() throws SQLException;
     abstract void searchRooms() throws SQLException;
     abstract void makeBooking() throws SQLException;
