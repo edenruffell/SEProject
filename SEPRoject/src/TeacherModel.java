@@ -14,10 +14,10 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 
-public class StudentModel {
+public class TeacherModel {
     Connection connection;
     
-    public StudentModel(){
+    public TeacherModel(){
        connection = SQLiteConnection.Connector();
        if(connection == null){
            System.out.println("Cannot connect to DB.");
@@ -370,21 +370,63 @@ public class StudentModel {
 //            
 //    }
     
-    public void makPermissionRequest(PermissionRequest pr){
     
-         PreparedStatement preparedS1 = null;
-         PreparedStatement preparedS2 = null;
+    
+        public void makeRepeatBookingRequest(RepeatBookingRequest rbr) throws SQLException{
 
-             String query1 = "INSERT INTO PREQUEST "
+            
+           
+            PreparedStatement preparedS1 = null;
+            PreparedStatement preparedS2 = null;
+
+             String query1 = "INSERT INTO RBREQUEST "
                 + " WHERE ID = ?"
                 + " WHERE NAME = ?"
-                + " WHERE NEWSTATUS"
+                + " WHERE BUILDING"
+                + "WHERE ROOM = ?"
+                + "WHERE STIME =?"
+                + "WHERE ETIME = ?"
+                + "WHERE SDATE = ?"
+                + "WHERE EDATE = ?"
                 + "WHERE REQUESTTYPE = ?";
-                
              
              String query2 = "INSERT INTO REQUEST "
                 + " WHERE ID = ?"
                 + " WHERE REQUESTTYPE = ?";
-    
+             
+             
+                
+
+        try {
+            preparedS1 = connection.prepareStatement(query1);
+            preparedS2 = connection.prepareStatement(query2);
+           
+
+            // set the corresponding param
+            preparedS1.setInt(1, rbr.roombooking.getID());
+            preparedS1.setString(2,rbr.roombooking.getOwner());
+            preparedS1.setString(3, rbr.roombooking.getBuilding());
+            preparedS1.setString(4, rbr.roombooking.getRoom());
+            preparedS1.setString(5, rbr.roombooking.getStartTime());
+            preparedS1.setString(6, rbr.roombooking.getEndTime());
+            preparedS1.setString(7, rbr.getStartDate());
+            preparedS1.setString(7, rbr.getEndDate());
+            preparedS1.setString(9, rbr.getRequestType());
+            
+            preparedS2.setInt(1,rbr.roombooking.getID() );
+            preparedS2.setString(2,rbr.getRequestType());
+            
+                    
+            // update 
+            preparedS1.executeUpdate();
+            preparedS2.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        } finally {
+            preparedS1.close();
+            preparedS2.close();
+        }
+        
+
     }
 }

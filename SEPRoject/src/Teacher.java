@@ -1,4 +1,5 @@
 import com.jfoenix.controls.*;
+import static com.sun.org.apache.xalan.internal.xsltc.compiler.util.Type.String;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -65,7 +66,7 @@ public class Teacher extends User implements Initializable {
     protected ObservableList<String> buildingList = FXCollections.observableArrayList();
     protected ObservableList<String> roomList = FXCollections.observableArrayList();
     protected ObservableList<Room> rooms;
-    protected StudentModel model = new StudentModel();
+    protected TeacherModel model = new TeacherModel();
     
     /**
      * Initialises the controller class.
@@ -202,5 +203,30 @@ public class Teacher extends User implements Initializable {
     @Override
     void makeBooking() throws SQLException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    
+    public void makeRepeatBookingRequest(String startDate, String endDate) throws SQLException{
+
+        String requestType = "Repeat Booking";
+        RoomBooking booking = new RoomBooking();
+        RepeatBookingRequest rbr = new RepeatBookingRequest();
+         try{
+            int selectedIndex = bookingTable.getSelectionModel().getSelectedIndex();
+            updateAllowance(booking);
+            booking = bookings.get(selectedIndex);
+            model.update(allowance, username);
+         
+            rbr = new RepeatBookingRequest(booking,  startDate,  endDate, requestType, booking.getID());
+            model.makeRepeatBookingRequest(rbr);
+            
+            
+        }catch(Exception a){
+            errorLabel.setText("No bookings have been selected.");      
+            
+        }     
+         
+        
+        
     }
 }

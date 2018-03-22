@@ -1,31 +1,31 @@
-///*
-// * To change this license header, choose License Headers in Project Properties.
-// * To change this template file, choose Tools | Templates
-// * and open the template in the editor.
-// */
-//
-///**
-// *
-// * @author edenruffell
-// */
-//public class PermissionRequest extends Request{
-//    
-//    
-//    User user;
-//    String requestType = "Permission";
-//    
-//    
-//    
-//    
-//    public PermissionRequest(User user, RoomBooking roombooking, int startDate, int endDate, String requestType){
-//    
-//        super(user, requestType);
-//        this.user = user;
-//        
-//        
-//    
-//    
-//    }
-//   
-//}
-//  
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+/**
+ *
+ * @author edenruffell
+ */
+public class PermissionRequest extends Request{
+    
+    
+  
+    String type;
+    
+    
+    
+    public PermissionRequest(String user, String type, String requestType, int ID){
+    
+        super(user, requestType, ID);
+        this.type = type;
+        
+        
+        
+    
+    
+    }
+   
+}
+  

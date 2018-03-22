@@ -266,4 +266,19 @@ public class Student extends User implements Initializable {
         popup.setSource(resultsTable);
     }
 
+    
+//    public void permissionRequest(){
+//    
+//        viewPane.setVisible(false);
+//        searchTimePane.setVisible(false);
+//        detailsPane.setVisible(true);
+//        String pr = "Permission Request"
+//        
+//        PermissionRequest mpr = new PermissionRequest(username, type ,pr );
+//        model.makePermissionRequest(mpr);
+//        
+//        
+//       
+//    
+//    }
 }
