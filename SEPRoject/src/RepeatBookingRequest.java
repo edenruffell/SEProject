@@ -1,12 +1,12 @@
 public class RepeatBookingRequest extends Request{
     
-    String startDate;
-    String endDate;
-    RoomBooking roombooking;
+    private String startDate;
+    private String endDate;
+    private RoomBooking roombooking;
 
-    public RepeatBookingRequest(RoomBooking roombooking, String startDate, String endDate, String status, int ID){
+    public RepeatBookingRequest(int ID, RoomBooking roombooking, String startDate, String endDate){
     
-        super(roombooking.getOwner(), "Repeat", ID, status);
+        super(ID, roombooking.getOwner(), "Repeat");
         this.startDate = startDate;
         this.endDate = endDate;
         this.roombooking = roombooking;

@@ -316,16 +316,26 @@ public class Student extends User implements Initializable {
         popup.setSource(resultsTable);
     }
 
-public void permissionRequest(String type) throws SQLException{
+    public void teacherUpgrade() throws SQLException{
+        permissionRequest("Teacher");
+    }
     
-        viewPane.setVisible(false);
-        searchTimePane.setVisible(false);
-        //detailsPane.setVisible(true);
-        String pr = "Permission Request";
-        int ID = model.getLastPRequestID();
-        PermissionRequest mpr;// = new PermissionRequest(username, type ,pr, ID );
-        model.makePermissionRequest(mpr);
-        
+    public void adminUpgrade() throws SQLException{
+        permissionRequest("Administrator");
+    }
+    
+    public void permissionRequest(String type) throws SQLException{
+        if(model.checkRequest(username).equals("Pending"))
+            message.setText("You currently have a pending request.");
+        else if(model.checkRequest(username).equals("Denied"))
+            message.setText("Your request has been denied. You cannot make anymore.");
+        else{
+        int ID = model.getNextRequestID("PERMISSION");
+        if(ID==-1) ID=1;
+        PermissionRequest pr = new PermissionRequest(ID, username, type);
+        model.makePermissionRequest(pr);
+        message.setText(type + " upgrade request sent.");
+        }
     }
     
     private String addHour(String time){

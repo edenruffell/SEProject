@@ -1,23 +1,22 @@
 public class PermissionRequest extends Request{
 
-    String 
+    String upgradeType;
 
-    public PermissionRequest(RoomBooking roombooking, String startDate, String endDate, String status, int ID){
+    public PermissionRequest(int ID, String user, String upgradeType){
     
-        super(roombooking.getOwner(), "Repeat", ID, status);
-        this.startDate = startDate;
-        this.endDate = endDate;
-        this.roombooking = roombooking;
+        super(ID, user, "Permission");
+        this.upgradeType = upgradeType;
     }
     
-    public String getStartDate(){
-        return startDate;
+    public PermissionRequest(int ID, String user, String upgradeType, String status){
+    
+        super(ID, user, "Permission", status);
+        this.upgradeType = upgradeType;
     }
+    
 
-    public String getEndDate(){
-        return endDate;
+    public String getUpgradeType() {
+        return upgradeType;
     }
-    
-}
 }
   

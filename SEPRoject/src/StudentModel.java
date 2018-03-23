@@ -326,14 +326,14 @@ public class StudentModel {
         }
         
         
-    }
-
-    private int getRequestLastID(){
+    }   
+    
+    public int getNextRequestID(String db){
         PreparedStatement ps = null;
         ResultSet rs = null;
         int last = -1;
         try {
-            String query = "SELECT * FROM REQUEST"
+            String query = "SELECT * FROM " + db
                     + " ORDER BY ID DESC LIMIT 1;";
             
             ps = connection.prepareStatement(query);
@@ -353,76 +353,50 @@ public class StudentModel {
 
     }
     
-    
-    int getLastPRequestID(){
-        PreparedStatement ps = null;
-        ResultSet rs = null;
-        int last = -1;
-        try {
-            String query = "SELECT * FROM PREQUEST"
-                    + " ORDER BY ID DESC LIMIT 1;";
-            
-            ps = connection.prepareStatement(query);
-            rs = ps.executeQuery();
-            
-            if(rs.next()) {
-                last = rs.getInt("ID") + 1;
-            }
-            
-            ps.close();
-            rs.close();
-            
-        } catch (SQLException ex) {
-            Logger.getLogger(StudentModel.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return last;
-
-    }
     public void makePermissionRequest(PermissionRequest pr) throws SQLException{
+        PreparedStatement ps1 = null;
+        
+        String query1 = "INSERT INTO PERMISSION VALUES (?, ?, ?, ?)";
 
-         PreparedStatement ps1 = null;
-         PreparedStatement ps2 = null;
-         
-         
-
-             String query1 = "INSERT INTO PREQUEST "
-                + " WHERE ID = ?"
-                + " WHERE NAME = ?"
-                + " WHERE NEWSTATUS"
-                + "WHERE REQUESTTYPE = ?"
-                + "WHERE REQUESTSTATUS = ?";
-                
-             
-             String query2 = "INSERT INTO REQUEST "
-                + " WHERE ID = ?"
-                + " WHERE REQUESTTYPE = ?";
-    
-         
-             try {
-            ps1 = connection.prepareStatement(query1);
-            ps2 = connection.prepareStatement(query2);
+        try {
+             ps1 = connection.prepareStatement(query1);
                     
             ps1.setInt(1, pr.getID());
-            ps1.setString(2, pr.name);
-            ps1.setString(3, pr.type);
-            ps1.setString(4, pr.requestType);
-            
-            ps2.setInt(1, pr.getID());
-            ps2.setString(6, pr.type);
+            ps1.setString(2, pr.getUser());
+            ps1.setString(3, pr.getType());
+            ps1.setString(4, pr.getStatus());
             
             // update 
             ps1.executeUpdate();
-            ps2.executeUpdate();
-            
-            
+
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         } finally {
             ps1.close();
-            ps2.close();
         }  
-}
+    }
     
+    public String checkRequest(String user) throws SQLException{
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        String status = "";
+        
+        String query1 = "SELECT STATUS FROM PERMISSION WHERE NAME = ?";
+
+        try {
+             ps = connection.prepareStatement(query1);
+             
+             ps.setString(1, user);
+             rs = ps.executeQuery();
+             
+             if(rs.next()) status = rs.getString("STATUS");
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        } finally {
+            ps.close();
+            return status;
+        }  
+    }    
 }
             
            

@@ -1,23 +1,30 @@
 public class Request {
     
-    String name;
-    String requestType;
-    String status;
-    int ID;
+    private int ID;
+    private String user;
+    private String type;
+    private String status;
 
-    public Request(String owner, String requestType, int ID, String status){
-        name = owner;
-        this.requestType = requestType;
+    public Request(int ID, String user, String type){
         this.ID = ID;
-        this.status = status;
+        this.user = user;
+        this.type = type; 
+        status = "Pending";
+    }
+    
+    public Request(int ID, String user, String type, String status){
+        this.ID = ID;
+        this.user = user;
+        this.type = type; 
+        status = status;
     }
 
-    public String getName(){
-        return name;
+    public String getUser(){
+        return user;
     }
         
-    public String getRequestType(){
-        return requestType;
+    public String getType(){
+        return type;
     }
 
     public String getStatus() {
@@ -26,5 +33,9 @@ public class Request {
     
     public int getID(){
         return ID;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }
