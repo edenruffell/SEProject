@@ -1,38 +1,11 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-import java.util.*;
-/**
- *
- * @author edenruffell
- */
 public class OverrideRequest extends Request{
     
-    
-  
-   RoomBooking roombooking;
-   
-  
-    
-    
-    
-    public OverrideRequest(String user, RoomBooking roombooking, String requestType, int ID){
+    private RoomBooking roombooking;
+
+    public OverrideRequest(int ID, String user, RoomBooking roombooking){
         
      
-        super(user, requestType, roombooking.getID());
+        super(ID, user, "Override");
         this.roombooking = roombooking;
-        
-    
-    }
-    
-    
-    public OverrideRequest(){
-    
-        super(null,null,0);
-        roombooking= null;
-    }
- 
-  
+    } 
 }

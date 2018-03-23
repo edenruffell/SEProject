@@ -1,45 +1,41 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/**
- *
- * @author edenruffell
- */
 public class Request {
     
-    String name;
-    String requestType;
-    int ID;
-   
+    private int ID;
+    private String user;
+    private String type;
+    private String status;
+
+    public Request(int ID, String user, String type){
+        this.ID = ID;
+        this.user = user;
+        this.type = type; 
+        status = "Pending";
+    }
     
+    public Request(int ID, String user, String type, String status){
+        this.ID = ID;
+        this.user = user;
+        this.type = type; 
+        status = status;
+    }
 
-        public Request(String owner, String requestType, int ID){
-
-             name = owner;
-                this.requestType = requestType;
-                this.ID = ID;
-
-        }   
+    public String getUser(){
+        return user;
+    }
         
-        public Request(){
-            name = null;
-            requestType = null;
-        
-        }
+    public String getType(){
+        return type;
+    }
 
+    public String getStatus() {
+        return status;
+    }
+    
+    public int getID(){
+        return ID;
+    }
 
-        public String getName(){
-         return name;
-        }
-        
-        public String getRequestType(){
-         return requestType;
-        }
-           
-        public int getID(){
-         return ID;
-        }
+    public void setStatus(String status) {
+        this.status = status;
+    }
 }

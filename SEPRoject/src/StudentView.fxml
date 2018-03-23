@@ -58,7 +58,7 @@
                   <Font size="14.0" />
                </font>
             </JFXButton>
-            <JFXButton fx:id="settings" buttonType="RAISED" layoutX="3.0" layoutY="335.0" onAction="#settings" onMouseClicked="#search" prefHeight="35.0" prefWidth="140.0" style="-fx-border-color: WHITE;" text="Settings   " textAlignment="JUSTIFY" textFill="WHITE">
+            <JFXButton fx:id="settings" buttonType="RAISED" layoutX="3.0" layoutY="335.0" onMouseClicked="#viewDetails" prefHeight="35.0" prefWidth="140.0" style="-fx-border-color: WHITE;" text="Settings   " textAlignment="JUSTIFY" textFill="WHITE">
                <font>
                   <Font size="14.0" />
                </font>
@@ -209,12 +209,12 @@
                   <Font size="17.0" />
                </font>
             </Label>
-            <JFXButton fx:id="teacherUpgrade" buttonType="RAISED" layoutX="78.0" layoutY="413.0" prefHeight="35.0" prefWidth="190.0" style="-fx-border-color: WHITE;" text="Upgrade to Teacher" textFill="#006063">
+            <JFXButton fx:id="teacherUpgrade" buttonType="RAISED" layoutX="78.0" layoutY="413.0" onMouseClicked="#teacherUpgrade" prefHeight="35.0" prefWidth="190.0" style="-fx-border-color: WHITE;" text="Upgrade to Teacher" textFill="#006063">
                <font>
                   <Font size="14.0" />
                </font>
             </JFXButton>
-            <JFXButton fx:id="adminUpgrade" buttonType="RAISED" layoutX="285.0" layoutY="413.0" prefHeight="35.0" prefWidth="190.0" style="-fx-border-color: WHITE;" text="Upgrade to Administrator" textFill="#006064">
+            <JFXButton fx:id="adminUpgrade" buttonType="RAISED" layoutX="285.0" layoutY="413.0" onMouseClicked="#adminUpgrade" prefHeight="35.0" prefWidth="190.0" style="-fx-border-color: WHITE;" text="Upgrade to Administrator" textFill="#006064">
                <font>
                   <Font size="14.0" />
                </font>
