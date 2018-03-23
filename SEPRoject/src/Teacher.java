@@ -358,7 +358,7 @@ public class Teacher extends User implements Initializable {
             int selectedIndex = bookingTable.getSelectionModel().getSelectedIndex();
           
             roombooking = bookings.get(selectedIndex);
-            model.update(allowance, username);
+           // model.update(allowance, username);
          
             or = new OverrideRequest( username,roombooking, requestType, roombooking.getID());
             model.makeOverrideRequest(or);
@@ -369,23 +369,11 @@ public class Teacher extends User implements Initializable {
             
         }     
          
+    }    
         
-        
-    }
+
 
     
-    public void showPopup(MouseEvent e){
-        if (resultsTable.getItems().isEmpty()) {
-        }else popup.show(JFXPopup.PopupVPosition.TOP, JFXPopup.PopupHPosition.LEFT, e.getX(), e.getY());
-    }
 
-    private void initPopUp() {
-        JFXButton b = new JFXButton("Make Booking?");
-        b.setStyle("-fx-background-color: #ffffff; ");
-        b.setPadding(new Insets(10));
-        popup.setContent(b);
-        popup.setSource(resultsTable);
-
-    }
 }
 

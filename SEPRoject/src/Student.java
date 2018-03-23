@@ -312,10 +312,7 @@ public class Student extends User implements Initializable {
         popup.setSource(resultsTable);
     }
 
-
-    
-
-    public void permissionRequest(String type) throws SQLException{
+public void permissionRequest(String type) throws SQLException{
     
         viewPane.setVisible(false);
         searchTimePane.setVisible(false);
@@ -327,6 +324,7 @@ public class Student extends User implements Initializable {
         
     }
 
+    
 
     
     private String addHour(String time){
