@@ -322,53 +322,53 @@ public class Teacher extends User implements Initializable {
     public void back(){
         bookingPane.setVisible(false);
     }
-//    
-//    public void makeRepeatBookingRequest(String startDate, String endDate) throws SQLException{
-//
-//        String requestType = "Repeat Booking";
-//        RoomBooking booking = new RoomBooking();
-//        RepeatBookingRequest rbr;// = new RepeatBookingRequest();
-//         try{
-//            int selectedIndex = bookingTable.getSelectionModel().getSelectedIndex();
-//          
-//            booking = bookings.get(selectedIndex);
-//            model.updateAllowanceDB(allowance, username);
-//         
-//            rbr = new RepeatBookingRequest(booking,  startDate,  endDate, requestType, booking.getID());
-//            model.makeRepeatBookingRequest(rbr);
-//            
-//            
-//        }catch(Exception a){
-//            errorLabel.setText("No bookings have been selected.");      
-//            
-//       
-//
-//        }     
-//         
-//    }     
-//         
-//         
-//    public void makeOverrideRequest() throws SQLException{
-//
-//        String requestType = "Repeat Booking";
-//        OverrideRequest or = new OverrideRequest();
-//        RoomBooking roombooking = new RoomBooking();
-//        
-//         try{
-//            int selectedIndex = bookingTable.getSelectionModel().getSelectedIndex();
-//          
-//            roombooking = bookings.get(selectedIndex);
-//           // model.update(allowance, username);
-//         
-//            or = new OverrideRequest( username,roombooking, requestType, roombooking.getID());
-//            model.makeOverrideRequest(or);
-//            
-//            
-//        }catch(Exception a){
-//            errorLabel.setText("No bookings have been selected.");      
-//            
-//        }     
-//         
-//    }    
+    
+    public void makeRepeatBookingRequest(String startDate, String endDate) throws SQLException{
+
+        String requestType = "Repeat Booking";
+        RoomBooking booking;
+        RepeatBookingRequest rbr;// = new RepeatBookingRequest();
+         try{
+            int selectedIndex = bookingTable.getSelectionModel().getSelectedIndex();
+          
+            booking = bookings.get(selectedIndex);
+            model.updateAllowanceDB(allowance, username);
+         
+            rbr = new RepeatBookingRequest(booking.getID(),booking,  startDate,  endDate);
+            model.makeRepeatBookingRequest(rbr);
+            
+            
+        }catch(Exception a){
+            errorLabel.setText("No bookings have been selected.");      
+            
+       
+
+        }     
+         
+    }     
+         
+         
+    public void makeOverrideRequest() throws SQLException{
+
+        String requestType = "Repeat Booking";
+        OverrideRequest or;
+        RoomBooking roombooking;
+        
+         try{
+            int selectedIndex = bookingTable.getSelectionModel().getSelectedIndex();
+          
+            roombooking = bookings.get(selectedIndex);
+           // model.update(allowance, username);
+        
+            or = new OverrideRequest( roombooking.getID(),username, roombooking);
+            model.makeOverrideRequest(or);
+            
+            
+        }catch(Exception a){
+            errorLabel.setText("No bookings have been selected.");      
+            
+        }     
+         
+    }    
 }
 

@@ -329,107 +329,81 @@ public class TeacherModel {
             preparedS.close();
         }    
     }
-//    
-//    public void makeRepeatBookingRequest(RepeatBookingRequest rbr) throws SQLException{
-//        PreparedStatement preparedS1 = null;
-//        PreparedStatement preparedS2 = null;
-//
-//         String query1 = "INSERT INTO RBREQUEST "
-//            + " WHERE ID = ?"
-//            + " WHERE NAME = ?"
-//            + " WHERE BUILDING"
-//            + "WHERE ROOM = ?"
-//            + "WHERE STIME =?"
-//            + "WHERE ETIME = ?"
-//            + "WHERE SDATE = ?"
-//            + "WHERE EDATE = ?"
-//            + "WHERE REQUESTTYPE = ?";
-//             
-//         String query2 = "INSERT INTO REQUEST "
-//            + " WHERE ID = ?"
-//            + " WHERE REQUESTTYPE = ?";
-//         
-//        try {
-//            preparedS1 = connection.prepareStatement(query1);
-//            preparedS2 = connection.prepareStatement(query2);
-//           
-//
-//            // set the corresponding param
-//            preparedS1.setInt(1, rbr.roombooking.getID());
-//            preparedS1.setString(2,rbr.roombooking.getOwner());
-//            preparedS1.setString(3, rbr.roombooking.getBuilding());
-//            preparedS1.setString(4, rbr.roombooking.getRoom());
-//            preparedS1.setString(5, rbr.roombooking.getStartTime());
-//            preparedS1.setString(6, rbr.roombooking.getEndTime());
-//            preparedS1.setString(7, rbr.getStartDate());
-//            preparedS1.setString(7, rbr.getEndDate());
-//            preparedS1.setString(9, rbr.getRequestType());
-//            
-//            preparedS2.setInt(1,rbr.roombooking.getID() );
-//            preparedS2.setString(2,rbr.getRequestType());
-//            
-//                    
-//            // update 
-//            preparedS1.executeUpdate();
-//            preparedS2.executeUpdate();
-//        } catch (SQLException e) {
-//            System.out.println(e.getMessage());
-//        } finally {
-//            preparedS1.close();
-//            preparedS2.close();
-//        }
-//    }
-//        public void makeOverrideRequest(OverrideRequest obr) throws SQLException{
-//
-//            
-//           
-//            PreparedStatement preparedS1 = null;
-//            PreparedStatement preparedS2 = null;
-//
-//             String query1 = "INSERT INTO OREQUEST "
-//                + " WHERE ID = ?"
-//                + " WHERE NAME = ?"
-//                + " WHERE BUILDING"
-//                + "WHERE ROOM = ?"
-//                + "WHERE STIME =?"
-//                + "WHERE ETIME = ?"
-//                + "WHERE REQUESTTYPE = ?";
-//             
-//             String query2 = "INSERT INTO REQUEST "
-//                + " WHERE ID = ?"
-//                + " WHERE REQUESTTYPE = ?";
-//             
-//             
-//                
-//
-//        try {
-//            preparedS1 = connection.prepareStatement(query1);
-//            preparedS2 = connection.prepareStatement(query2);
-//           
-//
-//            // set the corresponding param
-//            preparedS1.setInt(1, obr.roombooking.getID());
-//            preparedS1.setString(2,obr.roombooking.getOwner());
-//            preparedS1.setString(3, obr.roombooking.getBuilding());
-//            preparedS1.setString(4, obr.roombooking.getRoom());
-//            preparedS1.setString(5, obr.roombooking.getStartTime());
-//            preparedS1.setString(6, obr.roombooking.getEndTime());
-//            preparedS1.setString(9, obr.getRequestType());
-//            
-//            preparedS2.setInt(1,obr.roombooking.getID() );
-//            preparedS2.setString(2,obr.getRequestType());
-//            
-//                    
-//            // update 
-//            preparedS1.executeUpdate();
-//            preparedS2.executeUpdate();
-//        } catch (SQLException e) {
-//            System.out.println(e.getMessage());
-//        } finally {
-//            preparedS1.close();
-//            preparedS2.close();
-//        }
-//        
-//
-//    }
+    
+    public void makeRepeatBookingRequest(RepeatBookingRequest rbr) throws SQLException{
+        PreparedStatement preparedS = null;
+      
+
+         String query = "INSERT INTO REPEAT VALUES(?,?,?,?,?,?,?,?,?)";
+             
+    
+         
+        try {
+            preparedS = connection.prepareStatement(query);
+           
+
+            // set the corresponding param
+            preparedS.setInt(1, rbr.roombooking.getID());
+            preparedS.setString(2,rbr.roombooking.getOwner());
+            preparedS.setString(3, rbr.roombooking.getBuilding());
+            preparedS.setString(4, rbr.roombooking.getRoom());
+            preparedS.setString(5, rbr.roombooking.getStartTime());
+            preparedS.setString(6, rbr.roombooking.getEndTime());
+            preparedS.setString(7, rbr.getStartDate());
+            preparedS.setString(8, rbr.getEndDate());
+            preparedS.setString(9, rbr.getStatus());
+           
+            
+            
+            
+                    
+            // update 
+            preparedS.executeUpdate();
+           
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        } finally {
+            preparedS.close();
+           
+        }
+    }
+        public void makeOverrideRequest(OverrideRequest obr) throws SQLException{
+
+            
+           
+            PreparedStatement preparedS = null;
+           
+
+             String query = "INSERT INTO OVERRIDE VALUES(?,?,?,?,?,?,?)";
+             
+             
+                
+
+        try {
+            preparedS = connection.prepareStatement(query);
+            
+           
+
+            // set the corresponding param
+            preparedS.setInt(1, obr.roombooking.getID());
+            preparedS.setString(2,obr.roombooking.getOwner());
+            preparedS.setString(3, obr.roombooking.getBuilding());
+            preparedS.setString(4, obr.roombooking.getRoom());
+            preparedS.setString(5, obr.roombooking.getStartTime());
+            preparedS.setString(6, obr.roombooking.getEndTime());
+          
+            
+                    
+            // update 
+            preparedS.executeUpdate();
+         
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        } finally {
+            preparedS.close();
+          
+        }
+        
+
+    }
 }

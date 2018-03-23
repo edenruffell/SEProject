@@ -2,7 +2,9 @@ public class RepeatBookingRequest extends Request{
     
     private String startDate;
     private String endDate;
-    private RoomBooking roombooking;
+     RoomBooking roombooking;
+    private String status;
+    
 
     public RepeatBookingRequest(int ID, RoomBooking roombooking, String startDate, String endDate){
     
@@ -10,6 +12,7 @@ public class RepeatBookingRequest extends Request{
         this.startDate = startDate;
         this.endDate = endDate;
         this.roombooking = roombooking;
+        status = "Pending";
     }
     
     public String getStartDate(){
@@ -20,4 +23,13 @@ public class RepeatBookingRequest extends Request{
         return endDate;
     }
     
+    public RoomBooking getRoomBooking(){
+    
+        return roombooking;
+    }
+    
+    public String getStatus(){
+    
+        return status;
+    }
 }
