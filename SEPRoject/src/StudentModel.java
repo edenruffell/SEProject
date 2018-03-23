@@ -1,13 +1,7 @@
-
 import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 /**
  *
  * @author AliyahButt1
@@ -24,15 +18,6 @@ public class StudentModel {
        if(connection == null){
            System.out.println("Cannot connect to DB.");
        }
-    }
-
-    public boolean isConnected() {
-        try {
-            return !connection.isClosed();
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return false;
-        }
     }
 
     public void updateAllowanceDB(int allowance, String username) throws SQLException {
@@ -318,9 +303,30 @@ public class StudentModel {
         return last;
 
     }
-
-
     
+    public void updatePW(String username, String pw) throws SQLException{
+        PreparedStatement preparedS = null;
+
+        String query = "UPDATE USER SET PASSWORD = ? "
+                + " WHERE USERNAME = ?";
+
+        try {
+            preparedS = connection.prepareStatement(query);
+
+            // set the corresponding param
+            preparedS.setString(1, pw);
+            preparedS.setString(2, username);
+            // update 
+            preparedS.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        } finally {
+            preparedS.close();
+        }
+        
+        
+    }
+
     public void makPermissionRequest(PermissionRequest pr){
     
          PreparedStatement preparedS1 = null;

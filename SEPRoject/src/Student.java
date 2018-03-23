@@ -1,7 +1,4 @@
-
 import com.jfoenix.controls.*;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -23,7 +20,6 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 /**
@@ -33,9 +29,11 @@ import javafx.stage.Stage;
  */
 public class Student extends User implements Initializable {
 
-    @FXML private Label nameLabel; 
+    @FXML private Label nameLabel;
+    @FXML private Label message;
   //  @FXML private Button requests;
     @FXML private Button logout;
+    @FXML private Button settings;
     @FXML private Label allowLabel;
     @FXML private Label typeLabel;
     @FXML private Label errorLabel;
@@ -72,7 +70,17 @@ public class Student extends User implements Initializable {
     @FXML private TableColumn<Room, String> availableCol;
     @FXML private JFXPopup popup;
     @FXML private Pane bookingPane;
-            
+    
+    @FXML private Pane detailsPane;
+    @FXML private Label usernameLabel;
+    @FXML private JFXPasswordField oldpw;
+    @FXML private JFXPasswordField newpw;
+    @FXML private JFXPasswordField retypepw;
+    @FXML private JFXButton teacherUpgrade;
+    @FXML private JFXButton adminUpgrade;
+    @FXML private JFXButton savepw;
+    
+    
     private String selectedSite;
     private String selectedBuilding;
     private String selectedRoom;
@@ -93,9 +101,10 @@ public class Student extends User implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        detailsPane.setVisible(true);
         searchTimePane.setVisible(false);
         bookingPane.setVisible(false);
-        viewPane.setVisible(true);
+        viewPane.setVisible(false);
         try {
             siteList = model.getSites();
         } catch (SQLException ex) {
@@ -103,6 +112,30 @@ public class Student extends User implements Initializable {
         }
         siteBox.setItems(siteList);
         initPopUp();
+    }
+    
+    public void settings(){
+        detailsPane.setVisible(true);
+        searchTimePane.setVisible(false);
+        bookingPane.setVisible(false);
+        viewPane.setVisible(false);  
+    }
+    
+    public void updatePW() throws SQLException{
+        String oldpw = this.oldpw.getText();
+        String newpw = this.newpw.getText();
+        String retype = this.retypepw.getText();
+        
+        if(oldpw.equals("")||newpw.equals("")||retype.equals(""))
+            message.setText("Password fields cannot be empty");
+        else if(!oldpw.equals(password))
+            message.setText("Old password is incorrect");
+        else if(!newpw.equals(retype))
+            message.setText("New password doesn't match retype.");
+        else{
+            model.updatePW(username, password);
+            message.setText("Password has been changed.");
+        }
     }
 
     @Override
@@ -136,8 +169,8 @@ public class Student extends User implements Initializable {
         lName = data[3];
         userType = data[4];
         allowance = Integer.parseInt(data[5]);
-        typeLabel.setText(userType);
-
+        typeLabel.setText("Account Type: " + userType);
+        usernameLabel.setText("Username " + username);
     }
 
     @Override
@@ -148,8 +181,10 @@ public class Student extends User implements Initializable {
 
     @Override
     public void viewBookings() throws SQLException {
+        detailsPane.setVisible(false);
         searchTimePane.setVisible(false);
-        viewPane.setVisible(true);
+        bookingPane.setVisible(false);
+        viewPane.setVisible(true); 
         bookings = model.getBooking(username);
         idCol.setCellValueFactory(new PropertyValueFactory<>("ID"));
         buildCol.setCellValueFactory(new PropertyValueFactory<>("building"));
@@ -175,8 +210,10 @@ public class Student extends User implements Initializable {
     }
 
     public void search() {
-        viewPane.setVisible(false);
+        detailsPane.setVisible(false);
         searchTimePane.setVisible(true);
+        bookingPane.setVisible(false);
+        viewPane.setVisible(false); 
     }
 
     public void setBuildings() throws SQLException {
@@ -279,9 +316,6 @@ public class Student extends User implements Initializable {
     
 //    public void permissionRequest(){
 //    
-//        viewPane.setVisible(false);
-//        searchTimePane.setVisible(false);
-//        detailsPane.setVisible(true);
 //        String pr = "Permission Request"
 //        
 //        PermissionRequest mpr = new PermissionRequest(username, type ,pr );
