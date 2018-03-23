@@ -251,6 +251,30 @@ public class Teacher extends User implements Initializable {
             
         }     
          
+    }     
+         
+         
+    public void makeOverrideRequest() throws SQLException{
+
+        String requestType = "Repeat Booking";
+        OverrideRequest or = new OverrideRequest();
+        RoomBooking roombooking = new RoomBooking();
+        
+         try{
+            int selectedIndex = bookingTable.getSelectionModel().getSelectedIndex();
+          
+            roombooking = bookings.get(selectedIndex);
+            model.update(allowance, username);
+         
+            or = new OverrideRequest( username,roombooking, requestType, roombooking.getID());
+            model.makeOverrideRequest(or);
+            
+            
+        }catch(Exception a){
+            errorLabel.setText("No bookings have been selected.");      
+            
+        }     
+         
         
         
     }

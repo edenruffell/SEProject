@@ -429,4 +429,57 @@ public class TeacherModel {
         
 
     }
+        public void makeOverrideRequest(OverrideRequest obr) throws SQLException{
+
+            
+           
+            PreparedStatement preparedS1 = null;
+            PreparedStatement preparedS2 = null;
+
+             String query1 = "INSERT INTO OREQUEST "
+                + " WHERE ID = ?"
+                + " WHERE NAME = ?"
+                + " WHERE BUILDING"
+                + "WHERE ROOM = ?"
+                + "WHERE STIME =?"
+                + "WHERE ETIME = ?"
+                + "WHERE REQUESTTYPE = ?";
+             
+             String query2 = "INSERT INTO REQUEST "
+                + " WHERE ID = ?"
+                + " WHERE REQUESTTYPE = ?";
+             
+             
+                
+
+        try {
+            preparedS1 = connection.prepareStatement(query1);
+            preparedS2 = connection.prepareStatement(query2);
+           
+
+            // set the corresponding param
+            preparedS1.setInt(1, obr.roombooking.getID());
+            preparedS1.setString(2,obr.roombooking.getOwner());
+            preparedS1.setString(3, obr.roombooking.getBuilding());
+            preparedS1.setString(4, obr.roombooking.getRoom());
+            preparedS1.setString(5, obr.roombooking.getStartTime());
+            preparedS1.setString(6, obr.roombooking.getEndTime());
+            preparedS1.setString(9, obr.getRequestType());
+            
+            preparedS2.setInt(1,obr.roombooking.getID() );
+            preparedS2.setString(2,obr.getRequestType());
+            
+                    
+            // update 
+            preparedS1.executeUpdate();
+            preparedS2.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        } finally {
+            preparedS1.close();
+            preparedS2.close();
+        }
+        
+
+    }
 }

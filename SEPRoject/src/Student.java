@@ -277,20 +277,17 @@ public class Student extends User implements Initializable {
 
 
     
-//    public void permissionRequest(){
-//    
-//        viewPane.setVisible(false);
-//        searchTimePane.setVisible(false);
-//        detailsPane.setVisible(true);
-//        String pr = "Permission Request"
-//        
-//        PermissionRequest mpr = new PermissionRequest(username, type ,pr );
-//        model.makePermissionRequest(mpr);
-//        
-//        
-//       
-//    
-//    }
+    public void permissionRequest(String type) throws SQLException{
+    
+        viewPane.setVisible(false);
+        searchTimePane.setVisible(false);
+        //detailsPane.setVisible(true);
+        String pr = "Permission Request";
+        int ID = model.getLastPRequestID();
+        PermissionRequest mpr = new PermissionRequest(username, type ,pr, ID );
+        model.makePermissionRequest(mpr);
+        
+    }
 
     
     private String addHour(String time){

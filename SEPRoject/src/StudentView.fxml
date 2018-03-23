@@ -3,7 +3,6 @@
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXComboBox?>
 <?import com.jfoenix.controls.JFXDatePicker?>
-<?import com.jfoenix.controls.JFXPopup?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
@@ -16,13 +15,14 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane id="AnchorPane" prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Student">
+<AnchorPane id="AnchorPane" prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Teacher">
    <children>
       <Rectangle arcHeight="5.0" arcWidth="5.0" height="500.0" stroke="TRANSPARENT" strokeType="INSIDE" width="707.0">
           <fill>
               <LinearGradient endX="0.4759615384615385" endY="0.25" startX="0.47596153846153844" startY="1.0">
                   <stops>
                       <Stop color="#93d9db94" />
+                      <Stop color="#93d9db94" offset="0.007434944237918215" />
                       <Stop color="#006064f5" offset="1.0" />
                   </stops>
               </LinearGradient>
@@ -33,29 +33,24 @@
             <Label fx:id="nameLabel" alignment="CENTER" layoutY="14.0" prefHeight="35.0" prefWidth="145.0" text="Name" textAlignment="CENTER" textFill="WHITE">
                <font>
                   <Font size="14.0" />
-               </font>
-            </Label>
+               </font></Label>
             <Label fx:id="typeLabel" alignment="CENTER" layoutY="458.0" prefHeight="35.0" prefWidth="145.0" text="accType" textAlignment="CENTER" textFill="#006064">
                <font>
                   <Font name="System Bold" size="14.0" />
-               </font>
-            </Label>
+               </font></Label>
             <Button fx:id="viewButton" layoutX="3.0" layoutY="235.0" mnemonicParsing="false" onMouseClicked="#viewBookings" prefHeight="35.0" prefWidth="140.0" style="-fx-background-color: white;" text="View Bookings" textAlignment="CENTER">
                <font>
                   <Font size="14.0" />
-               </font>
-            </Button>
+               </font></Button>
             <Button fx:id="logout" layoutX="3.0" layoutY="285.0" mnemonicParsing="false" onAction="#logout" prefHeight="35.0" prefWidth="140.0" style="-fx-background-color: white;" text="Logout" textAlignment="CENTER" />
             <Label fx:id="allowLabel" alignment="CENTER" layoutX="2.0" layoutY="359.0" prefHeight="35.0" prefWidth="145.0" text="Allowance:" textAlignment="CENTER" textFill="WHITE">
                <font>
                   <Font size="14.0" />
-               </font>
-            </Label>
+               </font></Label>
             <JFXButton fx:id="searchTimeButton" buttonType="RAISED" layoutX="3.0" layoutY="135.0" onMouseClicked="#search" prefHeight="35.0" prefWidth="140.0" style="-fx-border-color: WHITE;" text="Search Time" textFill="WHITE">
                <font>
                   <Font size="14.0" />
-               </font>
-            </JFXButton>
+               </font></JFXButton>
             <JFXButton buttonType="RAISED" layoutX="3.0" layoutY="185.0" prefHeight="35.0" prefWidth="140.0" style="-fx-border-color: WHITE;" text="Search Room" textFill="WHITE">
                <font>
                   <Font size="14.0" />
@@ -63,7 +58,7 @@
             </JFXButton>
          </children>
       </Pane>
-      <Pane fx:id="viewPane" layoutX="145.0" prefHeight="500.0" prefWidth="555.0" style="-fx-border-color: grey;">
+      <Pane fx:id="viewPane" layoutX="145.0" opacity="0.0" prefHeight="500.0" prefWidth="555.0" style="-fx-border-color: grey;">
          <children>
             <TableView fx:id="bookingTable" layoutY="81.0" prefHeight="368.0" prefWidth="555.0">
               <columns>
@@ -89,80 +84,32 @@
       </Pane>
       <Pane fx:id="searchTimePane" layoutX="145.0" prefHeight="500.0" prefWidth="555.0">
          <children>
-            <JFXButton fx:id="findTimeButton" buttonType="RAISED" layoutX="14.0" layoutY="307.0" onMouseClicked="#searchRooms" prefHeight="50.0" prefWidth="140.0" style="-fx-border-color: WHITE;" text="Find Times" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+            <JFXButton fx:id="findTimeButton" buttonType="RAISED" layoutX="401.0" layoutY="110.0" onMouseClicked="#searchRooms" prefHeight="50.0" prefWidth="140.0" style="-fx-border-color: WHITE;" text="Find Times" textAlignment="CENTER" textFill="WHITE" wrapText="true">
                <font>
                   <Font size="14.0" />
                </font>
             </JFXButton>
-            <JFXComboBox fx:id="siteBox" layoutX="10.0" layoutY="15.0" onMouseClicked="#clearLabel" prefHeight="35.0" prefWidth="200.0" promptText="Select a site" visibleRowCount="30" />
-            <JFXComboBox fx:id="buildingBox" layoutX="10.0" layoutY="80.0" onMouseClicked="#setBuildings" onMouseEntered="#clearLabel" prefHeight="35.0" prefWidth="200.0" promptText="Select a building" visibleRowCount="30" />
-            <JFXComboBox fx:id="roomBox" layoutX="10.0" layoutY="145.0" onMouseClicked="#setRooms" onMouseEntered="#clearLabel" prefHeight="35.0" prefWidth="200.0" promptText="Select a room" visibleRowCount="30" />
-            <TableView fx:id="resultsTable" layoutX="262.0" layoutY="65.0" onMouseClicked="#showPopup" prefHeight="338.0" prefWidth="230.0">
-               <columns>
-                  <TableColumn fx:id="timeCol" prefWidth="116.0" text="Time" />
-                  <TableColumn fx:id="availableCol" prefWidth="113.0" text="Available" />
-               </columns>
+            <JFXComboBox fx:id="siteBox" layoutX="2.0" layoutY="14.0" onMouseClicked="#clearLabel" prefHeight="35.0" prefWidth="132.0" promptText="Select a site" visibleRowCount="30" />
+            <JFXComboBox fx:id="buildingBox" layoutX="153.0" layoutY="22.0" onMouseClicked="#setBuildings" onMouseEntered="#clearLabel" prefHeight="27.0" prefWidth="201.0" promptText="Select a building" visibleRowCount="30" />
+            <JFXComboBox fx:id="roomBox" layoutX="370.0" layoutY="22.0" onMouseClicked="#setRooms" onMouseEntered="#clearLabel" prefHeight="27.0" prefWidth="171.0" promptText="Select a room" visibleRowCount="30" />
+            <TableView fx:id="resultsTable" layoutY="163.0" prefHeight="337.0" prefWidth="563.0">
+              <columns>
+                <TableColumn fx:id="rnameCol" prefWidth="121.0" text="Room" />
+                <TableColumn fx:id="capacityCol" prefWidth="73.0" text="Capacity" />
+                  <TableColumn fx:id="computerCol" prefWidth="92.0" text="Computers" />
+              </columns>
             </TableView>
-            <Label fx:id="searchError" layoutX="10.0" layoutY="264.0" prefHeight="35.0" prefWidth="230.0" textFill="WHITE">
+            <Label fx:id="searchError" layoutX="311.0" layoutY="75.0" prefHeight="35.0" prefWidth="230.0" textFill="WHITE">
                <font>
                   <Font size="14.0" />
                </font>
             </Label>
-            <JFXDatePicker fx:id="datePicker" layoutX="8.0" layoutY="217.0" onMouseClicked="#clearLabel" prefWidth="200.0" />
-            <Label fx:id="compLabel" layoutX="262.0" layoutY="422.0" prefHeight="30.0" prefWidth="230.0" textFill="#006064">
-               <font>
-                  <Font name="Arial" size="14.0" />
-               </font>
-            </Label>
-            <Label fx:id="capLabel" layoutX="262.0" layoutY="452.0" prefHeight="30.0" prefWidth="230.0" textFill="#006064">
-               <font>
-                  <Font name="Arial" size="14.0" />
-               </font>
-            </Label>
-            <Text fill="WHITE" layoutX="240.0" layoutY="39.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Results:">
+            <Text fill="WHITE" layoutX="14.0" layoutY="148.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Results:">
                <font>
                   <Font name="Arial" size="21.0" />
                </font>
             </Text>
-            <JFXPopup fx:id="popup" onMouseClicked="#makeBooking" />
-         </children>
-      </Pane>
-      <Pane fx:id="bookingPane" layoutX="220.0" layoutY="155.0" prefHeight="245.0" prefWidth="400.0">
-         <children>
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#005f61" height="245.0" stroke="WHITE" strokeType="INSIDE" width="400.0" />
-            <Label fx:id="heading" layoutX="19.0" layoutY="14.0" text="Make Booking" textFill="WHITE">
-               <font>
-                  <Font size="24.0" />
-               </font>
-            </Label>
-            <Label fx:id="setBuilding" layoutX="14.0" layoutY="60.0" prefHeight="35.0" prefWidth="170.0" textFill="WHITE">
-               <font>
-                  <Font size="16.0" />
-               </font>
-            </Label>
-            <Label fx:id="setRoom" layoutX="14.0" layoutY="120.0" prefHeight="35.0" prefWidth="170.0" textFill="WHITE">
-               <font>
-                  <Font size="16.0" />
-               </font>
-            </Label>
-            <Label fx:id="setDate" layoutX="14.0" layoutY="180.0" prefHeight="35.0" prefWidth="170.0" textFill="WHITE">
-               <font>
-                  <Font size="16.0" />
-               </font>
-            </Label>
-            <Label fx:id="setStart" layoutX="190.0" layoutY="60.0" prefHeight="35.0" prefWidth="170.0" textFill="WHITE">
-               <font>
-                  <Font size="16.0" />
-               </font>
-            </Label>
-            <Label fx:id="setEnd" layoutX="190.0" layoutY="120.0" prefHeight="35.0" prefWidth="170.0" textFill="WHITE">
-               <font>
-                  <Font size="16.0" />
-               </font>
-            </Label>
-            <JFXButton fx:id="confirmBooking" layoutX="190.0" layoutY="180.0" onAction="#makeBooking" prefHeight="50.0" prefWidth="95.0" style="-fx-border-color: WHITE;" text="Confirm Booking" textAlignment="CENTER" textFill="WHITE" wrapText="true" />
-            <JFXButton fx:id="back" layoutX="291.0" layoutY="180.0" onAction="#back" prefHeight="50.0" prefWidth="95.0" style="-fx-border-color: WHITE;" text="Back" textAlignment="CENTER" textFill="WHITE" wrapText="true" />
-         </children>
-      </Pane>
+            <JFXDatePicker fx:id="datePicker" layoutX="-7.0" layoutY="76.0" onMouseClicked="#clearLabel" />
+         </children></Pane>
    </children>
 </AnchorPane>

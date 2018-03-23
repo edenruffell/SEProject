@@ -278,7 +278,7 @@ public class StudentModel {
         try {
             ps = connection.prepareStatement(query);
 
- ps.setInt(1, last);
+            ps.setInt(1, last);
             ps.setString(2, username);
             ps.setString(3, room.getBuildingName());
             ps.setString(4, room.getName());
@@ -320,11 +320,62 @@ public class StudentModel {
     }
 
 
+    private int getRequestLastID(){
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        int last = -1;
+        try {
+            String query = "SELECT * FROM REQUEST"
+                    + " ORDER BY ID DESC LIMIT 1;";
+            
+            ps = connection.prepareStatement(query);
+            rs = ps.executeQuery();
+            
+            if(rs.next()) {
+                last = rs.getInt("ID") + 1;
+            }
+            
+            ps.close();
+            rs.close();
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(StudentModel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return last;
+
+    }
     
-    public void makPermissionRequest(PermissionRequest pr){
     
-         PreparedStatement preparedS1 = null;
-         PreparedStatement preparedS2 = null;
+    int getLastPRequestID(){
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        int last = -1;
+        try {
+            String query = "SELECT * FROM PREQUEST"
+                    + " ORDER BY ID DESC LIMIT 1;";
+            
+            ps = connection.prepareStatement(query);
+            rs = ps.executeQuery();
+            
+            if(rs.next()) {
+                last = rs.getInt("ID") + 1;
+            }
+            
+            ps.close();
+            rs.close();
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(StudentModel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return last;
+
+    }
+    public void makePermissionRequest(PermissionRequest pr) throws SQLException{
+    
+         PreparedStatement ps1 = null;
+         PreparedStatement ps2 = null;
+         
+         
 
              String query1 = "INSERT INTO PREQUEST "
                 + " WHERE ID = ?"
@@ -337,8 +388,32 @@ public class StudentModel {
                 + " WHERE ID = ?"
                 + " WHERE REQUESTTYPE = ?";
     
+         
+             try {
+            ps1 = connection.prepareStatement(query1);
+            ps2 = connection.prepareStatement(query2);
+                    
+            ps1.setInt(1, pr.getID());
+            ps1.setString(2, pr.name);
+            ps1.setString(3, pr.type);
+            ps1.setString(4, pr.requestType);
+            
+            ps2.setInt(1, pr.getID());
+            ps2.setString(6, pr.type);
+            
+            // update 
+            ps1.executeUpdate();
+            ps2.executeUpdate();
+            
+            
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        } finally {
+            ps1.close();
+            ps2.close();
+        }  
 }
     
 }
-            // set the corresponding param
+            
            
