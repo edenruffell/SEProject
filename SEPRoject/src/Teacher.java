@@ -341,7 +341,51 @@ public class Teacher extends User implements Initializable {
         }catch(Exception a){
             errorLabel.setText("No bookings have been selected.");      
             
-        }       
+       
+
+        }     
+         
+    }     
+         
+         
+    public void makeOverrideRequest() throws SQLException{
+
+        String requestType = "Repeat Booking";
+        OverrideRequest or = new OverrideRequest();
+        RoomBooking roombooking = new RoomBooking();
+        
+         try{
+            int selectedIndex = bookingTable.getSelectionModel().getSelectedIndex();
+          
+            roombooking = bookings.get(selectedIndex);
+            model.update(allowance, username);
+         
+            or = new OverrideRequest( username,roombooking, requestType, roombooking.getID());
+            model.makeOverrideRequest(or);
+            
+            
+        }catch(Exception a){
+            errorLabel.setText("No bookings have been selected.");      
+            
+        }     
+         
+        
+        
+    }
+
+    
+    public void showPopup(MouseEvent e){
+        if (resultsTable.getItems().isEmpty()) {
+        }else popup.show(JFXPopup.PopupVPosition.TOP, JFXPopup.PopupHPosition.LEFT, e.getX(), e.getY());
+    }
+
+    private void initPopUp() {
+        JFXButton b = new JFXButton("Make Booking?");
+        b.setStyle("-fx-background-color: #ffffff; ");
+        b.setPadding(new Insets(10));
+        popup.setContent(b);
+        popup.setSource(resultsTable);
+
     }
 }
 
