@@ -388,7 +388,8 @@ public class StudentModel {
                 + " WHERE ID = ?"
                 + " WHERE NAME = ?"
                 + " WHERE NEWSTATUS"
-                + "WHERE REQUESTTYPE = ?";
+                + "WHERE REQUESTTYPE = ?"
+                + "WHERE REQUESTSTATUS = ?";
                 
              
              String query2 = "INSERT INTO REQUEST "
