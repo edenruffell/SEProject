@@ -323,25 +323,25 @@ public class Teacher extends User implements Initializable {
         bookingPane.setVisible(false);
     }
     
-    public void makeRepeatBookingRequest(String startDate, String endDate) throws SQLException{
-
-        String requestType = "Repeat Booking";
-        RoomBooking booking = new RoomBooking();
-        RepeatBookingRequest rbr = new RepeatBookingRequest();
-         try{
-            int selectedIndex = bookingTable.getSelectionModel().getSelectedIndex();
-          
-            booking = bookings.get(selectedIndex);
-            model.updateAllowanceDB(allowance, username);
-         
-            rbr = new RepeatBookingRequest(booking,  startDate,  endDate, requestType, booking.getID());
-            model.makeRepeatBookingRequest(rbr);
-            
-            
-        }catch(Exception a){
-            errorLabel.setText("No bookings have been selected.");      
-            
-        }       
-    }
+//    public void makeRepeatBookingRequest(String startDate, String endDate) throws SQLException{
+//
+//        String requestType = "Repeat Booking";
+//        RoomBooking booking = new RoomBooking();
+//        RepeatBookingRequest rbr = new RepeatBookingRequest();
+//         try{
+//            int selectedIndex = bookingTable.getSelectionModel().getSelectedIndex();
+//          
+//            booking = bookings.get(selectedIndex);
+//            model.updateAllowanceDB(allowance, username);
+//         
+//            rbr = new RepeatBookingRequest(booking,  startDate,  endDate, requestType, booking.getID());
+//            model.makeRepeatBookingRequest(rbr);
+//            
+//            
+//        }catch(Exception a){
+//            errorLabel.setText("No bookings have been selected.");      
+//            
+//        }       
+//    }
 }
 

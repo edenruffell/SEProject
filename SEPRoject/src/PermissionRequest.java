@@ -1,31 +1,23 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/**
- *
- * @author edenruffell
- */
 public class PermissionRequest extends Request{
+
+    String 
+
+    public PermissionRequest(RoomBooking roombooking, String startDate, String endDate, String status, int ID){
     
-    
-  
-    String type;
-    
-    
-    
-    public PermissionRequest(String user, String type, String requestType, int ID){
-    
-        super(user, requestType, ID);
-        this.type = type;
-        
-        
-        
-    
-    
+        super(roombooking.getOwner(), "Repeat", ID, status);
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.roombooking = roombooking;
     }
-   
+    
+    public String getStartDate(){
+        return startDate;
+    }
+
+    public String getEndDate(){
+        return endDate;
+    }
+    
+}
 }
   

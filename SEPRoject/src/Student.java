@@ -114,7 +114,7 @@ public class Student extends User implements Initializable {
         initPopUp();
     }
     
-    public void settings(){
+    public void viewDetails(){
         detailsPane.setVisible(true);
         searchTimePane.setVisible(false);
         bookingPane.setVisible(false);
@@ -133,8 +133,12 @@ public class Student extends User implements Initializable {
         else if(!newpw.equals(retype))
             message.setText("New password doesn't match retype.");
         else{
+            password = newpw;
             model.updatePW(username, password);
             message.setText("Password has been changed.");
+            this.oldpw.clear();
+            this.newpw.clear();
+            this.retypepw.clear();
         }
     }
 
@@ -312,8 +316,6 @@ public class Student extends User implements Initializable {
         popup.setSource(resultsTable);
     }
 
-
-    
 //    public void permissionRequest(){
 //    
 //        String pr = "Permission Request"

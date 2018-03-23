@@ -305,6 +305,7 @@ public class StudentModel {
     }
     
     public void updatePW(String username, String pw) throws SQLException{
+        System.out.println("enter");
         PreparedStatement preparedS = null;
 
         String query = "UPDATE USER SET PASSWORD = ? "
