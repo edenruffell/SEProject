@@ -33,7 +33,6 @@ public class AdminModel {
             while(rs.next()) {
                pr = new PermissionRequest(rs.getInt("ID"), rs.getString("NAME"),
                     rs.getString("TYPE"), rs.getString("STATUS"));
-                System.out.println(rs.getString("STATUS"));
                list.add(pr);
             }
 
@@ -45,6 +44,37 @@ public class AdminModel {
             rs.close();
             return list;
         }       
+    }
+    
+    public void removePRequest(PermissionRequest pr, String status) throws SQLException{
+        System.out.println("Entering");
+        PreparedStatement ps = null;
+
+        String query = "UPDATE PERMISSION SET STATUS = ? "
+                + " WHERE NAME = ?";
+        String query2 = "UPDATE USER SET UTYPE = ?"
+                + " WHERE USERNAME = ?";
+        try {
+            ps = connection.prepareStatement(query);
+            System.out.println("Query1: " + status + " " + pr.getUser());
+            // set the corresponding param
+            ps.setString(1, status);
+            ps.setString(2, pr.getUser());
+            // update 
+            ps.executeUpdate();
+            if(status.equals("Approved")){
+                System.out.println("Approved. Update user details");
+                ps.close();
+                ps = connection.prepareStatement(query2);
+                ps.setString(1, pr.getUpgradeType());
+                ps.setString(2, pr.getUser());
+                ps.executeUpdate();
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        } finally {
+            ps.close();
+        }
     }
     
     public void updatePW(String username, String pw) throws SQLException{

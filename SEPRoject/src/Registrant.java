@@ -47,17 +47,16 @@ public class Registrant implements Initializable {
     @FXML private Pane registerPane;
     
     public void login(ActionEvent event){
-        try {
-                String username = userTextField.getText();
-                String password = pwTextField.getText();
-                String[] data = loginModel.getData(username, password);
+        try{
+            String username = userTextField.getText();
+            String password = pwTextField.getText();
+            String[] data = loginModel.getData(username, password);
                 
-                FXMLLoader loader = new FXMLLoader();
+            FXMLLoader loader = new FXMLLoader();
             if(data!=null){
                 try {
                     if(data[4].equals("Student")){
                     //load new screen
-                    
                     Parent mainMenu = loader.load(getClass().getResource("StudentView.fxml").openStream());
                     //pass on user info
                     Student main = (Student)loader.getController();
@@ -85,11 +84,8 @@ public class Registrant implements Initializable {
                     Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow();
                     window.setScene(mainMenuScene);
                     window.show();
-                }
-                
-                
-                loginModel.connection.close();
-                    
+                    }
+                loginModel.connection.close();    
                 } catch (IOException ex) {
                 Logger.getLogger(Registrant.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -102,6 +98,11 @@ public class Registrant implements Initializable {
     }
     
     public void showRegisterPane(){
+        fNameField.clear();
+        lNameField.clear();
+        usernameField.clear();
+        passwordField.clear();
+        retypeField.clear();
         startPane.setVisible(false);
         registerPane.setVisible(true);
     }
@@ -148,6 +149,9 @@ public class Registrant implements Initializable {
     }
     
     public void back(){
+        userTextField.clear();
+        pwTextField.clear();
+        errorLabel.setText("");
         registerPane.setVisible(false);
         startPane.setVisible(true);
     }

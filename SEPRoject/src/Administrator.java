@@ -67,6 +67,14 @@ public class Administrator implements Initializable {
         permissionTable.setItems(permissions);
     }
     
+    public void approvePRequest() throws SQLException{
+        System.out.println("Entering approve method.");
+        int selectedIndex = permissionTable.getSelectionModel().getSelectedIndex();
+        PermissionRequest pr = permissions.get(selectedIndex);
+        model.removePRequest(pr, "Approved");
+        permissionTable.getItems().remove(selectedIndex);
+    }
+    
     public void updatePW() throws SQLException{
         String oldpw = this.oldpw.getText();
         String newpw = this.newpw.getText();

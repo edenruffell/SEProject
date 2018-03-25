@@ -70,12 +70,12 @@
          <children>
             <TableView fx:id="bookingTable" layoutY="81.0" prefHeight="368.0" prefWidth="555.0">
               <columns>
-                <TableColumn fx:id="idCol" editable="false" prefWidth="65.0" resizable="false" text="ID" />
-                <TableColumn fx:id="buildCol" editable="false" prefWidth="95.0" text="Building" />
-                  <TableColumn fx:id="roomCol" editable="false" prefWidth="75.0" text="Room" />
-                  <TableColumn fx:id="dateCol" prefWidth="119.0" text="Date" />
-                  <TableColumn fx:id="sTimeCol" editable="false" prefWidth="100.0" text="Start Time" />
-                  <TableColumn fx:id="eTimeCol" editable="false" prefWidth="100.0" text="End Time" />
+                <TableColumn fx:id="idCol" editable="false" prefWidth="65.0" resizable="false" sortable="false" text="ID" />
+                <TableColumn fx:id="buildCol" editable="false" prefWidth="95.0" sortable="false" text="Building" />
+                  <TableColumn fx:id="roomCol" editable="false" prefWidth="75.0" sortable="false" text="Room" />
+                  <TableColumn fx:id="dateCol" editable="false" prefWidth="119.0" sortable="false" text="Date" />
+                  <TableColumn fx:id="sTimeCol" editable="false" prefWidth="100.0" sortable="false" text="Start Time" />
+                  <TableColumn fx:id="eTimeCol" editable="false" prefWidth="100.0" sortable="false" text="End Time" />
               </columns>
                <columnResizePolicy>
                   <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
@@ -102,8 +102,8 @@
             <JFXComboBox fx:id="roomBox" layoutX="10.0" layoutY="145.0" onMouseClicked="#setRooms" onMouseEntered="#clearLabel" prefHeight="35.0" prefWidth="200.0" promptText="Select a room" visibleRowCount="30" />
             <TableView fx:id="resultsTable" layoutX="262.0" layoutY="65.0" onMouseClicked="#showPopup" prefHeight="338.0" prefWidth="230.0">
                <columns>
-                  <TableColumn fx:id="timeCol" prefWidth="116.0" text="Time" />
-                  <TableColumn fx:id="availableCol" prefWidth="113.0" text="Available" />
+                  <TableColumn fx:id="timeCol" editable="false" prefWidth="116.0" sortable="false" text="Time" />
+                  <TableColumn fx:id="availableCol" editable="false" prefWidth="113.0" sortable="false" text="Available" />
                </columns>
             </TableView>
             <Label fx:id="searchError" layoutX="10.0" layoutY="264.0" prefHeight="35.0" prefWidth="230.0" textFill="WHITE">
@@ -204,9 +204,9 @@
             <JFXComboBox fx:id="buildingBox2" layoutX="10.0" layoutY="80.0" onMouseClicked="#setBuildings" onMouseEntered="#clearLabel" prefHeight="35.0" prefWidth="200.0" promptText="Select a building" visibleRowCount="30" />
             <TableView fx:id="resultsTable2" layoutX="228.0" layoutY="65.0" onMouseClicked="#showPopup2" prefHeight="338.0" prefWidth="324.0">
                <columns>
-                  <TableColumn fx:id="roomCol2" prefWidth="108.0" text="Room" />
-                  <TableColumn fx:id="compCol" prefWidth="108.0" text="Computers" />
-                  <TableColumn fx:id="capCol" prefWidth="108.0" text="Capacity" />
+                  <TableColumn fx:id="roomCol2" editable="false" prefWidth="108.0" sortable="false" text="Room" />
+                  <TableColumn fx:id="compCol" editable="false" prefWidth="108.0" sortable="false" text="Computers" />
+                  <TableColumn fx:id="capCol" editable="false" prefWidth="108.0" sortable="false" text="Capacity" />
                </columns>
             </TableView>
             <Label fx:id="searchError" layoutX="10.0" layoutY="264.0" prefHeight="35.0" prefWidth="230.0" textFill="WHITE">
