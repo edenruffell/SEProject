@@ -16,7 +16,7 @@ public class Request {
         this.ID = ID;
         this.user = user;
         this.type = type; 
-        status = status;
+        this.status = status;
     }
 
     public String getUser(){

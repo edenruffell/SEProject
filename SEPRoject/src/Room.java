@@ -58,7 +58,10 @@ public class Room {
     public void setComputers(String comp){
         computers = comp;
     }
-    
+
+    public void setBuildingName(String buildingName) {
+        this.buildingName = buildingName;
+    }
     
     public String getBuildingName(){
         return buildingName;
