@@ -14,7 +14,6 @@ public class PermissionRequest extends Request{
         this.upgradeType = upgradeType;
     }
     
-
     public String getUpgradeType() {
         return upgradeType;
     }

@@ -43,22 +43,22 @@
                </font>
             </Button>
             <Button fx:id="logout" layoutX="3.0" layoutY="285.0" mnemonicParsing="false" onAction="#logout" prefHeight="35.0" prefWidth="140.0" style="-fx-background-color: white;" text="Logout" textAlignment="CENTER" />
-            <Label fx:id="allowLabel" alignment="CENTER" layoutY="451.0" prefHeight="35.0" prefWidth="145.0" text="Allowance:" textAlignment="CENTER" textFill="#00606f">
+            <Label fx:id="allowLabel" alignment="CENTER" layoutX="3.0" layoutY="451.0" prefHeight="35.0" prefWidth="145.0" text="Allowance:" textAlignment="CENTER" textFill="#00606f">
                <font>
                   <Font size="14.0" />
                </font>
             </Label>
-            <JFXButton fx:id="searchTimeButton" buttonType="RAISED" layoutX="3.0" layoutY="135.0" onMouseClicked="#search" prefHeight="35.0" prefWidth="140.0" style="-fx-border-color: WHITE;" text="Search Time" textFill="WHITE">
+            <JFXButton buttonType="RAISED" layoutX="3.0" layoutY="135.0" onMouseClicked="#viewSearchByRoom" prefHeight="35.0" prefWidth="140.0" style="-fx-border-color: WHITE;" text="Search by Room" textFill="WHITE">
                <font>
                   <Font size="14.0" />
                </font>
             </JFXButton>
-            <JFXButton buttonType="RAISED" layoutX="3.0" layoutY="185.0" prefHeight="35.0" prefWidth="140.0" style="-fx-border-color: WHITE;" text="Search Room" textFill="WHITE">
+            <JFXButton buttonType="RAISED" layoutX="3.0" layoutY="185.0" onMouseClicked="#viewSearchByTime" prefHeight="35.0" prefWidth="140.0" style="-fx-border-color: WHITE;" text="Search by Time" textFill="WHITE">
                <font>
                   <Font size="14.0" />
                </font>
             </JFXButton>
-            <JFXButton fx:id="settings" buttonType="RAISED" layoutX="3.0" layoutY="335.0" onAction="#settings" onMouseClicked="#search" prefHeight="35.0" prefWidth="140.0" style="-fx-border-color: WHITE;" text="Settings   " textAlignment="JUSTIFY" textFill="WHITE">
+            <JFXButton fx:id="settings" buttonType="RAISED" layoutX="3.0" layoutY="335.0" onMouseClicked="#viewDetails" prefHeight="35.0" prefWidth="140.0" style="-fx-border-color: WHITE;" text="Settings   " textAlignment="JUSTIFY" textFill="WHITE">
                <font>
                   <Font size="14.0" />
                </font>
@@ -66,7 +66,7 @@
             <FontAwesomeIconView fill="WHITE" glyphName="COG" layoutX="104.0" layoutY="360.0" size="17" text="" />
          </children>
       </Pane>
-      <Pane fx:id="viewPane" layoutX="145.0" opacity="0.0" prefHeight="500.0" prefWidth="555.0">
+      <Pane fx:id="viewPane" layoutX="145.0" prefHeight="500.0" prefWidth="555.0">
          <children>
             <TableView fx:id="bookingTable" layoutY="81.0" prefHeight="368.0" prefWidth="555.0">
               <columns>
@@ -90,9 +90,9 @@
             <Label fx:id="errorLabel" layoutX="310.0" layoutY="54.0" prefHeight="23.0" prefWidth="230.0" wrapText="true" />
          </children>
       </Pane>
-      <Pane fx:id="searchTimePane" layoutX="145.0" opacity="0.0" prefHeight="500.0" prefWidth="555.0">
+      <Pane fx:id="searchByRoomPane" layoutX="145.0" prefHeight="500.0" prefWidth="555.0">
          <children>
-            <JFXButton fx:id="findTimeButton" buttonType="RAISED" layoutX="14.0" layoutY="307.0" onMouseClicked="#searchRooms" prefHeight="50.0" prefWidth="140.0" style="-fx-border-color: WHITE;" text="Find Times" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+            <JFXButton fx:id="findTimeButton" buttonType="RAISED" layoutX="14.0" layoutY="307.0" onMouseClicked="#searchByRooms" prefHeight="50.0" prefWidth="140.0" style="-fx-border-color: WHITE;" text="Find Times" textAlignment="CENTER" textFill="WHITE" wrapText="true">
                <font>
                   <Font size="14.0" />
                </font>
@@ -127,44 +127,7 @@
                   <Font name="Arial" size="21.0" />
                </font>
             </Text>
-            <JFXPopup fx:id="popup" onMouseClicked="#makeBooking" />
-         </children>
-      </Pane>
-      <Pane fx:id="bookingPane" layoutX="220.0" layoutY="155.0" opacity="0.0" prefHeight="245.0" prefWidth="400.0">
-         <children>
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#005f61" height="245.0" stroke="WHITE" strokeType="INSIDE" width="400.0" />
-            <Label fx:id="heading" layoutX="19.0" layoutY="14.0" text="Make Booking" textFill="WHITE">
-               <font>
-                  <Font size="24.0" />
-               </font>
-            </Label>
-            <Label fx:id="setBuilding" layoutX="14.0" layoutY="60.0" prefHeight="35.0" prefWidth="170.0" textFill="WHITE">
-               <font>
-                  <Font size="16.0" />
-               </font>
-            </Label>
-            <Label fx:id="setRoom" layoutX="14.0" layoutY="120.0" prefHeight="35.0" prefWidth="170.0" textFill="WHITE">
-               <font>
-                  <Font size="16.0" />
-               </font>
-            </Label>
-            <Label fx:id="setDate" layoutX="14.0" layoutY="180.0" prefHeight="35.0" prefWidth="170.0" textFill="WHITE">
-               <font>
-                  <Font size="16.0" />
-               </font>
-            </Label>
-            <Label fx:id="setStart" layoutX="190.0" layoutY="60.0" prefHeight="35.0" prefWidth="170.0" textFill="WHITE">
-               <font>
-                  <Font size="16.0" />
-               </font>
-            </Label>
-            <Label fx:id="setEnd" layoutX="190.0" layoutY="120.0" prefHeight="35.0" prefWidth="170.0" textFill="WHITE">
-               <font>
-                  <Font size="16.0" />
-               </font>
-            </Label>
-            <JFXButton fx:id="confirmBooking" layoutX="190.0" layoutY="180.0" onAction="#makeBooking" prefHeight="50.0" prefWidth="95.0" style="-fx-border-color: WHITE;" text="Confirm Booking" textAlignment="CENTER" textFill="WHITE" wrapText="true" />
-            <JFXButton fx:id="back" layoutX="291.0" layoutY="180.0" onAction="#back" prefHeight="50.0" prefWidth="95.0" style="-fx-border-color: WHITE;" text="Back" textAlignment="CENTER" textFill="WHITE" wrapText="true" />
+            <JFXPopup fx:id="popup" />
          </children>
       </Pane>
       <Pane fx:id="detailsPane" layoutX="145.0" prefHeight="500.0" prefWidth="555.0">
@@ -214,6 +177,84 @@
                   <Font size="15.0" />
                </font>
             </Label>
+         </children>
+      </Pane>
+      <Pane fx:id="searchByTimePane" layoutX="145.0" prefHeight="500.0" prefWidth="555.0">
+         <children>
+            <JFXButton fx:id="findRoomButton" buttonType="RAISED" layoutX="14.0" layoutY="307.0" onMouseClicked="#searchByTime" prefHeight="50.0" prefWidth="140.0" style="-fx-border-color: WHITE;" text="Find Rooms" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </JFXButton>
+            <JFXComboBox fx:id="buildingBox2" layoutX="10.0" layoutY="80.0" onMouseClicked="#setBuildings" onMouseEntered="#clearLabel" prefHeight="35.0" prefWidth="200.0" promptText="Select a building" visibleRowCount="30" />
+            <TableView fx:id="resultsTable2" layoutX="228.0" layoutY="65.0" onMouseClicked="#showPopup2" prefHeight="338.0" prefWidth="324.0">
+               <columns>
+                  <TableColumn fx:id="roomCol2" prefWidth="108.0" text="Room" />
+                  <TableColumn fx:id="compCol" prefWidth="108.0" text="Computers" />
+                  <TableColumn fx:id="capCol" prefWidth="108.0" text="Capacity" />
+               </columns>
+            </TableView>
+            <Label fx:id="searchError" layoutX="10.0" layoutY="264.0" prefHeight="35.0" prefWidth="230.0" textFill="WHITE">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <JFXDatePicker fx:id="datePicker2" layoutX="4.0" layoutY="154.0" onMouseClicked="#clearLabel" prefWidth="200.0" />
+            <Label fx:id="compLabel1" layoutX="262.0" layoutY="422.0" prefHeight="30.0" prefWidth="230.0" textFill="#006064">
+               <font>
+                  <Font name="Arial" size="14.0" />
+               </font>
+            </Label>
+            <Label fx:id="capLabel1" layoutX="262.0" layoutY="452.0" prefHeight="30.0" prefWidth="230.0" textFill="#006064">
+               <font>
+                  <Font name="Arial" size="14.0" />
+               </font>
+            </Label>
+            <Text fill="WHITE" layoutX="240.0" layoutY="44.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Results:">
+               <font>
+                  <Font name="Arial" size="21.0" />
+               </font>
+            </Text>
+            <JFXPopup fx:id="popup2" />
+            <JFXComboBox fx:id="timeBox" layoutX="10.0" layoutY="217.0" onMouseEntered="#clearLabel" prefHeight="35.0" prefWidth="200.0" promptText="Select a time" visibleRowCount="30" />
+            <JFXComboBox fx:id="siteBox2" layoutX="10.0" layoutY="32.0" onMouseEntered="#clearLabel" prefHeight="35.0" prefWidth="200.0" promptText="Select a site" visibleRowCount="30" />
+         </children>
+      </Pane>
+      <Pane fx:id="bookingPane" layoutX="220.0" layoutY="155.0" prefHeight="245.0" prefWidth="400.0">
+         <children>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#005f61" height="245.0" stroke="WHITE" strokeType="INSIDE" width="400.0" />
+            <Label fx:id="heading" layoutX="19.0" layoutY="14.0" text="Make Booking" textFill="WHITE">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+            <Label fx:id="setBuilding" layoutX="14.0" layoutY="60.0" prefHeight="35.0" prefWidth="170.0" textFill="WHITE">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <Label fx:id="setRoom" layoutX="14.0" layoutY="120.0" prefHeight="35.0" prefWidth="170.0" textFill="WHITE">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <Label fx:id="setDate" layoutX="14.0" layoutY="180.0" prefHeight="35.0" prefWidth="170.0" textFill="WHITE">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <Label fx:id="setStart" layoutX="190.0" layoutY="60.0" prefHeight="35.0" prefWidth="170.0" textFill="WHITE">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <Label fx:id="setEnd" layoutX="190.0" layoutY="120.0" prefHeight="35.0" prefWidth="170.0" textFill="WHITE">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <JFXButton fx:id="confirmBooking" layoutX="190.0" layoutY="180.0" onAction="#addBookingDB" prefHeight="50.0" prefWidth="95.0" style="-fx-border-color: WHITE;" text="Confirm Booking" textAlignment="CENTER" textFill="WHITE" wrapText="true" />
+            <JFXButton fx:id="back" layoutX="291.0" layoutY="180.0" onAction="#back" prefHeight="50.0" prefWidth="95.0" style="-fx-border-color: WHITE;" text="Back" textAlignment="CENTER" textFill="WHITE" wrapText="true" />
          </children>
       </Pane>
    </children>

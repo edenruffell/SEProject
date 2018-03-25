@@ -31,14 +31,12 @@ public class Student extends User implements Initializable {
 
     @FXML private Label nameLabel;
     @FXML private Label message;
-  //  @FXML private Button requests;
     @FXML private Button logout;
     @FXML private Button settings;
     @FXML private Label allowLabel;
     @FXML private Label typeLabel;
     @FXML private Label errorLabel;
     @FXML private Label searchError;
-    @FXML private Label sTimeErr;
     @FXML private Label setRoom;
     @FXML private Label setBuilding;
     @FXML private Label setDate;
@@ -98,6 +96,8 @@ public class Student extends User implements Initializable {
     private String selectedBuilding;
     private String selectedRoom;
     private String selectedDate;
+    private String selectedTime;        
+    private Room room;
 
     protected ObservableList<RoomBooking> bookings;
     protected ObservableList<String> siteList;
@@ -108,18 +108,13 @@ public class Student extends User implements Initializable {
     protected ObservableList<Room> rooms = FXCollections.observableArrayList();
     protected StudentModel model = new StudentModel();
     
-    private Room room;
-    private String selectedTime;
     /**
      * Initialises the controller class.
      */
-    @Override
+    
+        @Override
     public void initialize(URL url, ResourceBundle rb) {
-        detailsPane.setVisible(true);
-        searchByRoomPane.setVisible(false);
-        searchByTimePane.setVisible(false);
-        bookingPane.setVisible(false);
-        viewPane.setVisible(false);
+        viewDetails();
         try {
             siteList = model.getSites();
         } catch (SQLException ex) {
@@ -132,7 +127,7 @@ public class Student extends User implements Initializable {
         initPopUp(); 
         initPopUp2();
     }
-    
+
     public void viewDetails(){
         detailsPane.setVisible(true);
         searchByRoomPane.setVisible(false);
@@ -140,68 +135,6 @@ public class Student extends User implements Initializable {
         bookingPane.setVisible(false);
         viewPane.setVisible(false);
         siteBox.setVisible(true);
-    }
-    
-    public void updatePW() throws SQLException{
-        String oldpw = this.oldpw.getText();
-        String newpw = this.newpw.getText();
-        String retype = this.retypepw.getText();
-        
-        if(oldpw.equals("")||newpw.equals("")||retype.equals(""))
-            message.setText("Password fields cannot be empty");
-        else if(!oldpw.equals(password))
-            message.setText("Old password is incorrect");
-        else if(!newpw.equals(retype))
-            message.setText("New password doesn't match retype.");
-        else{
-            password = newpw;
-            model.updatePW(username, password);
-            message.setText("Password has been changed.");
-            this.oldpw.clear();
-            this.newpw.clear();
-            this.retypepw.clear();
-        }
-    }
-
-    @Override
-    public void logout(ActionEvent event) throws IOException {
-        try {
-            Parent loginMenu = FXMLLoader.load(getClass().getResource("RegistrantView.fxml"));
-            Scene loginScene = new Scene(loginMenu);
-            Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            window.setScene(loginScene);
-            window.show();
-            model.connection.close();
-        } catch (SQLException ex) {
-            Logger.getLogger(Student.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-
-    public void setName() {
-        nameLabel.setText(fName + " " + lName);
-    }
-
-    public void setAllowanceText(String allow) {
-        allowLabel.setText("Allowance: " + allow + " hours");
-    }
-
-    @Override
-    public void setUserDetails(String[] data) {
-
-        username = data[0];
-        password = data[1];
-        fName = data[2];
-        lName = data[3];
-        userType = data[4];
-        allowance = Integer.parseInt(data[5]);
-        typeLabel.setText("Account Type: " + userType);
-        usernameLabel.setText("Username " + username);
-    }
-
-    @Override
-    public void updateAllowance(int hours) {
-        allowance = allowance + hours;
-        setAllowanceText(Integer.toString(allowance));
     }
 
     @Override
@@ -221,20 +154,6 @@ public class Student extends User implements Initializable {
         bookingTable.setItems(bookings);
     }
 
-    public void cancelBooking() throws SQLException {
-        try {
-            int selectedIndex = bookingTable.getSelectionModel().getSelectedIndex();
-            RoomBooking booking = bookings.get(selectedIndex);
-            updateAllowance(booking.getHoursBooked());
-            model.updateAllowanceDB(allowance, username);
-            model.removeBooking(booking.getID());
-            bookingTable.getItems().remove(selectedIndex);
-
-        } catch (Exception a) {
-            errorLabel.setText("No bookings have been selected.");
-        }
-    }
-
     public void viewSearchByRoom() {
         detailsPane.setVisible(false);
         searchByRoomPane.setVisible(true);
@@ -250,41 +169,22 @@ public class Student extends User implements Initializable {
         bookingPane.setVisible(false);
         viewPane.setVisible(false);
     }
-
-    public void setTimes(){        
-        for(int i=9, j=0; i<=18; i++){
-            String time;
-            if(i<10) time = "0" + i + ":00";
-            else time = i + ":00";
-            
-            timeList.add(time);
-            j++;
-        }   
-    }
-    public void setBuildings() throws SQLException {
+    
+    @Override
+    public void logout(ActionEvent event) throws IOException {
         try {
-            selectedSite = siteBox2.getSelectionModel().getSelectedItem().toString();
-            buildingList = model.getBuildings(selectedSite);
-            buildingBox2.setItems(buildingList);
-        } catch (NullPointerException e) {
-            searchError.setText("Please select a site.");
+            Parent loginMenu = FXMLLoader.load(getClass().getResource("RegistrantView.fxml"));
+            Scene loginScene = new Scene(loginMenu);
+            Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            window.setScene(loginScene);
+            window.show();
+            model.connection.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(Student.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
-    public void setRooms() throws SQLException {
-        try {
-            selectedBuilding = buildingBox.getSelectionModel().getSelectedItem().toString();
-            roomList = model.getRooms(selectedBuilding);
-            roomBox.setItems(roomList);
-        } catch (NullPointerException e) {
-            searchError.setText("Please select a building.");
-        }
-    }
-
-    public void clearLabel() {
-        searchError.setText("");
-    }
-       
+    
+    @Override
     public void searchByRooms() throws SQLException{
         resultsTable.getItems().clear();
         try{
@@ -307,7 +207,7 @@ public class Student extends User implements Initializable {
         }        
     }
     
-        @Override
+    @Override
     public void searchByTime() throws SQLException {
         resultsTable2.getItems().clear();
         try{
@@ -335,13 +235,11 @@ public class Student extends User implements Initializable {
         
     }
     
-    public void addTimes(Room r){
-        Room.Time[] list = r.getTimeArray();
-        for(int i=0; i<list.length; i++){
-            times.add(list[i]);
-        }     
+    public void addBookingDB() throws SQLException{
+        if(searchByTimePane.isVisible()) makeBooking2();
+        else makeBooking();
     }
-
+    
     @Override
     public void makeBooking() throws SQLException {
         model.saveBooking(room, setDate.getText(), this.username, setStart.getText(), setEnd.getText());
@@ -350,6 +248,152 @@ public class Student extends User implements Initializable {
         searchByRooms();
         heading.setText("Booking confirmed!");
         confirmBooking.setDisable(true);  
+    }
+    
+    public void makeBooking2() throws SQLException {
+        model.saveBooking(room, setDate.getText(), this.username, setStart.getText(), setEnd.getText());
+        updateAllowance(-1);
+        model.updateAllowanceDB(allowance, username);
+        searchByTime();
+        heading.setText("Booking confirmed!");
+        confirmBooking.setDisable(true);  
+    }
+
+    @Override
+    public void cancelBooking() throws SQLException {
+        try {
+            int selectedIndex = bookingTable.getSelectionModel().getSelectedIndex();
+            RoomBooking booking = bookings.get(selectedIndex);
+            updateAllowance(booking.getHoursBooked());
+            model.updateAllowanceDB(allowance, username);
+            model.removeBooking(booking.getID());
+            bookingTable.getItems().remove(selectedIndex);
+
+        } catch (Exception a) {
+            errorLabel.setText("No bookings have been selected.");
+        }
+    }
+    
+    public void teacherUpgrade() throws SQLException{
+        permissionRequest("Teacher");
+    }
+    
+    public void adminUpgrade() throws SQLException{
+        permissionRequest("Administrator");
+    }
+    
+    public void permissionRequest(String type) throws SQLException{
+        if(model.checkRequest(username).equals("Pending"))
+            message.setText("You currently have a pending request.");
+        else if(model.checkRequest(username).equals("Denied"))
+            message.setText("Your request has been denied. You cannot make anymore.");
+        else{
+        int ID = model.getNextRequestID("PERMISSION");
+        if(ID==-1) ID=1;
+        PermissionRequest pr = new PermissionRequest(ID, username, type);
+        model.makePermissionRequest(pr);
+        message.setText(type + " upgrade request sent.");
+        }
+    }
+    
+    @Override
+    public void updateAllowance(int hours) {
+        allowance = allowance + hours;
+        setAllowanceText(Integer.toString(allowance));
+    }
+    
+    public void updatePW() throws SQLException{
+        String oldpw = this.oldpw.getText();
+        String newpw = this.newpw.getText();
+        String retype = this.retypepw.getText();
+        
+        if(oldpw.equals("")||newpw.equals("")||retype.equals(""))
+            message.setText("Password fields cannot be empty");
+        else if(!oldpw.equals(password))
+            message.setText("Old password is incorrect");
+        else if(!newpw.equals(retype))
+            message.setText("New password doesn't match retype.");
+        else{
+            password = newpw;
+            model.updatePW(username, password);
+            message.setText("Password has been changed.");
+            this.oldpw.clear();
+            this.newpw.clear();
+            this.retypepw.clear();
+        }
+    }
+
+    @Override
+    public void setAllowanceText(String allow) {
+        allowLabel.setText("Allowance: " + allow + " hours");
+    }
+
+    @Override
+    public void setUserDetails(String[] data) {
+        username = data[0];
+        password = data[1];
+        fName = data[2];
+        lName = data[3];
+        userType = data[4];
+        allowance = Integer.parseInt(data[5]);
+        nameLabel.setText(fName + " " + lName);
+        typeLabel.setText("Account Type: " + userType);
+        usernameLabel.setText("Username " + username);
+    }
+    
+    public void setTimes(){        
+        for(int i=9, j=0; i<=18; i++){
+            String time;
+            if(i<10) time = "0" + i + ":00";
+            else time = i + ":00";
+            
+            timeList.add(time);
+            j++;
+        }
+    }
+
+    public void setBuildings() throws SQLException {
+        try {
+            selectedSite = siteBox2.getSelectionModel().getSelectedItem().toString();
+            buildingList = model.getBuildings(selectedSite);
+            buildingBox2.setItems(buildingList);
+        } catch (NullPointerException e) {
+            searchError.setText("Please select a site.");
+        }
+    }
+    
+    public void setRooms() throws SQLException {
+        try {
+            selectedBuilding = buildingBox.getSelectionModel().getSelectedItem().toString();
+            roomList = model.getRooms(selectedBuilding);
+            roomBox.setItems(roomList);
+        } catch (NullPointerException e) {
+            searchError.setText("Please select a building.");
+        }
+    }
+    
+    public void clearLabel() {
+        searchError.setText("");
+    }
+    
+    public void addTimes(Room r){
+        Room.Time[] list = r.getTimeArray();
+        for(int i=0; i<list.length; i++){
+            times.add(list[i]);
+        }     
+    }
+    
+    private String addHour(String time){
+        String[] array = time.split(":");
+        int hour = Integer.parseInt(array[0]);
+        
+        return ((hour+1) + ":00");    
+    }
+    
+    public void back(){
+        bookingPane.setVisible(false);
+        heading.setText("Make Booking?");
+        confirmBooking.setDisable(false);  
     }
     
     public void showPopup(MouseEvent e){
@@ -383,8 +427,7 @@ public class Student extends User implements Initializable {
     }
     
         public void showPopup2(MouseEvent e){
-            
-            popup2.show(JFXPopup.PopupVPosition.TOP, JFXPopup.PopupHPosition.LEFT, e.getX(), e.getY());
+        popup2.show(JFXPopup.PopupVPosition.TOP, JFXPopup.PopupHPosition.LEFT, e.getX(), e.getY());
     }
     
         private void initPopUp2() {
@@ -407,54 +450,5 @@ public class Student extends User implements Initializable {
         b.setPadding(new Insets(10));
         popup2.setContent(b);
         popup2.setSource(resultsTable2);
-    }
-        
-    public void addBookingDB() throws SQLException{
-        if(searchByTimePane.isVisible()) makeBooking2();
-        else makeBooking();
-    }
-        
-    public void makeBooking2() throws SQLException {
-        model.saveBooking(room, setDate.getText(), this.username, setStart.getText(), setEnd.getText());
-        updateAllowance(-1);
-        model.updateAllowanceDB(allowance, username);
-        searchByTime();
-        heading.setText("Booking confirmed!");
-        confirmBooking.setDisable(true);  
-    }
-
-    public void teacherUpgrade() throws SQLException{
-        permissionRequest("Teacher");
-    }
-    
-    public void adminUpgrade() throws SQLException{
-        permissionRequest("Administrator");
-    }
-    
-    public void permissionRequest(String type) throws SQLException{
-        if(model.checkRequest(username).equals("Pending"))
-            message.setText("You currently have a pending request.");
-        else if(model.checkRequest(username).equals("Denied"))
-            message.setText("Your request has been denied. You cannot make anymore.");
-        else{
-        int ID = model.getNextRequestID("PERMISSION");
-        if(ID==-1) ID=1;
-        PermissionRequest pr = new PermissionRequest(ID, username, type);
-        model.makePermissionRequest(pr);
-        message.setText(type + " upgrade request sent.");
-        }
-    }
-    
-    private String addHour(String time){
-        String[] array = time.split(":");
-        int hour = Integer.parseInt(array[0]);
-        
-        return ((hour+1) + ":00");    
-    }
-    
-    public void back(){
-        bookingPane.setVisible(false);
-        heading.setText("Make Booking?");
-        confirmBooking.setDisable(false);  
     }
 }

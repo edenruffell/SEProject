@@ -52,37 +52,43 @@ public class Registrant implements Initializable {
                 String password = pwTextField.getText();
                 String[] data = loginModel.getData(username, password);
                 
+                FXMLLoader loader = new FXMLLoader();
             if(data!=null){
-            try {
+                try {
                     if(data[4].equals("Student")){
                     //load new screen
-                    FXMLLoader loader = new FXMLLoader();
+                    
                     Parent mainMenu = loader.load(getClass().getResource("StudentView.fxml").openStream());
                     //pass on user info
                     Student main = (Student)loader.getController();
                     main.setUserDetails(data);
-                    main.setName();
                     main.setAllowanceText(data[5]);
                     Scene mainMenuScene = new Scene(mainMenu);
                     Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow();
                     window.setScene(mainMenuScene);
-                    window.show();
-                    loginModel.connection.close();
-                }else if(data[4].equals("Teacher")){
-                    //load new screen
-                    FXMLLoader loader = new FXMLLoader();
+                    }else if(data[4].equals("Teacher")){
                     Parent mainMenu = loader.load(getClass().getResource("TeacherView.fxml").openStream());
                     //pass on user info
                     Teacher main = (Teacher)loader.getController();
                     main.setUserDetails(data);
-                    main.setName();
                     main.setAllowanceText(data[5]);
                     Scene mainMenuScene = new Scene(mainMenu);
                     Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow();
                     window.setScene(mainMenuScene);
+                    window.show();   
+                    }else if(data[4].equals("Administrator")){
+                    Parent mainMenu = loader.load(getClass().getResource("AdminView.fxml").openStream());
+                    //pass on user info
+                    Administrator main = (Administrator)loader.getController();
+                    main.setUserDetails(data);
+                    Scene mainMenuScene = new Scene(mainMenu);
+                    Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow();
+                    window.setScene(mainMenuScene);
                     window.show();
-                    loginModel.connection.close();
                 }
+                
+                
+                loginModel.connection.close();
                     
                 } catch (IOException ex) {
                 Logger.getLogger(Registrant.class.getName()).log(Level.SEVERE, null, ex);
