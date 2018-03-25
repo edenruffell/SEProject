@@ -53,6 +53,65 @@
                </font>
             </JFXButton>
             <FontAwesomeIconView fill="WHITE" glyphName="COG" layoutX="104.0" layoutY="360.0" size="17" text="" />
+            <JFXButton buttonType="RAISED" layoutX="3.0" layoutY="285.0" prefHeight="35.0" prefWidth="140.0" style="-fx-border-color: WHITE;" text="Logout" textFill="WHITE">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </JFXButton>
+            <JFXButton buttonType="RAISED" layoutX="3.0" layoutY="235.0" prefHeight="35.0" prefWidth="140.0" style="-fx-border-color: WHITE;" text="Search Bookings" textFill="WHITE">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </JFXButton>
+         </children>
+      </Pane>
+      <Pane fx:id="detailsPane" layoutX="145.0" opacity="0.0" prefHeight="500.0" prefWidth="555.0">
+         <children>
+            <Text fill="WHITE" layoutX="14.0" layoutY="39.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Account Information" textAlignment="CENTER" wrappingWidth="263.6298828125">
+               <font>
+                  <Font name="Arial" size="28.0" />
+               </font>
+            </Text>
+            <Label fx:id="usernameLabel" layoutX="80.0" layoutY="80.0" prefHeight="20.0" prefWidth="400.0" textAlignment="CENTER" textFill="WHITE">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Label>
+            <Label fx:id="typeLabel" layoutX="80.0" layoutY="130.0" prefHeight="20.0" prefWidth="400.0" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+            </Label>
+            <Label layoutX="80.0" layoutY="175.0" prefHeight="20.0" prefWidth="400.0" text="Change password:" textAlignment="CENTER" textFill="WHITE">
+               <font>
+                  <Font size="17.0" />
+               </font>
+            </Label>
+            <JFXPasswordField fx:id="oldpw" focusColor="#78e4c9" labelFloat="true" layoutX="180.0" layoutY="220.0" maxWidth="200.0" minWidth="200.0" prefHeight="33.0" prefWidth="200.0" promptText="Enter old password" unFocusColor="#78e4c9">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </JFXPasswordField>
+            <JFXPasswordField fx:id="newpw" focusColor="#78e4c9" labelFloat="true" layoutX="80.0" layoutY="280.0" maxWidth="200.0" minWidth="200.0" prefHeight="33.0" prefWidth="200.0" promptText="Enter new password" unFocusColor="#78e4c9">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </JFXPasswordField>
+            <JFXPasswordField fx:id="retypepw" focusColor="#78e4c9" labelFloat="true" layoutX="280.0" layoutY="280.0" maxWidth="200.0" minWidth="200.0" prefHeight="33.0" prefWidth="200.0" promptText="Retype new password" unFocusColor="#78e4c9">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </JFXPasswordField>
+            <JFXButton fx:id="savepw" buttonType="RAISED" layoutX="203.0" layoutY="328.0" onAction="#updatePW" prefHeight="35.0" prefWidth="150.0" style="-fx-border-color: WHITE;" text="Save password" textFill="WHITE">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </JFXButton>
+            <Label fx:id="message" layoutX="85.0" layoutY="455.0" prefHeight="20.0" prefWidth="400.0" textAlignment="CENTER" textFill="WHITE">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Label>
          </children>
       </Pane>
       <Pane fx:id="viewPane" layoutX="145.0" opacity="0.0" prefHeight="500.0" prefWidth="555.0">
@@ -119,64 +178,5 @@
             <JFXPopup fx:id="popup" onMouseClicked="#makeBooking" />
          </children>
       </Pane>
-      <Pane fx:id="detailsPane" layoutX="145.0" prefHeight="500.0" prefWidth="555.0">
-         <children>
-            <Text fill="WHITE" layoutX="14.0" layoutY="39.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Account Information" textAlignment="CENTER" wrappingWidth="263.6298828125">
-               <font>
-                  <Font name="Arial" size="28.0" />
-               </font>
-            </Text>
-            <Label fx:id="usernameLabel" layoutX="80.0" layoutY="80.0" prefHeight="20.0" prefWidth="400.0" textAlignment="CENTER" textFill="WHITE">
-               <font>
-                  <Font size="15.0" />
-               </font>
-            </Label>
-            <Label fx:id="typeLabel" layoutX="80.0" layoutY="130.0" prefHeight="20.0" prefWidth="400.0" textFill="WHITE">
-               <font>
-                  <Font name="System Bold" size="15.0" />
-               </font>
-            </Label>
-            <Label layoutX="80.0" layoutY="175.0" prefHeight="20.0" prefWidth="400.0" text="Change password:" textAlignment="CENTER" textFill="WHITE">
-               <font>
-                  <Font size="17.0" />
-               </font>
-            </Label>
-            <JFXPasswordField fx:id="oldpw" focusColor="#78e4c9" labelFloat="true" layoutX="180.0" layoutY="220.0" maxWidth="200.0" minWidth="200.0" prefHeight="33.0" prefWidth="200.0" promptText="Enter old password" unFocusColor="#78e4c9">
-               <font>
-                  <Font size="14.0" />
-               </font>
-            </JFXPasswordField>
-            <JFXPasswordField fx:id="newpw" focusColor="#78e4c9" labelFloat="true" layoutX="80.0" layoutY="280.0" maxWidth="200.0" minWidth="200.0" prefHeight="33.0" prefWidth="200.0" promptText="Enter new password" unFocusColor="#78e4c9">
-               <font>
-                  <Font size="14.0" />
-               </font>
-            </JFXPasswordField>
-            <JFXPasswordField fx:id="retypepw" focusColor="#78e4c9" labelFloat="true" layoutX="280.0" layoutY="280.0" maxWidth="200.0" minWidth="200.0" prefHeight="33.0" prefWidth="200.0" promptText="Retype new password" unFocusColor="#78e4c9">
-               <font>
-                  <Font size="14.0" />
-               </font>
-            </JFXPasswordField>
-            <JFXButton fx:id="savepw" buttonType="RAISED" layoutX="203.0" layoutY="328.0" onAction="#updatePW" prefHeight="35.0" prefWidth="150.0" style="-fx-border-color: WHITE;" text="Save password" textFill="WHITE">
-               <font>
-                  <Font size="14.0" />
-               </font>
-            </JFXButton>
-            <Label fx:id="message" layoutX="85.0" layoutY="455.0" prefHeight="20.0" prefWidth="400.0" textAlignment="CENTER" textFill="WHITE">
-               <font>
-                  <Font size="15.0" />
-               </font>
-            </Label>
-         </children>
-      </Pane>
-      <JFXButton buttonType="RAISED" layoutX="3.0" layoutY="235.0" prefHeight="35.0" prefWidth="140.0" style="-fx-border-color: WHITE;" text="Search Bookings" textFill="WHITE">
-         <font>
-            <Font size="14.0" />
-         </font>
-      </JFXButton>
-      <JFXButton buttonType="RAISED" layoutX="3.0" layoutY="285.0" prefHeight="35.0" prefWidth="140.0" style="-fx-border-color: WHITE;" text="Logout" textFill="WHITE">
-         <font>
-            <Font size="14.0" />
-         </font>
-      </JFXButton>
    </children>
 </AnchorPane>

@@ -17,7 +17,8 @@ abstract class User {
     abstract void setAllowanceText(String allow);
     abstract void updateAllowance(int hours);
     abstract void cancelBooking() throws SQLException;
-    abstract void searchRooms() throws SQLException;
+    abstract void searchByRooms() throws SQLException;
+    abstract void searchByTime() throws SQLException;
     abstract void makeBooking() throws SQLException;
 }
 

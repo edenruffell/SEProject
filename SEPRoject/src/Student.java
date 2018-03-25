@@ -38,6 +38,7 @@ public class Student extends User implements Initializable {
     @FXML private Label typeLabel;
     @FXML private Label errorLabel;
     @FXML private Label searchError;
+    @FXML private Label sTimeErr;
     @FXML private Label setRoom;
     @FXML private Label setBuilding;
     @FXML private Label setDate;
@@ -56,7 +57,7 @@ public class Student extends User implements Initializable {
     @FXML private TableColumn<RoomBooking, String> sTimeCol;
     @FXML private TableColumn<RoomBooking, String> eTimeCol;
 
-    @FXML private Pane searchTimePane;
+    @FXML private Pane searchByRoomPane;
     @FXML private Label compLabel;
     @FXML private Label capLabel;
     @FXML private JFXComboBox siteBox;
@@ -80,29 +81,43 @@ public class Student extends User implements Initializable {
     @FXML private JFXButton adminUpgrade;
     @FXML private JFXButton savepw;
     
-    
+    @FXML private Pane searchByTimePane;
+    @FXML private JFXComboBox siteBox2;
+    @FXML private JFXComboBox buildingBox2;
+    @FXML private JFXComboBox timeBox;
+    @FXML private JFXButton findRoomButton;
+    @FXML private JFXButton back2;
+    @FXML private JFXDatePicker datePicker2;
+    @FXML private TableView<Room> resultsTable2;
+    @FXML private TableColumn<Room, String> roomCol2;
+    @FXML private TableColumn<Room, String> compCol;
+    @FXML private TableColumn<Room, String> capCol;
+    @FXML private JFXPopup popup2;
+   
     private String selectedSite;
     private String selectedBuilding;
     private String selectedRoom;
     private String selectedDate;
-    private String selectedStartTime;
-    private String selectedEndTime;
 
     protected ObservableList<RoomBooking> bookings;
     protected ObservableList<String> siteList;
+    protected ObservableList<String> timeList = FXCollections.observableArrayList();
     protected ObservableList<String> buildingList = FXCollections.observableArrayList();
     protected ObservableList<String> roomList = FXCollections.observableArrayList();
     protected ObservableList<Room.Time> times = FXCollections.observableArrayList();
+    protected ObservableList<Room> rooms = FXCollections.observableArrayList();
     protected StudentModel model = new StudentModel();
     
     private Room room;
+    private String selectedTime;
     /**
      * Initialises the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         detailsPane.setVisible(true);
-        searchTimePane.setVisible(false);
+        searchByRoomPane.setVisible(false);
+        searchByTimePane.setVisible(false);
         bookingPane.setVisible(false);
         viewPane.setVisible(false);
         try {
@@ -111,14 +126,20 @@ public class Student extends User implements Initializable {
             Logger.getLogger(Student.class.getName()).log(Level.SEVERE, null, ex);
         }
         siteBox.setItems(siteList);
-        initPopUp();
+        siteBox2.setItems(siteList);
+        setTimes();
+        timeBox.setItems(timeList);
+        initPopUp(); 
+        initPopUp2();
     }
     
     public void viewDetails(){
         detailsPane.setVisible(true);
-        searchTimePane.setVisible(false);
+        searchByRoomPane.setVisible(false);
+        searchByTimePane.setVisible(false);
         bookingPane.setVisible(false);
-        viewPane.setVisible(false);  
+        viewPane.setVisible(false);
+        siteBox.setVisible(true);
     }
     
     public void updatePW() throws SQLException{
@@ -186,7 +207,8 @@ public class Student extends User implements Initializable {
     @Override
     public void viewBookings() throws SQLException {
         detailsPane.setVisible(false);
-        searchTimePane.setVisible(false);
+        searchByRoomPane.setVisible(false);
+        searchByTimePane.setVisible(false);
         bookingPane.setVisible(false);
         viewPane.setVisible(true); 
         bookings = model.getBooking(username);
@@ -213,18 +235,37 @@ public class Student extends User implements Initializable {
         }
     }
 
-    public void search() {
+    public void viewSearchByRoom() {
         detailsPane.setVisible(false);
-        searchTimePane.setVisible(true);
+        searchByRoomPane.setVisible(true);
+        searchByTimePane.setVisible(false);
         bookingPane.setVisible(false);
-        viewPane.setVisible(false); 
+        viewPane.setVisible(false);
+    }
+    
+    public void viewSearchByTime(){
+        detailsPane.setVisible(false);
+        searchByRoomPane.setVisible(false);
+        searchByTimePane.setVisible(true);
+        bookingPane.setVisible(false);
+        viewPane.setVisible(false);
     }
 
+    public void setTimes(){        
+        for(int i=9, j=0; i<=18; i++){
+            String time;
+            if(i<10) time = "0" + i + ":00";
+            else time = i + ":00";
+            
+            timeList.add(time);
+            j++;
+        }   
+    }
     public void setBuildings() throws SQLException {
         try {
-            selectedSite = siteBox.getSelectionModel().getSelectedItem().toString();
+            selectedSite = siteBox2.getSelectionModel().getSelectedItem().toString();
             buildingList = model.getBuildings(selectedSite);
-            buildingBox.setItems(buildingList);
+            buildingBox2.setItems(buildingList);
         } catch (NullPointerException e) {
             searchError.setText("Please select a site.");
         }
@@ -244,7 +285,7 @@ public class Student extends User implements Initializable {
         searchError.setText("");
     }
        
-    public void searchRooms() throws SQLException{
+    public void searchByRooms() throws SQLException{
         resultsTable.getItems().clear();
         try{
             selectedRoom = roomBox.getSelectionModel().getSelectedItem().toString();
@@ -253,7 +294,7 @@ public class Student extends User implements Initializable {
         }
         try {
             selectedDate = datePicker.getValue().toString();
-            room = model.searchRooms(selectedSite, selectedBuilding, selectedRoom, selectedDate);
+            room = model.searchByRooms(selectedSite, selectedBuilding, selectedRoom, selectedDate);
             addTimes(room);
             timeCol.setCellValueFactory(new PropertyValueFactory<>("Time"));
             availableCol.setCellValueFactory(new PropertyValueFactory<>("Available"));
@@ -264,6 +305,34 @@ public class Student extends User implements Initializable {
             searchError.setText("Please select a date.");
             return;
         }        
+    }
+    
+        @Override
+    public void searchByTime() throws SQLException {
+        resultsTable2.getItems().clear();
+        try{
+            selectedBuilding = buildingBox2.getSelectionModel().getSelectedItem().toString();
+        }catch(NullPointerException e){
+            searchError.setText("Please select a building.");
+        }
+        try{
+            selectedTime = timeBox.getSelectionModel().getSelectedItem().toString();
+        } catch (NullPointerException e) {
+            searchError.setText("Please select a time.");
+        }
+        try {
+            selectedDate = datePicker2.getValue().toString();
+            rooms = model.searchByTime(selectedSite, selectedBuilding, selectedTime, selectedDate);
+            roomCol2.setCellValueFactory(new PropertyValueFactory<>("Name"));
+            compCol.setCellValueFactory(new PropertyValueFactory<>("Computers"));
+            capCol.setCellValueFactory(new PropertyValueFactory<>("Capacity"));
+            resultsTable2.setItems(rooms);
+        }catch(NullPointerException e){
+            e.printStackTrace();
+            searchError.setText("Please select a date.");
+            return;
+        }         
+        
     }
     
     public void addTimes(Room r){
@@ -278,12 +347,9 @@ public class Student extends User implements Initializable {
         model.saveBooking(room, setDate.getText(), this.username, setStart.getText(), setEnd.getText());
         updateAllowance(-1);
         model.updateAllowanceDB(allowance, username);
-        room = model.searchRooms(selectedSite, selectedBuilding, selectedRoom, selectedDate);
-        resultsTable.getItems().clear();
-        addTimes(room);
+        searchByRooms();
         heading.setText("Booking confirmed!");
-        confirmBooking.setDisable(true);
-        
+        confirmBooking.setDisable(true);  
     }
     
     public void showPopup(MouseEvent e){
@@ -314,6 +380,47 @@ public class Student extends User implements Initializable {
         b.setPadding(new Insets(10));
         popup.setContent(b);
         popup.setSource(resultsTable);
+    }
+    
+        public void showPopup2(MouseEvent e){
+            
+            popup2.show(JFXPopup.PopupVPosition.TOP, JFXPopup.PopupHPosition.LEFT, e.getX(), e.getY());
+    }
+    
+        private void initPopUp2() {
+        JFXButton b = new JFXButton("Make Booking?");
+        b.setOnAction(new EventHandler<ActionEvent>() {
+        @Override
+        public void handle(ActionEvent event) {
+            int index = resultsTable2.getSelectionModel().getSelectedIndex();
+            room = rooms.get(index);
+            popup2.close();
+            setBuilding.setText(buildingBox2.getSelectionModel().getSelectedItem().toString());
+            setRoom.setText("Room: " + rooms.get(index).getName());
+            setDate.setText(datePicker2.getValue().toString());
+            setStart.setText(timeBox.getSelectionModel().getSelectedItem().toString());
+            setEnd.setText(addHour(timeBox.getSelectionModel().getSelectedItem().toString()));
+            bookingPane.setVisible(true);
+        }
+    });
+        b.setStyle("-fx-background-color: #ffffff; ");
+        b.setPadding(new Insets(10));
+        popup2.setContent(b);
+        popup2.setSource(resultsTable2);
+    }
+        
+    public void addBookingDB() throws SQLException{
+        if(searchByTimePane.isVisible()) makeBooking2();
+        else makeBooking();
+    }
+        
+    public void makeBooking2() throws SQLException {
+        model.saveBooking(room, setDate.getText(), this.username, setStart.getText(), setEnd.getText());
+        updateAllowance(-1);
+        model.updateAllowanceDB(allowance, username);
+        searchByTime();
+        heading.setText("Booking confirmed!");
+        confirmBooking.setDisable(true);  
     }
 
     public void teacherUpgrade() throws SQLException{
@@ -347,6 +454,7 @@ public class Student extends User implements Initializable {
     
     public void back(){
         bookingPane.setVisible(false);
+        heading.setText("Make Booking?");
+        confirmBooking.setDisable(false);  
     }
-
 }

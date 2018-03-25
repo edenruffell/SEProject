@@ -83,8 +83,6 @@ public class Teacher extends User implements Initializable {
     private String selectedBuilding;
     private String selectedRoom;
     private String selectedDate;
-    private String selectedStartTime;
-    private String selectedEndTime;
 
     protected ObservableList<RoomBooking> bookings;
     protected ObservableList<String> siteList;
@@ -276,8 +274,7 @@ public class Teacher extends User implements Initializable {
         resultsTable.getItems().clear();
         addTimes(room);
         heading.setText("Booking confirmed!");
-        confirmBooking.setDisable(true);
-        
+        confirmBooking.setDisable(true);  
     }
     
     public void showPopup(MouseEvent e){
@@ -347,7 +344,6 @@ public class Teacher extends User implements Initializable {
          
     }     
          
-         
     public void makeOverrideRequest() throws SQLException{
 
         String requestType = "Repeat Booking";
@@ -370,5 +366,15 @@ public class Teacher extends User implements Initializable {
         }     
          
     }    
+
+    @Override
+    void searchByRooms() throws SQLException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    void searchByTime() throws SQLException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }
 

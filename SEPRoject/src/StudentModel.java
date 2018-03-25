@@ -153,15 +153,15 @@ public class StudentModel {
         return list;
     }
 
-    public Room searchRooms(String site, String building, String room, String date) throws SQLException {
+    public Room searchByRooms(String site, String building, String room, String date) throws SQLException {
         Room r = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
         
         String query = "SELECT ROOM, CAPACITY, COMPUTERS FROM ROOMS"
                 + " WHERE SITE = ?"
-                + "AND BUILDING = ? "
-                + "AND ROOM = ?";
+                + " AND BUILDING = ?"
+                + " AND ROOM = ?";
 
         try {
             ps = connection.prepareStatement(query);
@@ -187,6 +187,86 @@ public class StudentModel {
             rs.close();
             return r;
         }
+    }
+    
+    public ObservableList<Room> searchByTime(String site, String building, String sTime, String date) throws SQLException{        
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        Room r = null;
+        ObservableList<Room> list = FXCollections.observableArrayList();
+        ObservableList<String> taken;
+        
+        String query = "SELECT ROOM, CAPACITY, COMPUTERS FROM ROOMS"
+                + " WHERE SITE = ?"
+                + " AND BUILDING = ?";
+        
+        try {
+            ps = connection.prepareStatement(query);
+            ps.setString(1, site);
+            ps.setString(2, building);
+
+            rs = ps.executeQuery();
+            
+            taken = getBookedRooms(building, sTime, date);
+            int pos = -1;
+            
+            while(rs.next()) {
+                String name = rs.getString("ROOM");
+                for(int i=0;i<taken.size(); i++){
+                    if(name.equals(taken.get(i))){
+                        pos = i;
+                        break;
+                    }
+                }
+                
+                if(pos==-1){
+                    r = new Room(site, building, name,
+                    rs.getInt("CAPACITY"),
+                    rs.getString("COMPUTERS"));
+                        
+                    list.add(r);    
+                }
+                
+                pos=-1;
+            }
+            
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            return null;
+        } finally {
+            ps.close();
+            rs.close();
+            return list;
+        }   
+    }
+    
+    public ObservableList<String> getBookedRooms(String building, String sTime, String date) throws SQLException{
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        ObservableList<String> taken = FXCollections.observableArrayList();
+        
+        String query = "SELECT ROOM FROM BOOKING"
+                + " WHERE BUILDING = ?"
+                + " AND STIME = ?"
+                + " AND DATE = ?";
+        try {
+            ps = connection.prepareStatement(query);
+            ps.setString(1, building);
+            ps.setString(2, sTime);
+            ps.setString(3, date);
+
+            rs = ps.executeQuery();
+            while(rs.next()){
+                taken.add(rs.getString("ROOM"));
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            return null;
+        } finally {
+            ps.close();
+            rs.close();
+            return taken;
+        } 
     }
     
     public Room setBookedTimes(Room r, String building, String room, String date){
@@ -259,6 +339,7 @@ public class StudentModel {
         String query = "INSERT INTO BOOKING VALUES(?, ?, ?, ?, ?, ?, ?)";
         
         int last = getLastID();
+        if(last==-1) last = 1;
         
         try {
             ps = connection.prepareStatement(query);
@@ -305,7 +386,6 @@ public class StudentModel {
     }
     
     public void updatePW(String username, String pw) throws SQLException{
-        System.out.println("enter");
         PreparedStatement preparedS = null;
 
         String query = "UPDATE USER SET PASSWORD = ? "
@@ -363,7 +443,7 @@ public class StudentModel {
                     
             ps1.setInt(1, pr.getID());
             ps1.setString(2, pr.getUser());
-            ps1.setString(3, pr.getType());
+            ps1.setString(3, pr.getUpgradeType());
             ps1.setString(4, pr.getStatus());
             
             // update 
