@@ -16,4 +16,8 @@ public class OverrideRequest extends Request{
     return status;
     }
     
+    public String getName(){
+    
+    return roombooking.getOwner();
+    }
 }
