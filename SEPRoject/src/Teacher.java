@@ -465,12 +465,12 @@ public class Teacher extends User implements Initializable {
 
         }catch(NullPointerException e){
             errorLabel.setText("Please enter a start and end date.");
-            return;
-                
+            return;     
         }
          
             rbr = new RepeatBookingRequest(booking.getID(),booking,  startDate,  endDate);
             model.makeRepeatBookingRequest(rbr);
+            errorLabel.setText("Request made successfully!");
     }
          
     public void makeOverrideRequest() throws SQLException{
