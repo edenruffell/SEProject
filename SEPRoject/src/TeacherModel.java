@@ -86,6 +86,8 @@ public class TeacherModel extends StudentModel{
             preparedS.setString(4, or.getRoomBooking().getRoom());
             preparedS.setString(5, or.getRoomBooking().getStartTime());
             preparedS.setString(6, or.getRoomBooking().getEndTime());
+            preparedS.setString(7, "Pending");
+            
           
             
                     
