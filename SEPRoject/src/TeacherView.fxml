@@ -136,7 +136,7 @@
                   <Font name="Arial" size="21.0" />
                </font>
             </Text>
-            <Label fx:id="errorLabel" layoutX="293.0" layoutY="40.0" prefHeight="23.0" prefWidth="230.0" wrapText="true" />
+            <Label fx:id="errorLabel" layoutX="293.0" layoutY="40.0" prefHeight="23.0" prefWidth="230.0" textFill="WHITE" wrapText="true" />
             <JFXButton fx:id="repeatBooking" layoutY="443.0" onAction="#makeRepeatBookingRequest" prefHeight="50.0" prefWidth="117.0" style="-fx-border-color: WHITE;" text="Repeat Booking Request" textAlignment="CENTER" textFill="#00606f" wrapText="true" />
             <JFXDatePicker fx:id="repeatStartDate" layoutX="117.0" layoutY="459.0" prefHeight="33.0" prefWidth="150.0" />
             <JFXDatePicker fx:id="repeatEndDate" layoutX="258.0" layoutY="459.0" prefHeight="33.0" prefWidth="150.0" />

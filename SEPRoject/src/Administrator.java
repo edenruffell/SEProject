@@ -179,7 +179,7 @@ public class Administrator implements Initializable {
         idCol.setCellValueFactory(new PropertyValueFactory<>("ID"));
         userCol.setCellValueFactory(new PropertyValueFactory<>("Owner"));
         buildCol.setCellValueFactory(new PropertyValueFactory<>("building"));
-        roomCol.setCellValueFactory(new PropertyValueFactory<>("name"));
+        bRoomCol.setCellValueFactory(new PropertyValueFactory<>("Room"));
         dateCol.setCellValueFactory(new PropertyValueFactory<>("date"));
         sTimeCol.setCellValueFactory(new PropertyValueFactory<>("startTime"));
         eTimeCol.setCellValueFactory(new PropertyValueFactory<>("endTime"));
