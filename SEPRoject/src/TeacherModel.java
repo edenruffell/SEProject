@@ -62,7 +62,7 @@ public class TeacherModel extends StudentModel{
            
         }
     }
-        public void makeOverrideRequest(OverrideRequest obr) throws SQLException{
+        public void makeOverrideRequest(OverrideRequest or) throws SQLException{
 
             
            
@@ -80,12 +80,12 @@ public class TeacherModel extends StudentModel{
            
 
             // set the corresponding param
-            preparedS.setInt(1, obr.roombooking.getID());
-            preparedS.setString(2,obr.roombooking.getOwner());
-            preparedS.setString(3, obr.roombooking.getBuilding());
-            preparedS.setString(4, obr.roombooking.getRoom());
-            preparedS.setString(5, obr.roombooking.getStartTime());
-            preparedS.setString(6, obr.roombooking.getEndTime());
+            preparedS.setInt(1, or.getRoomBooking().getID());
+            preparedS.setString(2,or.getRoomBooking().getOwner());
+            preparedS.setString(3, or.getRoomBooking().getBuilding());
+            preparedS.setString(4, or.getRoomBooking().getRoom());
+            preparedS.setString(5, or.getRoomBooking().getStartTime());
+            preparedS.setString(6, or.getRoomBooking().getEndTime());
           
             
                     

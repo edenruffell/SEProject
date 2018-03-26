@@ -382,7 +382,6 @@ public class StudentModel {
             Logger.getLogger(StudentModel.class.getName()).log(Level.SEVERE, null, ex);
         }
         return last;
-
     }
     
     public void updatePW(String username, String pw) throws SQLException{

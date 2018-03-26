@@ -465,7 +465,7 @@ public class Teacher extends User implements Initializable {
             roombooking = bookings.get(selectedIndex);
            // model.update(allowance, username);
         
-            or = new OverrideRequest( roombooking.getID(),username, roombooking);
+            or = new OverrideRequest( roombooking.getID(), roombooking);
             model.makeOverrideRequest(or);
             
             

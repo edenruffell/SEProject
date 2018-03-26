@@ -54,6 +54,43 @@ public class AdminModel {
         }       
     }
     
+    public ObservableList<OverrideRequest> getOverrides() throws SQLException{
+        ObservableList<OverrideRequest> list = FXCollections.observableArrayList();
+        OverrideRequest or = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        RoomBooking rb;
+        
+        String query = "SELECT * FROM OVERRIDE";
+        
+        try{
+            ps = connection.prepareStatement(query);
+            rs = ps.executeQuery();
+            while(rs.next()) {
+                
+                int ID = rs.getInt("ID");
+                String user = rs.getString("NAME");
+                String building = rs.getString("BUILDING");
+                String room = rs.getString("ROOM");
+                String date = rs.getString("DATE");
+                String sTime = rs.getString("STIME");
+                String eTime = addHour(sTime);
+                
+               rb = new RoomBooking(getLastID(), user, building, room, date, sTime, eTime);
+               or = new OverrideRequest(ID, rb, rs.getString("STATUS"));
+               list.add(or);
+            }
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            return null;
+        } finally {
+            ps.close();
+            rs.close();
+            return list;
+        }       
+    }
+    
     public void removePRequest(PermissionRequest pr, String status) throws SQLException{
         System.out.println("Entering");
         PreparedStatement ps = null;
@@ -64,14 +101,12 @@ public class AdminModel {
                 + " WHERE USERNAME = ?";
         try {
             ps = connection.prepareStatement(query);
-            System.out.println("Query1: " + status + " " + pr.getUser());
             // set the corresponding param
             ps.setString(1, status);
             ps.setString(2, pr.getUser());
             // update 
             ps.executeUpdate();
             if(status.equals("Approved")){
-                System.out.println("Approved. Update user details");
                 ps.close();
                 ps = connection.prepareStatement(query2);
                 ps.setString(1, pr.getUpgradeType());
@@ -79,16 +114,12 @@ public class AdminModel {
                 ps.executeUpdate();
             }
             else if(status.equals("Denied")){
-            System.out.println("Denied.");
                 ps.close();
                 ps = connection.prepareStatement(query2);
                 ps.setString(1,"Student");
                 ps.setString(2, pr.getUser());
                 ps.executeUpdate();
-            
-            
-            }
-            
+            }  
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         } finally {
@@ -180,33 +211,38 @@ public class AdminModel {
     }
     
     
-     public void removeORequest(OverrideRequest or, String status) throws SQLException{
-        System.out.println("Entering");
+    public void removeORequest(OverrideRequest or, String status) throws SQLException{
         PreparedStatement ps = null;
 
         String query = "UPDATE OVERRIDE SET STATUS = ? "
-                + " WHERE NAME = ?";
+                + " WHERE ID = ?";
         
        
-        String query2 = "UPDATE BOOKING SET USER = ?";
+        String query2 = "INSERT INTO BOOKING VALUES (?, ?, ?, ?, ?, ?, ?)";
                 
         try {
             ps = connection.prepareStatement(query);
             
             // set the corresponding param
             ps.setString(1, status);
-            ps.setString(2, or.getName());
+            ps.setInt(2, or.getID());
             // update 
             ps.executeUpdate();
             if(status.equals("Approved")){
-                System.out.println("Approved override request");
                 ps.close();
                 ps = connection.prepareStatement(query2);
-                ps.setString(1, or.getName());
+                ps.setInt(1, getLastID());
+                String sTime = or.getRoomBooking().getStartTime();
+                
+                ps.setString(2, or.getRoomBooking().getOwner());
+                ps.setString(3, or.getRoomBooking().getBuilding());
+                ps.setString(4, or.getRoomBooking().getRoom());
+                ps.setString(5, or.getRoomBooking().getDate());
+                ps.setString(6, sTime);
+                ps.setString(7, addHour(sTime));
                 ps.executeUpdate();
             }
             else if(status.equals("Denied")){
-            System.out.println("Denied.");
                 ps.close();
             }
             
@@ -217,12 +253,7 @@ public class AdminModel {
         }
     }
     
-    
-    
-    
-    
-    
-    
+   
     
     public void updatePW(String username, String pw) throws SQLException{
         PreparedStatement preparedS = null;
@@ -242,5 +273,36 @@ public class AdminModel {
         } finally {
             preparedS.close();
         }
+    }
+    
+    private String addHour(String time){
+        String[] array = time.split(":");
+        int hour = Integer.parseInt(array[0]);
+        
+        return ((hour+1) + ":00");    
+    }
+    
+    private int getLastID(){
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        int last = -1;
+        try {
+            String query = "SELECT * FROM BOOKING"
+                    + " ORDER BY ID DESC LIMIT 1;";
+            
+            ps = connection.prepareStatement(query);
+            rs = ps.executeQuery();
+            
+            if(rs.next()) {
+                last = rs.getInt("ID") + 1;
+            }
+            
+            ps.close();
+            rs.close();
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(StudentModel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return last;
     }
 }
