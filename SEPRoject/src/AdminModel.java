@@ -113,7 +113,6 @@ public class AdminModel {
                 String eDate = rs.getString("EDATE");
                 String sTime = rs.getString("STIME");
                 String eTime = addHour(sTime);
-                
                rb = new RoomBooking(getLastID(), user, building, room, sDate, sTime, eTime);
                rbr = new RepeatBookingRequest(ID, rb, sDate, eDate, rs.getString("STATUS"));
                list.add(rbr);

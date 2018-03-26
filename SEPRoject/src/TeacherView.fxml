@@ -137,7 +137,7 @@
                </font>
             </Text>
             <Label fx:id="errorLabel" layoutX="293.0" layoutY="40.0" prefHeight="23.0" prefWidth="230.0" wrapText="true" />
-            <JFXButton fx:id="repeatBooking" layoutY="443.0" prefHeight="50.0" prefWidth="117.0" style="-fx-border-color: WHITE;" text="Repeat Booking Request" textAlignment="CENTER" textFill="#00606f" wrapText="true" />
+            <JFXButton fx:id="repeatBooking" layoutY="443.0" onAction="#makeRepeatBookingRequest" prefHeight="50.0" prefWidth="117.0" style="-fx-border-color: WHITE;" text="Repeat Booking Request" textAlignment="CENTER" textFill="#00606f" wrapText="true" />
             <JFXDatePicker fx:id="repeatStartDate" layoutX="117.0" layoutY="459.0" prefHeight="33.0" prefWidth="150.0" />
             <JFXDatePicker fx:id="repeatEndDate" layoutX="258.0" layoutY="459.0" prefHeight="33.0" prefWidth="150.0" />
          </children>
@@ -185,12 +185,12 @@
       </Pane>
       <Pane fx:id="searchByRoomPane" layoutX="145.0" prefHeight="500.0" prefWidth="555.0">
          <children>
-            <JFXButton fx:id="overrideBooking" buttonType="RAISED" layoutX="14.0" layoutY="378.0" onAction="#makeOverrideRequest" onMouseClicked="#searchByRooms" prefHeight="50.0" prefWidth="140.0" style="-fx-border-color: WHITE;" text="Override Booking" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+            <JFXButton fx:id="overrideBooking" buttonType="RAISED" layoutX="14.0" layoutY="425.0" onAction="#makeOverrideRequest" onMouseClicked="#searchByRooms" prefHeight="50.0" prefWidth="140.0" style="-fx-border-color: WHITE;" text="Override Booking" textAlignment="CENTER" textFill="WHITE" wrapText="true">
                <font>
                   <Font size="14.0" />
                </font>
             </JFXButton>
-            <JFXButton fx:id="findTimeButton" buttonType="RAISED" layoutX="14.0" layoutY="307.0" onMouseClicked="#searchByRooms" prefHeight="50.0" prefWidth="140.0" style="-fx-border-color: WHITE;" text="Find Times" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+            <JFXButton fx:id="findTimeButton" buttonType="RAISED" layoutX="14.0" layoutY="354.0" onMouseClicked="#searchByRooms" prefHeight="50.0" prefWidth="140.0" style="-fx-border-color: WHITE;" text="Find Times" textAlignment="CENTER" textFill="WHITE" wrapText="true">
                <font>
                   <Font size="14.0" />
                </font>
@@ -204,7 +204,7 @@
                   <TableColumn fx:id="availableCol" editable="false" prefWidth="113.0" sortable="false" text="Available" />
                </columns>
             </TableView>
-            <Label fx:id="searchError" layoutX="10.0" layoutY="264.0" prefHeight="35.0" prefWidth="230.0" textFill="WHITE">
+            <Label fx:id="searchError" layoutX="10.0" layoutY="264.0" prefHeight="75.0" prefWidth="230.0" textFill="WHITE" wrapText="true">
                <font>
                   <Font size="14.0" />
                </font>
