@@ -30,6 +30,7 @@ public class Administrator implements Initializable {
     @FXML private Label usernameLabel;
     @FXML private Label message;
     @FXML private Label requestErr;
+    @FXML private Label errorLabel;
     @FXML private JFXPasswordField oldpw; 
     @FXML private JFXPasswordField newpw;
     @FXML private JFXPasswordField retypepw;
@@ -56,6 +57,15 @@ public class Administrator implements Initializable {
     @FXML private TableColumn<OverrideRequest, String> oSTimeCol;
     @FXML private TableColumn<OverrideRequest, String> oStatusCol;
     @FXML private TableView repeatTable;
+    @FXML private TableColumn<RepeatBookingRequest, String> rIDCol;
+    @FXML private TableColumn<RepeatBookingRequest, String> rUserCol;
+    @FXML private TableColumn<RepeatBookingRequest, String> rBuildingCol;
+    @FXML private TableColumn<RepeatBookingRequest, String> rRoomCol;
+    @FXML private TableColumn<RepeatBookingRequest, String> rSDateCol;
+    @FXML private TableColumn<RepeatBookingRequest, String> rEDateCol;
+    @FXML private TableColumn<RepeatBookingRequest, String> rSTimeCol;
+    @FXML private TableColumn<RepeatBookingRequest, String> rETimeCol;
+    @FXML private TableColumn<RepeatBookingRequest, String> rStatusCol;
     @FXML private TableView permissionTable;
     @FXML private TableColumn<PermissionRequest, Integer> pIDCol;
     @FXML private TableColumn<PermissionRequest, String> pUserCol;
@@ -131,6 +141,24 @@ public class Administrator implements Initializable {
         oSTimeCol.setCellValueFactory(new PropertyValueFactory<>("StartTime"));
         oStatusCol.setCellValueFactory(new PropertyValueFactory<>("Status"));
         overrideTable.setItems(overrides); 
+    }
+  
+    public void viewRRequests() throws SQLException{
+        overrideTable.setVisible(false);
+        repeatTable.setVisible(true);
+        permissionTable.setVisible(false);
+        repeatTable.getItems().clear();
+        repeats = model.getRepeats();
+        rIDCol.setCellValueFactory(new PropertyValueFactory<>("ID"));
+        rUserCol.setCellValueFactory(new PropertyValueFactory<>("User"));
+        rBuildingCol.setCellValueFactory(new PropertyValueFactory<>("Building"));
+        rRoomCol.setCellValueFactory(new PropertyValueFactory<>("Room"));
+        rSDateCol.setCellValueFactory(new PropertyValueFactory<>("StartDate"));        
+        rEDateCol.setCellValueFactory(new PropertyValueFactory<>("EndDate"));        
+        rSTimeCol.setCellValueFactory(new PropertyValueFactory<>("StartTime"));
+        rETimeCol.setCellValueFactory(new PropertyValueFactory<>("EndTime"));
+        rStatusCol.setCellValueFactory(new PropertyValueFactory<>("Status"));
+        repeatTable.setItems(repeats); 
     }
     
     public void approveRequest() throws SQLException, ParseException{
@@ -242,6 +270,21 @@ public class Administrator implements Initializable {
     public void viewDetails(){
         requestsPane.setVisible(false);
         detailsPane.setVisible(true);
+        modifyPane.setVisible(false);
+    }
+    
+    public void viewModify() throws SQLException{
+        modifyTable.getItems().clear();
+        requestsPane.setVisible(false);
+        detailsPane.setVisible(false);
+        modifyPane.setVisible(true);
+        modify = model.getRooms();
+        siteCol.setCellValueFactory(new PropertyValueFactory<>("Site"));
+        buildingCol.setCellValueFactory(new PropertyValueFactory<>("Building"));
+        roomCol.setCellValueFactory(new PropertyValueFactory<>("Name"));
+        compCol.setCellValueFactory(new PropertyValueFactory<>("Computers"));
+        capCol.setCellValueFactory(new PropertyValueFactory<>("Capacity"));
+        modifyTable.setItems(modify);
     }
     
     public boolean checkRequest(int index){
@@ -252,55 +295,47 @@ public class Administrator implements Initializable {
         else if(overrideTable.isVisible())
             if(!overrides.get(index).getStatus().equals("Pending")) return false;
         return true;
-    } 
-    
+    }
    
-    public void addRoom(){
-        
+    public void addRoom() throws SQLException{
         boolean exists = false;
     
         modifyPane.setVisible(true);
         detailsPane.setVisible(false);
         requestsPane.setVisible(false);
         
-        
-        
-        
         String site = siteName.getText();
         String building = buildingName.getText();
-        String roomname = roomName.getText();
-        int capacity = Integer.parseInt(capacity.getText());
-        String computers = computers.getText();
-                
-                
-        Room room = new Room(site, building, roomname, capacity,computers);
-        
-        
+        String room = roomName.getText();
+        int cap = Integer.parseInt(capacity.getText());
+        String comp = computers.getText();
+
         for(Room r : modify){
         
-            if(building.equals(r.getBuildingName()) && room.equals(r.getName())){
+            if(building.equals(r.getBuilding()) && room.equals(r.getName())){
              exists = true;
              break;
             }
         }
-       
-         if(!exists){model.addRoom(room);}
-         else{
-              errorLabel.setText = "Room already exists";
-         }
+        
+        if(!exists){
+            Room r = new Room(site, building, room, cap, comp);
+            model.addRoom(r);
+            errorLabel.setText("Room added successfully!");
+            viewModify();
+        }
+        else errorLabel.setText("Room already exists");
     }
     
     
-    public void removeRoom(){
-    
+    public void removeRoom() throws SQLException{
         modifyPane.setVisible(true);
         detailsPane.setVisible(false);
         requestsPane.setVisible(false);
-        selectedIndex = modifyTable.getSelectionModel().getSelectedIndex();
-        Room room = modify(selectedIndex);
-        
+        int selectedIndex = modifyTable.getSelectionModel().getSelectedIndex();
+        Room room = modify.get(selectedIndex);  
         model.removeRoom(room);
-    
+        viewModify();
     }
     
 }

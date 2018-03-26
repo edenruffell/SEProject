@@ -351,8 +351,18 @@ public class Student extends User implements Initializable {
             j++;
         }
     }
-
+    
     public void setBuildings() throws SQLException {
+        try {
+            selectedSite = siteBox.getSelectionModel().getSelectedItem().toString();
+            buildingList = model.getBuildings(selectedSite);
+            buildingBox.setItems(buildingList);
+        } catch (NullPointerException e) {
+            searchError.setText("Please select a site.");
+        }
+    }
+
+    public void setBuildings2() throws SQLException {
         try {
             selectedSite = siteBox2.getSelectionModel().getSelectedItem().toString();
             buildingList = model.getBuildings(selectedSite);

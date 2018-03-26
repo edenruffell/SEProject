@@ -30,7 +30,7 @@
               </LinearGradient>
           </fill>
       </Rectangle>
-      <Pane fx:id="detailsPane" layoutX="145.0" opacity="0.0" prefHeight="500.0" prefWidth="555.0">
+      <Pane fx:id="detailsPane" layoutX="145.0" prefHeight="500.0" prefWidth="555.0">
          <children>
             <Text fill="WHITE" layoutX="14.0" layoutY="39.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Account Information" textAlignment="CENTER" wrappingWidth="263.6298828125">
                <font>
@@ -115,7 +115,7 @@
             <FontAwesomeIconView fill="WHITE" glyphName="COG" layoutX="104.0" layoutY="360.0" size="17" text="" />
          </children>
       </Pane>
-      <Pane fx:id="viewPane" layoutX="145.0" opacity="0.0" prefHeight="500.0" prefWidth="555.0">
+      <Pane fx:id="viewPane" layoutX="145.0" prefHeight="500.0" prefWidth="555.0">
          <children>
             <TableView fx:id="bookingTable" layoutY="70.0" prefHeight="368.0" prefWidth="555.0">
               <columns>
@@ -142,14 +142,14 @@
             <JFXDatePicker fx:id="repeatEnd" layoutX="258.0" layoutY="459.0" prefHeight="33.0" prefWidth="150.0" />
          </children>
       </Pane>
-      <Pane fx:id="searchByTimePane" layoutX="145.0" opacity="0.0" prefHeight="500.0" prefWidth="555.0">
+      <Pane fx:id="searchByTimePane" layoutX="145.0" prefHeight="500.0" prefWidth="555.0">
          <children>
             <JFXButton fx:id="findRoomButton" buttonType="RAISED" layoutX="14.0" layoutY="307.0" onMouseClicked="#searchByTime" prefHeight="50.0" prefWidth="140.0" style="-fx-border-color: WHITE;" text="Find Rooms" textAlignment="CENTER" textFill="WHITE" wrapText="true">
                <font>
                   <Font size="14.0" />
                </font>
             </JFXButton>
-            <JFXComboBox fx:id="buildingBox2" layoutX="10.0" layoutY="80.0" onMouseClicked="#setBuildings" onMouseEntered="#clearLabel" prefHeight="35.0" prefWidth="200.0" promptText="Select a building" visibleRowCount="30" />
+            <JFXComboBox fx:id="buildingBox2" layoutX="10.0" layoutY="80.0" onMouseClicked="#setBuildings2" onMouseEntered="#clearLabel" prefHeight="35.0" prefWidth="200.0" promptText="Select a building" visibleRowCount="30" />
             <TableView fx:id="resultsTable2" layoutX="228.0" layoutY="65.0" onMouseClicked="#showPopup2" prefHeight="338.0" prefWidth="324.0">
                <columns>
                   <TableColumn fx:id="roomCol2" editable="false" prefWidth="108.0" sortable="false" text="Room" />
@@ -183,7 +183,7 @@
             <JFXComboBox fx:id="siteBox2" layoutX="10.0" layoutY="32.0" onMouseEntered="#clearLabel" prefHeight="35.0" prefWidth="200.0" promptText="Select a site" visibleRowCount="30" />
          </children>
       </Pane>
-      <Pane fx:id="bookingPane" layoutX="220.0" layoutY="155.0" opacity="0.0" prefHeight="245.0" prefWidth="400.0">
+      <Pane fx:id="bookingPane" layoutX="220.0" layoutY="155.0" prefHeight="245.0" prefWidth="400.0">
          <children>
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#005f61" height="245.0" stroke="WHITE" strokeType="INSIDE" width="400.0" />
             <Label fx:id="heading" layoutX="19.0" layoutY="14.0" text="Make Booking" textFill="WHITE">

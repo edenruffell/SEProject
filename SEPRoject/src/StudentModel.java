@@ -346,7 +346,7 @@ public class StudentModel {
 
             ps.setInt(1, last);
             ps.setString(2, username);
-            ps.setString(3, room.getBuildingName());
+            ps.setString(3, room.getBuilding());
             ps.setString(4, room.getName());
             ps.setString(5, date);
             ps.setString(6, sTime);
