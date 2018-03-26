@@ -68,9 +68,17 @@ public class Administrator implements Initializable {
     }
     
     public void approvePRequest() throws SQLException{
+        PRequest("Approved");
+    }
+    
+    public void denyPRequest() throws SQLException{
+        PRequest("Denied");
+    }
+    
+    public void PRequest(String status) throws SQLException{
         int selectedIndex = permissionTable.getSelectionModel().getSelectedIndex();
         PermissionRequest pr = permissions.get(selectedIndex);
-        model.removePRequest(pr, "Approved");
+        model.removePRequest(pr, status);
         permissionTable.getItems().remove(selectedIndex);
     }
     
