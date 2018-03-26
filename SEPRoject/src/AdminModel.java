@@ -305,4 +305,68 @@ public class AdminModel {
         }
         return last;
     }
+    
+    
+    public void addRoom(Room room){
+    
+       
+        
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        
+        
+        try {
+            String query = "INSERT INTO ROOMS VALUES(?,?,?,?,?)";
+                   
+            ps = connection.prepareStatement(query);
+            
+            ps.setString(1,room.getSiteName());
+            ps.setString(2, room.getBuildingName());
+            ps.setString(3, room.getSiteName());
+            ps.setInt(4, room.getCapacity());
+            ps.setString(5, room.getComputers());
+            
+           ps.executeQuery();
+         
+            ps.close();
+       
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(AdminModel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }
+    
+    
+    
+    
+   public void removeRoom(Room room) throws SQLException {
+        PreparedStatement preparedS = null;
+
+        String query = "DELETE FROM ROOMS"
+                + " WHERE BUILDING = ?"
+                + "WHERE NAME = ?";
+
+        try {
+            preparedS = connection.prepareStatement(query);
+
+            // set the corresponding param
+            preparedS.setString(1, room.getBuildingName() );
+            preparedS.setString(2, room.getName());
+            // update 
+            preparedS.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        } finally {
+            preparedS.close();
+        }
+    }
+    
+    
+    
+    
+    
+    
+   
+    
 }

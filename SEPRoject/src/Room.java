@@ -63,6 +63,10 @@ public class Room {
         this.buildingName = buildingName;
     }
     
+    public String getSiteName(){
+        return site;
+       }
+    
     public String getBuildingName(){
         return buildingName;
     }
