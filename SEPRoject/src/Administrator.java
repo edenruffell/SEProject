@@ -1,17 +1,26 @@
 import com.jfoenix.controls.*;
+import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
 
 
 public class Administrator implements Initializable {
@@ -24,12 +33,20 @@ public class Administrator implements Initializable {
     @FXML private JFXPasswordField oldpw; 
     @FXML private JFXPasswordField newpw;
     @FXML private JFXPasswordField retypepw;
+    @FXML private JFXTextField siteName;
+    @FXML private JFXTextField buildingName;
+    @FXML private JFXTextField roomName;
+    @FXML private JFXTextField capacity;
+    @FXML private JFXTextField computers;
     @FXML private JFXButton viewRequests;
     @FXML private JFXButton viewOverride;
     @FXML private JFXButton viewRepeat;
     @FXML private JFXButton viewPermission;
     @FXML private JFXButton approveRequest;
     @FXML private JFXButton denyRequest;
+    @FXML private JFXButton logout;
+    @FXML private JFXButton addRoomButton;
+    @FXML private JFXButton removeRoomButton;
     @FXML private TableView overrideTable;
     @FXML private TableColumn<OverrideRequest, Integer> oIDCol;
     @FXML private TableColumn<OverrideRequest, String> oUserCol;
@@ -44,8 +61,16 @@ public class Administrator implements Initializable {
     @FXML private TableColumn<PermissionRequest, String> pUserCol;
     @FXML private TableColumn<PermissionRequest, String> pTypeCol;
     @FXML private TableColumn<PermissionRequest, String> pStatusCol;
+    @FXML private TableView modifyTable;
+    @FXML private TableColumn<Room, String> siteCol;
+    @FXML private TableColumn<Room, String> buildingCol;
+    @FXML private TableColumn<Room, String> roomCol;
+    @FXML private TableColumn<Room, String> compCol;
+    @FXML private TableColumn<Room, String> capCol;
+    
     @FXML private Pane detailsPane;
     @FXML private Pane requestsPane;
+    @FXML private Pane modifyPane;
     
     private String name;
     private String username;
@@ -63,6 +88,19 @@ public class Administrator implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         viewDetails();
+    }
+    
+    public void logout(ActionEvent event) throws IOException {
+        try {
+            Parent loginMenu = FXMLLoader.load(getClass().getResource("RegistrantView.fxml"));
+            Scene loginScene = new Scene(loginMenu);
+            Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            window.setScene(loginScene);
+            window.show();
+            model.connection.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(Student.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
     public void viewPRequests() throws SQLException{

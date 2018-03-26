@@ -33,6 +33,7 @@ public class Teacher extends User implements Initializable {
     @FXML private Label message;
     @FXML private Button logout;
     @FXML private Button settings;
+    @FXML private Button overrideBooking;
     @FXML private Label allowLabel;
     @FXML private Label typeLabel;
     @FXML private Label errorLabel;
@@ -47,6 +48,9 @@ public class Teacher extends User implements Initializable {
     
     @FXML private Pane viewPane;
     @FXML private Button cancel;
+    @FXML private Button repeatBooking;
+    @FXML private JFXDatePicker repeatStart;
+    @FXML private JFXDatePicker repeatEnd;
     @FXML private TableView<RoomBooking> bookingTable;
     @FXML private TableColumn<RoomBooking, Integer> idCol;
     @FXML private TableColumn<RoomBooking, String> buildCol;

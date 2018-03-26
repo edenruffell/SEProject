@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
-<?import com.jfoenix.controls.JFXComboBox?>
-<?import com.jfoenix.controls.JFXDatePicker?>
 <?import com.jfoenix.controls.JFXPasswordField?>
 <?import com.jfoenix.controls.JFXPopup?>
+<?import com.jfoenix.controls.JFXTextField?>
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
@@ -17,9 +16,9 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane id="AnchorPane" prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Administrator">
+<AnchorPane id="AnchorPane" prefHeight="500.0" prefWidth="878.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Administrator">
    <children>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" height="500.0" stroke="TRANSPARENT" strokeType="INSIDE" width="707.0">
+      <Rectangle arcHeight="5.0" arcWidth="5.0" height="500.0" stroke="TRANSPARENT" strokeType="INSIDE" width="880.0">
           <fill>
               <LinearGradient endX="0.4759615384615385" endY="0.25" startX="0.47596153846153844" startY="1.0">
                   <stops>
@@ -41,7 +40,7 @@
                   <Font size="14.0" />
                </font>
             </JFXButton>
-            <JFXButton buttonType="RAISED" layoutX="3.0" layoutY="185.0" prefHeight="35.0" prefWidth="140.0" style="-fx-border-color: WHITE;" text="Modify Sites" textFill="WHITE">
+            <JFXButton buttonType="RAISED" layoutX="3.0" layoutY="185.0" prefHeight="35.0" prefWidth="140.0" style="-fx-border-color: WHITE;" text="Modify Room" textFill="WHITE">
                <font>
                   <Font size="14.0" />
                </font>
@@ -52,7 +51,7 @@
                </font>
             </JFXButton>
             <FontAwesomeIconView fill="WHITE" glyphName="COG" layoutX="104.0" layoutY="360.0" size="17" text="" />
-            <JFXButton buttonType="RAISED" layoutX="3.0" layoutY="285.0" prefHeight="35.0" prefWidth="140.0" style="-fx-border-color: WHITE;" text="Logout" textFill="WHITE">
+            <JFXButton fx:id="logout" buttonType="RAISED" layoutX="3.0" layoutY="285.0" onAction="#logout" prefHeight="35.0" prefWidth="140.0" style="-fx-border-color: WHITE;" text="Logout" textFill="WHITE">
                <font>
                   <Font size="14.0" />
                </font>
@@ -64,7 +63,7 @@
             </JFXButton>
          </children>
       </Pane>
-      <Pane fx:id="detailsPane" layoutX="145.0" opacity="0.0" prefHeight="500.0" prefWidth="555.0">
+      <Pane fx:id="detailsPane" layoutX="145.0" opacity="0.0" prefHeight="500.0" prefWidth="735.0">
          <children>
             <Text fill="WHITE" layoutX="14.0" layoutY="39.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Account Information" textAlignment="CENTER" wrappingWidth="263.6298828125">
                <font>
@@ -113,90 +112,84 @@
             </Label>
          </children>
       </Pane>
-      <Pane fx:id="searchTimePane" disable="true" layoutX="145.0" opacity="0.0" prefHeight="500.0" prefWidth="555.0">
+      <Pane fx:id="requestsPane" layoutX="145.0" opacity="0.0" prefHeight="500.0" prefWidth="735.0">
          <children>
-            <JFXButton fx:id="findTimeButton" buttonType="RAISED" layoutX="14.0" layoutY="307.0" prefHeight="50.0" prefWidth="140.0" style="-fx-border-color: WHITE;" text="Find Times" textAlignment="CENTER" textFill="WHITE" wrapText="true">
-               <font>
-                  <Font size="14.0" />
-               </font>
-            </JFXButton>
-            <JFXComboBox fx:id="siteBox" layoutX="10.0" layoutY="15.0" prefHeight="35.0" prefWidth="200.0" promptText="Select a site" visibleRowCount="30" />
-            <JFXComboBox fx:id="buildingBox" layoutX="10.0" layoutY="80.0" prefHeight="35.0" prefWidth="200.0" promptText="Select a building" visibleRowCount="30" />
-            <JFXComboBox fx:id="roomBox" layoutX="10.0" layoutY="145.0" prefHeight="35.0" prefWidth="200.0" promptText="Select a room" visibleRowCount="30" />
-            <TableView fx:id="resultsTable" layoutX="262.0" layoutY="65.0" prefHeight="338.0" prefWidth="230.0">
-               <columns>
-                  <TableColumn fx:id="timeCol" prefWidth="116.0" text="Time" />
-                  <TableColumn fx:id="availableCol" prefWidth="113.0" text="Available" />
-               </columns>
-            </TableView>
-            <Label fx:id="searchError" layoutX="10.0" layoutY="264.0" prefHeight="35.0" prefWidth="230.0" textFill="WHITE">
-               <font>
-                  <Font size="14.0" />
-               </font>
-            </Label>
-            <JFXDatePicker fx:id="datePicker" layoutX="8.0" layoutY="217.0" prefWidth="200.0" />
-            <Label fx:id="compLabel" layoutX="262.0" layoutY="422.0" prefHeight="30.0" prefWidth="230.0" textFill="#006064">
-               <font>
-                  <Font name="Arial" size="14.0" />
-               </font>
-            </Label>
-            <Label fx:id="capLabel" layoutX="262.0" layoutY="452.0" prefHeight="30.0" prefWidth="230.0" textFill="#006064">
-               <font>
-                  <Font name="Arial" size="14.0" />
-               </font>
-            </Label>
-            <Text fill="WHITE" layoutX="240.0" layoutY="39.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Results:">
-               <font>
-                  <Font name="Arial" size="21.0" />
-               </font>
-            </Text>
-            <JFXPopup fx:id="popup" />
-         </children>
-      </Pane>
-      <Pane fx:id="requestsPane" layoutX="145.0" prefHeight="500.0" prefWidth="555.0">
-         <children>
-            <TableView fx:id="permissionTable" layoutX="10.0" layoutY="115.0" prefHeight="320.0" prefWidth="535.0">
-              <columns>
-                  <TableColumn fx:id="pIDCol" editable="false" prefWidth="100.0" sortable="false" text="ID" />
-                  <TableColumn fx:id="pUserCol" editable="false" prefWidth="234.0" sortable="false" text="Username" />
-                  <TableColumn fx:id="pTypeCol" editable="false" prefWidth="100.0" sortable="false" text="Type" />
-                  <TableColumn fx:id="pStatusCol" editable="false" prefWidth="100.0" sortable="false" text="Status" />
-              </columns>
-            </TableView>
-            <Text fill="WHITE" layoutX="10.0" layoutY="33.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Requests" wrappingWidth="145.0">
-               <font>
-                  <Font name="Arial" size="21.0" />
-               </font>
-            </Text>
             <Label fx:id="errorLabel" layoutX="310.0" layoutY="54.0" prefHeight="23.0" prefWidth="230.0" wrapText="true" />
             <JFXButton fx:id="viewOverride" buttonType="RAISED" layoutX="30.0" layoutY="50.0" onAction="#viewORequests" prefHeight="50.0" prefWidth="150.0" style="-fx-border-color: WHITE;" text="Override Requests" textFill="WHITE" />
-            <JFXButton fx:id="viewRepeat" buttonType="RAISED" layoutX="200.0" layoutY="50.0" prefHeight="50.0" prefWidth="150.0" style="-fx-border-color: WHITE;" text="Repeat Booking Requests" textAlignment="CENTER" textFill="WHITE" wrapText="true" />
-            <JFXButton fx:id="viewPermission" buttonType="RAISED" layoutX="370.0" layoutY="50.0" onAction="#viewPRequests" prefHeight="50.0" prefWidth="150.0" style="-fx-border-color: WHITE;" text="Permission Requests" textFill="WHITE" />
-            <JFXButton fx:id="approveRequest" buttonType="RAISED" layoutX="100.0" layoutY="450.0" onAction="#approveRequest" prefHeight="35.0" prefWidth="150.0" style="-fx-border-color: WHITE;" text="Approve Request" textFill="#00606f" />
-            <JFXButton fx:id="denyRequest" buttonType="RAISED" layoutX="300.0" layoutY="450.0" onAction="#denyRequest" prefHeight="35.0" prefWidth="150.0" style="-fx-border-color: WHITE;" text="Deny Request" textFill="#00606f" />
-            <TableView fx:id="overrideTable" layoutX="8.0" layoutY="125.0" prefHeight="320.0" prefWidth="547.0">
+            <JFXButton fx:id="viewRepeat" buttonType="RAISED" layoutX="254.0" layoutY="50.0" prefHeight="50.0" prefWidth="150.0" style="-fx-border-color: WHITE;" text="Repeat Booking Requests" textAlignment="CENTER" textFill="WHITE" wrapText="true" />
+            <JFXButton fx:id="viewPermission" buttonType="RAISED" layoutX="484.0" layoutY="50.0" onAction="#viewPRequests" prefHeight="50.0" prefWidth="150.0" style="-fx-border-color: WHITE;" text="Permission Requests" textFill="WHITE" />
+            <JFXButton fx:id="approveRequest" buttonType="RAISED" layoutX="125.0" layoutY="450.0" onAction="#approveRequest" prefHeight="35.0" prefWidth="150.0" style="-fx-border-color: WHITE;" text="Approve Request" textFill="#00606f" />
+            <JFXButton fx:id="denyRequest" buttonType="RAISED" layoutX="390.0" layoutY="450.0" onAction="#denyRequest" prefHeight="35.0" prefWidth="150.0" style="-fx-border-color: WHITE;" text="Deny Request" textFill="#00606f" />
+            <Label fx:id="requestErr" layoutX="183.0" layoutY="17.0" prefHeight="23.0" prefWidth="495.0">
+               <font>
+                  <Font size="14.0" />
+               </font></Label>
+            <TableView fx:id="permissionTable" layoutX="10.0" layoutY="115.0" opacity="0.0" prefHeight="320.0" prefWidth="725.0">
+              <columns>
+                  <TableColumn fx:id="pIDCol" editable="false" prefWidth="100.0" sortable="false" text="ID" />
+                  <TableColumn fx:id="pUserCol" editable="false" prefWidth="273.0" sortable="false" text="Username" />
+                  <TableColumn fx:id="pTypeCol" editable="false" prefWidth="118.0" sortable="false" text="Type" />
+                  <TableColumn fx:id="pStatusCol" editable="false" prefWidth="143.0" sortable="false" text="Status" />
+              </columns>
+            </TableView>
+            <TableView fx:id="overrideTable" layoutX="10.0" layoutY="115.0" opacity="0.0" prefHeight="320.0" prefWidth="725.0">
                <columns>
                   <TableColumn fx:id="oIDCol" editable="false" prefWidth="55.0" sortable="false" text="ID" />
                   <TableColumn fx:id="oUserCol" editable="false" prefWidth="118.0" sortable="false" text="Username" />
-                  <TableColumn fx:id="oBuildingCol" editable="false" prefWidth="97.0" sortable="false" text="Building" />
-                  <TableColumn fx:id="oRoomCol" editable="false" prefWidth="70.0" sortable="false" text="Room" />
-                  <TableColumn fx:id="oDateCol" editable="false" prefWidth="66.0" sortable="false" text="Date" />
-                  <TableColumn fx:id="oSTimeCol" prefWidth="74.0" text="Start Time" />
-                  <TableColumn fx:id="oStatusCol" editable="false" prefWidth="66.0" sortType="DESCENDING" text="Status" />
+                  <TableColumn fx:id="oBuildingCol" editable="false" prefWidth="104.0" sortable="false" text="Building" />
+                  <TableColumn fx:id="oRoomCol" editable="false" prefWidth="71.0" sortable="false" text="Room" />
+                  <TableColumn fx:id="oDateCol" editable="false" prefWidth="88.0" sortable="false" text="Date" />
+                  <TableColumn fx:id="oSTimeCol" prefWidth="102.0" text="Start Time" />
+                  <TableColumn fx:id="oStatusCol" editable="false" prefWidth="106.0" sortType="DESCENDING" text="Status" />
                </columns>
             </TableView>
-            <Label fx:id="requestErr" layoutX="183.0" layoutY="17.0" prefHeight="17.0" prefWidth="332.0" />
-            <TableView fx:id="repeatTable" layoutX="18.0" layoutY="135.0" prefHeight="320.0" prefWidth="547.0">
+            <TableView fx:id="repeatTable" layoutX="10.0" layoutY="115.0" prefHeight="320.0" prefWidth="725.0">
                <columns>
                   <TableColumn fx:id="oIDCol1" editable="false" prefWidth="55.0" sortable="false" text="ID" />
                   <TableColumn fx:id="oUserCol1" editable="false" prefWidth="118.0" sortable="false" text="Username" />
                   <TableColumn fx:id="oBuildingCol1" editable="false" prefWidth="97.0" sortable="false" text="Building" />
                   <TableColumn fx:id="oRoomCol1" editable="false" prefWidth="70.0" sortable="false" text="Room" />
-                  <TableColumn fx:id="oDateCol1" editable="false" prefWidth="66.0" sortable="false" text="Date" />
-                  <TableColumn fx:id="oSTimeCol1" prefWidth="74.0" text="Start Time" />
-                  <TableColumn fx:id="oStatusCol1" editable="false" prefWidth="66.0" sortType="DESCENDING" text="Status" />
+                  <TableColumn fx:id="oDateCol1" editable="false" prefWidth="86.0" sortable="false" text="Start Date" />
+                  <TableColumn fx:id="oSTimeCol1" prefWidth="71.0" text="End Date" />
+                  <TableColumn fx:id="oSTimeCol11" prefWidth="84.0" text="Start Time" />
+                  <TableColumn fx:id="oSTimeCol111" prefWidth="76.0" text="End Time" />
+                  <TableColumn fx:id="oStatusCol1" editable="false" prefWidth="67.0" sortType="DESCENDING" text="Status" />
                </columns>
             </TableView>
+         </children>
+      </Pane>
+      <Pane fx:id="modifyPane" layoutX="145.0" prefHeight="500.0" prefWidth="735.0">
+         <children>
+            <JFXButton fx:id="addRoomButton" buttonType="RAISED" layoutX="361.0" layoutY="386.0" prefHeight="50.0" prefWidth="140.0" style="-fx-border-color: WHITE;" text="Add Room" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </JFXButton>
+            <TableView fx:id="modifyTable" layoutX="14.0" layoutY="55.0" prefHeight="270.0" prefWidth="623.0">
+               <columns>
+                  <TableColumn fx:id="siteCol" prefWidth="146.0" text="Site" />
+                  <TableColumn fx:id="buildingCol" prefWidth="153.0" text="Building" />
+                  <TableColumn fx:id="roomCol" prefWidth="108.0" text="Room" />
+                  <TableColumn fx:id="capCol" prefWidth="112.0" text="Capacity" />
+                  <TableColumn fx:id="compCol" prefWidth="103.0" text="Computers" />
+               </columns>
+            </TableView>
+            <Text fill="WHITE" layoutX="10.0" layoutY="33.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Modify Rooms">
+               <font>
+                  <Font name="Arial" size="21.0" />
+               </font>
+            </Text>
+            <JFXPopup fx:id="popup" />
+            <JFXTextField fx:id="siteName" layoutX="10.0" layoutY="345.0" promptText="Enter a site name" />
+            <JFXTextField fx:id="buildingName" layoutX="10.0" layoutY="394.0" promptText="Enter a building name" />
+            <JFXTextField fx:id="roomName" layoutX="14.0" layoutY="436.0" promptText="Enter a room name" />
+            <JFXTextField fx:id="computers" layoutX="181.0" layoutY="378.0" promptText="Number of computers" />
+            <JFXTextField fx:id="capacity" layoutX="181.0" layoutY="420.0" promptText="Room capacity" />
+            <JFXButton fx:id="removeButton" buttonType="RAISED" layoutX="517.0" layoutY="387.0" prefHeight="50.0" prefWidth="140.0" style="-fx-border-color: WHITE;" text="Remove Button" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </JFXButton>
          </children>
       </Pane>
    </children>
