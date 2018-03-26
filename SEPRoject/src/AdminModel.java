@@ -222,7 +222,7 @@ public class AdminModel {
        while (c.getTime().before(date2)) {
         // add another week
         c.add(Calendar.WEEK_OF_YEAR, 1);
-        date= formatter.format(c.getTime());
+        date = formatter.format(c.getTime());
         dates.add(date);
         }
       Iterator listIterator = dates.listIterator();
@@ -231,7 +231,7 @@ public class AdminModel {
        while(listIterator.hasNext()){
            
        
-           
+           String mydate = dates.get(counter);
        
         String query2 = "INSERT INTO BOOKING VALUES(?,?,?,?,?,?)";
                 
@@ -243,7 +243,7 @@ public class AdminModel {
                 ps.setString(2, rb.getName());
                 ps.setString(3, rb.roombooking.getRoom());
                 ps.setString(4, rb.roombooking.getBuilding());
-                ps.setString(5,dates.get(counter));
+                ps.setString(5,mydate);
                 ps.setString(6, rb.roombooking.getStartTime());
                 ps.setString(7, rb.roombooking.getEndTime());
                 
