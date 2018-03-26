@@ -452,7 +452,7 @@ public class Teacher extends User implements Initializable {
         String endDate;
          try{
             int selectedIndex = bookingTable.getSelectionModel().getSelectedIndex();
-          
+            System.out.println(selectedIndex);
             booking = bookings.get(selectedIndex);
         }catch(Exception a){
             errorLabel.setText("No bookings have been selected.");
@@ -470,18 +470,23 @@ public class Teacher extends User implements Initializable {
          
             rbr = new RepeatBookingRequest(booking.getID(),booking,  startDate,  endDate);
             model.makeRepeatBookingRequest(rbr);
-    }     
+    }
          
     public void makeOverrideRequest() throws SQLException{
-
-        String requestType = "Repeat Booking";
         OverrideRequest or;
         RoomBooking roombooking;
         
          try{
-            int selectedIndex = bookingTable.getSelectionModel().getSelectedIndex();
-          
-            roombooking = bookings.get(selectedIndex);
+            int selectedIndex = resultsTable.getSelectionModel().getSelectedIndex();
+            
+            if(times.get(selectedIndex).isAvailable()){
+                searchError.setText("Room is not booked, override request not needed");
+                return;
+            }
+            String date = datePicker.getValue().toString();
+            String chosenRoom = roomBox.getSelectionModel().getSelectedItem().toString();
+            String time = times.get(selectedIndex).getTime();
+            roombooking = model.getABooking(chosenRoom, date, time);
             updateAllowance(-1);
             model.updateAllowanceDB(allowance, username);
         
@@ -493,7 +498,6 @@ public class Teacher extends User implements Initializable {
             
         }     
          
-    }
-        
+    }     
 }
 

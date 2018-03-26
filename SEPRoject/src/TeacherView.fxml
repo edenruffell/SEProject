@@ -185,6 +185,11 @@
       </Pane>
       <Pane fx:id="searchByRoomPane" layoutX="145.0" prefHeight="500.0" prefWidth="555.0">
          <children>
+            <JFXButton fx:id="overrideBooking" buttonType="RAISED" layoutX="14.0" layoutY="378.0" onAction="#makeOverrideRequest" onMouseClicked="#searchByRooms" prefHeight="50.0" prefWidth="140.0" style="-fx-border-color: WHITE;" text="Override Booking" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </JFXButton>
             <JFXButton fx:id="findTimeButton" buttonType="RAISED" layoutX="14.0" layoutY="307.0" onMouseClicked="#searchByRooms" prefHeight="50.0" prefWidth="140.0" style="-fx-border-color: WHITE;" text="Find Times" textAlignment="CENTER" textFill="WHITE" wrapText="true">
                <font>
                   <Font size="14.0" />
@@ -221,11 +226,6 @@
                </font>
             </Text>
             <JFXPopup fx:id="popup" />
-            <JFXButton fx:id="overrideBooking" buttonType="RAISED" layoutX="14.0" layoutY="378.0" onAction="#makeOverrideRequest" onMouseClicked="#searchByRooms" prefHeight="50.0" prefWidth="140.0" style="-fx-border-color: WHITE;" text="Override Booking" textAlignment="CENTER" textFill="WHITE" wrapText="true">
-               <font>
-                  <Font size="14.0" />
-               </font>
-            </JFXButton>
          </children>
       </Pane>
       <Pane fx:id="bookingPane" layoutX="220.0" layoutY="155.0" prefHeight="245.0" prefWidth="400.0">
