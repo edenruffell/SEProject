@@ -15,6 +15,15 @@ public class RepeatBookingRequest extends Request{
         status = "Pending";
     }
     
+    public RepeatBookingRequest(int ID, RoomBooking roombooking, String startDate, String endDate, String status){
+    
+        super(ID, roombooking.getOwner(), "Repeat");
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.roombooking = roombooking;
+        this.status = status;
+    }
+    
     public String getStartDate(){
         return startDate;
     }
@@ -37,4 +46,21 @@ public class RepeatBookingRequest extends Request{
     
         return roombooking.getOwner();
     }
+    
+    public String getBuilding(){
+        return roombooking.getBuilding();
+    }
+    
+    public String getRoom(){
+        return roombooking.getRoom();
+    }
+    
+    public String getStartTime(){
+        return roombooking.getBuilding();
+    }
+    
+    public String getEndTime(){
+        return roombooking.getBuilding();
+    }
+    
 }

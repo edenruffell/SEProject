@@ -90,6 +90,44 @@ public class AdminModel {
             return list;
         }       
     }
+  
+    public ObservableList<RepeatBookingRequest> getRepeats() throws SQLException{
+        ObservableList<RepeatBookingRequest> list = FXCollections.observableArrayList();
+        RepeatBookingRequest rbr = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        RoomBooking rb;
+        
+        String query = "SELECT * FROM REPEAT";
+        
+        try{
+            ps = connection.prepareStatement(query);
+            rs = ps.executeQuery();
+            while(rs.next()) {
+                
+                int ID = rs.getInt("ID");
+                String user = rs.getString("NAME");
+                String building = rs.getString("BUILDING");
+                String room = rs.getString("ROOM");
+                String sDate = rs.getString("SDATE");
+                String eDate = rs.getString("EDATE");
+                String sTime = rs.getString("STIME");
+                String eTime = addHour(sTime);
+                
+               rb = new RoomBooking(getLastID(), user, building, room, sDate, sTime, eTime);
+               rbr = new RepeatBookingRequest(ID, rb, sDate, eDate, rs.getString("STATUS"));
+               list.add(rbr);
+            }
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            return null;
+        } finally {
+            ps.close();
+            rs.close();
+            return list;
+        }       
+    }
     
     public void removePRequest(PermissionRequest pr, String status) throws SQLException{
         System.out.println("Entering");
@@ -127,7 +165,32 @@ public class AdminModel {
         }
     }
     
-    
+    public ObservableList<Room> getRooms() throws SQLException{
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        ObservableList<Room> list = FXCollections.observableArrayList();
+        
+        String query = "SELECT * FROM ROOMS";
+        
+        try{
+            ps = connection.prepareStatement(query);
+            rs = ps.executeQuery();
+            
+            while(rs.next()){
+                Room r = new Room(rs.getString("SITE"), rs.getString("BUILDING"),
+                rs.getString("ROOM"), rs.getInt("CAPACITY"), rs.getString("COMPUTERS"));
+                
+                list.add(r);                
+            }
+        }catch (SQLException ex) {
+            Logger.getLogger(AdminModel.class.getName()).log(Level.SEVERE, null, ex);
+        }finally{
+            ps.close();
+            rs.close();
+            return list;
+        }
+    }
+
     public void removeRRequest(RepeatBookingRequest rb, String status) throws SQLException, ParseException{
         System.out.println("Entering");
         PreparedStatement ps = null;
@@ -206,10 +269,7 @@ public class AdminModel {
         } finally {
             ps.close();
         }
-        
-     
     }
-    
     
     public void removeORequest(OverrideRequest or, String status) throws SQLException{
         PreparedStatement ps = null;
@@ -233,7 +293,6 @@ public class AdminModel {
                 ps = connection.prepareStatement(query2);
                 ps.setInt(1, getLastID());
                 String sTime = or.getRoomBooking().getStartTime();
-                
                 ps.setString(2, or.getRoomBooking().getOwner());
                 ps.setString(3, or.getRoomBooking().getBuilding());
                 ps.setString(4, or.getRoomBooking().getRoom());
@@ -252,9 +311,7 @@ public class AdminModel {
             ps.close();
         }
     }
-    
-   
-    
+
     public void updatePW(String username, String pw) throws SQLException{
         PreparedStatement preparedS = null;
 
@@ -306,52 +363,38 @@ public class AdminModel {
         return last;
     }
     
-    
     public void addRoom(Room room){
-    
-       
-        
         PreparedStatement ps = null;
-        ResultSet rs = null;
+        String query = "INSERT INTO ROOMS VALUES(?,?,?,?,?)";
         
-        
-        try {
-            String query = "INSERT INTO ROOMS VALUES(?,?,?,?,?)";
-                   
+        try {      
             ps = connection.prepareStatement(query);
             
-            ps.setString(1,room.getSiteName());
-            ps.setString(2, room.getBuildingName());
-            ps.setString(3, room.getSiteName());
+            ps.setString(1,room.getSite());
+            ps.setString(2, room.getBuilding());
+            ps.setString(3, room.getName());
             ps.setInt(4, room.getCapacity());
             ps.setString(5, room.getComputers());
-            
-           ps.executeQuery();
-         
+            ps.executeUpdate();
             ps.close();
-       
-            
+ 
         } catch (SQLException ex) {
             Logger.getLogger(AdminModel.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
+        } 
     }
-    
-    
-    
-    
-   public void removeRoom(Room room) throws SQLException {
+ 
+    public void removeRoom(Room room) throws SQLException {
         PreparedStatement preparedS = null;
 
         String query = "DELETE FROM ROOMS"
                 + " WHERE BUILDING = ?"
-                + "WHERE NAME = ?";
+                + "AND ROOM = ?";
 
         try {
             preparedS = connection.prepareStatement(query);
 
             // set the corresponding param
-            preparedS.setString(1, room.getBuildingName() );
+            preparedS.setString(1, room.getBuilding() );
             preparedS.setString(2, room.getName());
             // update 
             preparedS.executeUpdate();
