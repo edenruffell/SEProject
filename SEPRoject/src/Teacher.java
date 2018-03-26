@@ -390,10 +390,12 @@ public class Teacher extends User implements Initializable {
     public void showPopup(MouseEvent e){
         String currentRoom = roomBox.getSelectionModel().getSelectedItem().toString();
         int index = resultsTable.getSelectionModel().getSelectedIndex();
-        if (resultsTable.getItems().isEmpty()){}
+        try{ if (resultsTable.getItems().isEmpty()){}
         else if(!times.get(index).isAvailable()){}
         else if(!currentRoom.equals(room.getName())) searchError.setText("Results do not match current room. Please press \"Find Times\" again.");
-        else popup.show(JFXPopup.PopupVPosition.TOP, JFXPopup.PopupHPosition.LEFT, e.getX(), e.getY());
+        else popup.show(JFXPopup.PopupVPosition.TOP, JFXPopup.PopupHPosition.LEFT, e.getX(), e.getY());}
+        catch(ArrayIndexOutOfBoundsException a){
+        }
     }
 
     private void initPopUp() {
@@ -452,7 +454,7 @@ public class Teacher extends User implements Initializable {
         String endDate;
          try{
             int selectedIndex = bookingTable.getSelectionModel().getSelectedIndex();
-          
+            System.out.println(selectedIndex);
             booking = bookings.get(selectedIndex);
         }catch(Exception a){
             errorLabel.setText("No bookings have been selected.");
@@ -470,18 +472,23 @@ public class Teacher extends User implements Initializable {
          
             rbr = new RepeatBookingRequest(booking.getID(),booking,  startDate,  endDate);
             model.makeRepeatBookingRequest(rbr);
-    }     
+    }
          
     public void makeOverrideRequest() throws SQLException{
-
-        String requestType = "Repeat Booking";
         OverrideRequest or;
         RoomBooking roombooking;
         
          try{
-            int selectedIndex = bookingTable.getSelectionModel().getSelectedIndex();
-          
-            roombooking = bookings.get(selectedIndex);
+            int selectedIndex = resultsTable.getSelectionModel().getSelectedIndex();
+            
+            if(times.get(selectedIndex).isAvailable()){
+                searchError.setText("Room is not booked, override request not needed");
+                return;
+            }
+            String date = datePicker.getValue().toString();
+            String chosenRoom = roomBox.getSelectionModel().getSelectedItem().toString();
+            String time = times.get(selectedIndex).getTime();
+            roombooking = model.getABooking(chosenRoom, date, time, this.username);
             updateAllowance(-1);
             model.updateAllowanceDB(allowance, username);
         
@@ -493,7 +500,6 @@ public class Teacher extends User implements Initializable {
             
         }     
          
-    }
-        
+    }     
 }
 
