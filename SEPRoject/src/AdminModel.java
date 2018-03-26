@@ -244,7 +244,7 @@ public class AdminModel {
                 ps.close();
                 
                 
-         Calendar c = Calendar.getInstance();
+        Calendar c = Calendar.getInstance();
         ArrayList<String> dates = new ArrayList<>(); 
         
         DateFormat formatter = new SimpleDateFormat("yyyymmdd");
@@ -252,40 +252,42 @@ public class AdminModel {
         Date date2 = (Date)formatter.parse(rb.getEndDate());
         String date;
         c.setTime(date1);
-        
+       
        while (c.getTime().before(date2)) {
         // add another week
         c.add(Calendar.WEEK_OF_YEAR, 1);
-        date= formatter.format(c.getTime());
+        date = formatter.format(c.getTime());
         dates.add(date);
         }
+       
       Iterator listIterator = dates.listIterator();
       int counter = 0;
       
        while(listIterator.hasNext()){
            
        
-           
+           String mydate = dates.get(counter);
        
         String query2 = "INSERT INTO BOOKING VALUES(?,?,?,?,?,?)";
                 
         try {
-           
-        
+
                 ps = connection.prepareStatement(query2);
                 ps.setInt(1, rb.getID());
                 ps.setString(2, rb.getName());
                 ps.setString(3, rb.roombooking.getRoom());
                 ps.setString(4, rb.roombooking.getBuilding());
-                ps.setString(5,dates.get(counter));
+                ps.setString(5,mydate);
                 ps.setString(6, rb.roombooking.getStartTime());
                 ps.setString(7, rb.roombooking.getEndTime());
+
             ps.executeUpdate();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         } finally {
             ps.close();
         }
+        counter++;
        }
                 
             }
