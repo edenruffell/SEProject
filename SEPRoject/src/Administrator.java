@@ -171,8 +171,10 @@ public class Administrator implements Initializable {
     }
     
     public void viewBookings() throws SQLException {
+        requestsPane.setVisible(false);
         detailsPane.setVisible(false);
-        bookingPane.setVisible(true); 
+        modifyPane.setVisible(false);
+        bookingPane.setVisible(true);
         bookings = model.getBookings();
         idCol.setCellValueFactory(new PropertyValueFactory<>("ID"));
         userCol.setCellValueFactory(new PropertyValueFactory<>("Owner"));

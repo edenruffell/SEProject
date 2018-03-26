@@ -139,7 +139,7 @@
             <JFXTextField fx:id="roomName" layoutX="14.0" layoutY="436.0" promptText="Enter a room name" />
             <JFXTextField fx:id="computers" layoutX="181.0" layoutY="378.0" promptText="Number of computers" />
             <JFXTextField fx:id="capacity" layoutX="181.0" layoutY="420.0" promptText="Room capacity" />
-            <JFXButton fx:id="removeRoomButton" buttonType="RAISED" layoutX="517.0" layoutY="387.0" onAction="#removeRoom" prefHeight="50.0" prefWidth="140.0" style="-fx-border-color: WHITE;" text="Remove Button" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+            <JFXButton fx:id="removeRoomButton" buttonType="RAISED" layoutX="517.0" layoutY="387.0" onAction="#removeRoom" prefHeight="50.0" prefWidth="140.0" style="-fx-border-color: WHITE;" text="Remove Room" textAlignment="CENTER" textFill="WHITE" wrapText="true">
                <font>
                   <Font size="14.0" />
                </font>

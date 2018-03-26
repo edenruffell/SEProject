@@ -454,7 +454,6 @@ public class Teacher extends User implements Initializable {
         String endDate;
          try{
             int selectedIndex = bookingTable.getSelectionModel().getSelectedIndex();
-            System.out.println(selectedIndex);
             booking = bookings.get(selectedIndex);
         }catch(Exception a){
             errorLabel.setText("No bookings have been selected.");
@@ -494,7 +493,7 @@ public class Teacher extends User implements Initializable {
         
             or = new OverrideRequest( roombooking.getID(), roombooking);
             model.makeOverrideRequest(or);
-            
+            searchError.setText("Request made successfully!");
         }catch(Exception a){
             searchError.setText("No bookings have been selected.");      
             

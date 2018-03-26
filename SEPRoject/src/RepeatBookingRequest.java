@@ -56,11 +56,11 @@ public class RepeatBookingRequest extends Request{
     }
     
     public String getStartTime(){
-        return roombooking.getBuilding();
+        return roombooking.getStartTime();
     }
     
     public String getEndTime(){
-        return roombooking.getBuilding();
+        return roombooking.getEndTime();
     }
     
 }
