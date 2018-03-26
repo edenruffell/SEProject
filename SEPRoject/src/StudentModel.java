@@ -285,7 +285,7 @@ public class StudentModel {
             rs = ps.executeQuery();
             
 
-            if(rs.next()) {
+            while(rs.next()) {
                 String time = rs.getString("STIME");
 
                 for(int i =0; i<array.length; i++){
