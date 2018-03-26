@@ -138,8 +138,8 @@
             </Text>
             <Label fx:id="errorLabel" layoutX="293.0" layoutY="40.0" prefHeight="23.0" prefWidth="230.0" wrapText="true" />
             <JFXButton fx:id="repeatBooking" layoutY="443.0" prefHeight="50.0" prefWidth="117.0" style="-fx-border-color: WHITE;" text="Repeat Booking Request" textAlignment="CENTER" textFill="#00606f" wrapText="true" />
-            <JFXDatePicker fx:id="repeatStart" layoutX="117.0" layoutY="459.0" prefHeight="33.0" prefWidth="150.0" />
-            <JFXDatePicker fx:id="repeatEnd" layoutX="258.0" layoutY="459.0" prefHeight="33.0" prefWidth="150.0" />
+            <JFXDatePicker fx:id="repeatStartDate" layoutX="117.0" layoutY="459.0" prefHeight="33.0" prefWidth="150.0" />
+            <JFXDatePicker fx:id="repeatEndDate" layoutX="258.0" layoutY="459.0" prefHeight="33.0" prefWidth="150.0" />
          </children>
       </Pane>
       <Pane fx:id="searchByTimePane" layoutX="145.0" prefHeight="500.0" prefWidth="555.0">
@@ -258,7 +258,7 @@
                </font>
             </Text>
             <JFXPopup fx:id="popup" />
-            <JFXButton fx:id="overrideBooking" buttonType="RAISED" layoutX="14.0" layoutY="378.0" onMouseClicked="#searchByRooms" prefHeight="50.0" prefWidth="140.0" style="-fx-border-color: WHITE;" text="Override Booking" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+            <JFXButton fx:id="overrideBooking" buttonType="RAISED" layoutX="14.0" layoutY="378.0" onAction="#makeOverrideRequest" onMouseClicked="#searchByRooms" prefHeight="50.0" prefWidth="140.0" style="-fx-border-color: WHITE;" text="Override Booking" textAlignment="CENTER" textFill="WHITE" wrapText="true">
                <font>
                   <Font size="14.0" />
                </font>

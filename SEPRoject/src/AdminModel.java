@@ -129,6 +129,40 @@ public class AdminModel {
         }       
     }
     
+    public ObservableList<RoomBooking> getBookings() throws SQLException{
+            PreparedStatement ps = null;
+        ResultSet rs = null;
+        ObservableList<RoomBooking> list = FXCollections.observableArrayList();
+
+        String query = "SELECT * FROM BOOKING"
+                + " ORDER BY ID ASC";
+
+        try {
+            ps = connection.prepareStatement(query);
+
+            rs = ps.executeQuery();
+            RoomBooking a;
+
+            while (rs.next()) {
+                a = new RoomBooking(rs.getInt("ID"),
+                        rs.getString("OWNER"),
+                        rs.getString("BUILDING"),
+                        rs.getString("ROOM"),
+                        rs.getString("DATE"),
+                        rs.getString("STIME"),
+                        rs.getString("ETIME"));
+                list.add(a);
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            return null;
+        } finally {
+            ps.close();
+            rs.close();
+            return list;
+        }
+    }
+    
     public void removePRequest(PermissionRequest pr, String status) throws SQLException{
         System.out.println("Entering");
         PreparedStatement ps = null;
@@ -246,11 +280,6 @@ public class AdminModel {
                 ps.setString(5,dates.get(counter));
                 ps.setString(6, rb.roombooking.getStartTime());
                 ps.setString(7, rb.roombooking.getEndTime());
-                
-                
-                
-                
-           
             ps.executeUpdate();
         } catch (SQLException e) {
             System.out.println(e.getMessage());

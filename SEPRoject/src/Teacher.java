@@ -49,8 +49,6 @@ public class Teacher extends User implements Initializable {
     @FXML private Pane viewPane;
     @FXML private Button cancel;
     @FXML private Button repeatBooking;
-    @FXML private JFXDatePicker repeatStart;
-    @FXML private JFXDatePicker repeatEnd;
     @FXML private TableView<RoomBooking> bookingTable;
     @FXML private TableColumn<RoomBooking, Integer> idCol;
     @FXML private TableColumn<RoomBooking, String> buildCol;
@@ -88,6 +86,8 @@ public class Teacher extends User implements Initializable {
     @FXML private JFXButton findRoomButton;
     @FXML private JFXButton back2;
     @FXML private JFXDatePicker datePicker2;
+    @FXML private JFXDatePicker repeatStartDate;
+    @FXML private JFXDatePicker repeatEndDate;
     @FXML private TableView<Room> resultsTable2;
     @FXML private TableColumn<Room, String> roomCol2;
     @FXML private TableColumn<Room, String> compCol;
@@ -335,6 +335,16 @@ public class Teacher extends User implements Initializable {
 
     public void setBuildings() throws SQLException {
         try {
+            selectedSite = siteBox.getSelectionModel().getSelectedItem().toString();
+            buildingList = model.getBuildings(selectedSite);
+            buildingBox.setItems(buildingList);
+        } catch (NullPointerException e) {
+            searchError.setText("Please select a site.");
+        }
+    }
+    
+    public void setBuildings2() throws SQLException {
+        try {
             selectedSite = siteBox2.getSelectionModel().getSelectedItem().toString();
             buildingList = model.getBuildings(selectedSite);
             buildingBox2.setItems(buildingList);
@@ -433,28 +443,33 @@ public class Teacher extends User implements Initializable {
         popup2.setSource(resultsTable2);
     }
     
-    public void makeRepeatBookingRequest(String startDate, String endDate) throws SQLException{
+    public void makeRepeatBookingRequest() throws SQLException{
 
         String requestType = "Repeat Booking";
         RoomBooking booking;
-        RepeatBookingRequest rbr;// = new RepeatBookingRequest();
+        RepeatBookingRequest rbr;
+        String startDate;
+        String endDate;
          try{
             int selectedIndex = bookingTable.getSelectionModel().getSelectedIndex();
           
             booking = bookings.get(selectedIndex);
-            model.updateAllowanceDB(allowance, username);
+        }catch(Exception a){
+            errorLabel.setText("No bookings have been selected.");
+            return;
+        } 
+         try{
+             startDate = repeatStartDate.getValue().toString();
+             endDate = repeatEndDate.getValue().toString();
+
+        }catch(NullPointerException e){
+            errorLabel.setText("Please enter a start and end date.");
+            return;
+                
+        }
          
             rbr = new RepeatBookingRequest(booking.getID(),booking,  startDate,  endDate);
             model.makeRepeatBookingRequest(rbr);
-            
-            
-        }catch(Exception a){
-            errorLabel.setText("No bookings have been selected.");      
-            
-       
-
-        }     
-         
     }     
          
     public void makeOverrideRequest() throws SQLException{
@@ -467,14 +482,14 @@ public class Teacher extends User implements Initializable {
             int selectedIndex = bookingTable.getSelectionModel().getSelectedIndex();
           
             roombooking = bookings.get(selectedIndex);
-           // model.update(allowance, username);
+            updateAllowance(-1);
+            model.updateAllowanceDB(allowance, username);
         
             or = new OverrideRequest( roombooking.getID(), roombooking);
             model.makeOverrideRequest(or);
             
-            
         }catch(Exception a){
-            errorLabel.setText("No bookings have been selected.");      
+            searchError.setText("No bookings have been selected.");      
             
         }     
          

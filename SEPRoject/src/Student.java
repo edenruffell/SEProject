@@ -214,11 +214,13 @@ public class Student extends User implements Initializable {
             selectedBuilding = buildingBox2.getSelectionModel().getSelectedItem().toString();
         }catch(NullPointerException e){
             searchError.setText("Please select a building.");
+            return;
         }
         try{
             selectedTime = timeBox.getSelectionModel().getSelectedItem().toString();
         } catch (NullPointerException e) {
             searchError.setText("Please select a time.");
+            return;
         }
         try {
             selectedDate = datePicker2.getValue().toString();
@@ -228,9 +230,7 @@ public class Student extends User implements Initializable {
             capCol.setCellValueFactory(new PropertyValueFactory<>("Capacity"));
             resultsTable2.setItems(rooms);
         }catch(NullPointerException e){
-            e.printStackTrace();
             searchError.setText("Please select a date.");
-            return;
         }         
         
     }
