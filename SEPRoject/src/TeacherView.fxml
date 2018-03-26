@@ -183,43 +183,6 @@
             <JFXComboBox fx:id="siteBox2" layoutX="10.0" layoutY="32.0" onMouseEntered="#clearLabel" prefHeight="35.0" prefWidth="200.0" promptText="Select a site" visibleRowCount="30" />
          </children>
       </Pane>
-      <Pane fx:id="bookingPane" layoutX="220.0" layoutY="155.0" prefHeight="245.0" prefWidth="400.0">
-         <children>
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#005f61" height="245.0" stroke="WHITE" strokeType="INSIDE" width="400.0" />
-            <Label fx:id="heading" layoutX="19.0" layoutY="14.0" text="Make Booking" textFill="WHITE">
-               <font>
-                  <Font size="24.0" />
-               </font>
-            </Label>
-            <Label fx:id="setBuilding" layoutX="14.0" layoutY="60.0" prefHeight="35.0" prefWidth="170.0" textFill="WHITE">
-               <font>
-                  <Font size="16.0" />
-               </font>
-            </Label>
-            <Label fx:id="setRoom" layoutX="14.0" layoutY="120.0" prefHeight="35.0" prefWidth="170.0" textFill="WHITE">
-               <font>
-                  <Font size="16.0" />
-               </font>
-            </Label>
-            <Label fx:id="setDate" layoutX="14.0" layoutY="180.0" prefHeight="35.0" prefWidth="170.0" textFill="WHITE">
-               <font>
-                  <Font size="16.0" />
-               </font>
-            </Label>
-            <Label fx:id="setStart" layoutX="190.0" layoutY="60.0" prefHeight="35.0" prefWidth="170.0" textFill="WHITE">
-               <font>
-                  <Font size="16.0" />
-               </font>
-            </Label>
-            <Label fx:id="setEnd" layoutX="190.0" layoutY="120.0" prefHeight="35.0" prefWidth="170.0" textFill="WHITE">
-               <font>
-                  <Font size="16.0" />
-               </font>
-            </Label>
-            <JFXButton fx:id="confirmBooking" layoutX="190.0" layoutY="180.0" onAction="#addBookingDB" prefHeight="50.0" prefWidth="95.0" style="-fx-border-color: WHITE;" text="Confirm Booking" textAlignment="CENTER" textFill="WHITE" wrapText="true" />
-            <JFXButton fx:id="back" layoutX="291.0" layoutY="180.0" onAction="#back" prefHeight="50.0" prefWidth="95.0" style="-fx-border-color: WHITE;" text="Back" textAlignment="CENTER" textFill="WHITE" wrapText="true" />
-         </children>
-      </Pane>
       <Pane fx:id="searchByRoomPane" layoutX="145.0" prefHeight="500.0" prefWidth="555.0">
          <children>
             <JFXButton fx:id="findTimeButton" buttonType="RAISED" layoutX="14.0" layoutY="307.0" onMouseClicked="#searchByRooms" prefHeight="50.0" prefWidth="140.0" style="-fx-border-color: WHITE;" text="Find Times" textAlignment="CENTER" textFill="WHITE" wrapText="true">
@@ -263,6 +226,43 @@
                   <Font size="14.0" />
                </font>
             </JFXButton>
+         </children>
+      </Pane>
+      <Pane fx:id="bookingPane" layoutX="220.0" layoutY="155.0" prefHeight="245.0" prefWidth="400.0">
+         <children>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#005f61" height="245.0" stroke="WHITE" strokeType="INSIDE" width="400.0" />
+            <Label fx:id="heading" layoutX="19.0" layoutY="14.0" text="Make Booking" textFill="WHITE">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+            <Label fx:id="setBuilding" layoutX="14.0" layoutY="60.0" prefHeight="35.0" prefWidth="170.0" textFill="WHITE">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <Label fx:id="setRoom" layoutX="14.0" layoutY="120.0" prefHeight="35.0" prefWidth="170.0" textFill="WHITE">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <Label fx:id="setDate" layoutX="14.0" layoutY="180.0" prefHeight="35.0" prefWidth="170.0" textFill="WHITE">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <Label fx:id="setStart" layoutX="190.0" layoutY="60.0" prefHeight="35.0" prefWidth="170.0" textFill="WHITE">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <Label fx:id="setEnd" layoutX="190.0" layoutY="120.0" prefHeight="35.0" prefWidth="170.0" textFill="WHITE">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <JFXButton fx:id="confirmBooking" layoutX="190.0" layoutY="180.0" onAction="#addBookingDB" prefHeight="50.0" prefWidth="95.0" style="-fx-border-color: WHITE;" text="Confirm Booking" textAlignment="CENTER" textFill="WHITE" wrapText="true" />
+            <JFXButton fx:id="back" layoutX="291.0" layoutY="180.0" onAction="#back" prefHeight="50.0" prefWidth="95.0" style="-fx-border-color: WHITE;" text="Back" textAlignment="CENTER" textFill="WHITE" wrapText="true" />
          </children>
       </Pane>
    </children>
