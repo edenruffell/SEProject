@@ -210,7 +210,7 @@ public class AdminModel {
                 ps.close();
                 
                 
-         Calendar c = Calendar.getInstance();
+        Calendar c = Calendar.getInstance();
         ArrayList<String> dates = new ArrayList<>(); 
         
         DateFormat formatter = new SimpleDateFormat("yyyymmdd");
@@ -218,13 +218,14 @@ public class AdminModel {
         Date date2 = (Date)formatter.parse(rb.getEndDate());
         String date;
         c.setTime(date1);
-        
+       
        while (c.getTime().before(date2)) {
         // add another week
         c.add(Calendar.WEEK_OF_YEAR, 1);
         date = formatter.format(c.getTime());
         dates.add(date);
         }
+       
       Iterator listIterator = dates.listIterator();
       int counter = 0;
       
@@ -247,16 +248,13 @@ public class AdminModel {
                 ps.setString(6, rb.roombooking.getStartTime());
                 ps.setString(7, rb.roombooking.getEndTime());
                 
-                
-                
-                
-           
             ps.executeUpdate();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         } finally {
             ps.close();
         }
+        counter++;
        }
                 
             }
