@@ -30,7 +30,7 @@ public class Administrator implements Initializable {
     @FXML private Label usernameLabel;
     @FXML private Label message;
     @FXML private Label requestErr;
-    @FXML private Label errorLabel;
+    @FXML private Label errLabel;
     @FXML private JFXPasswordField oldpw; 
     @FXML private JFXPasswordField newpw;
     @FXML private JFXPasswordField retypepw;
@@ -77,11 +77,19 @@ public class Administrator implements Initializable {
     @FXML private TableColumn<Room, String> roomCol;
     @FXML private TableColumn<Room, String> compCol;
     @FXML private TableColumn<Room, String> capCol;
+    @FXML private TableView bookingTable;
+    @FXML private TableColumn<RoomBooking, Integer> idCol;
+    @FXML private TableColumn<RoomBooking, Integer> userCol;
+    @FXML private TableColumn<RoomBooking, String> buildCol;
+    @FXML private TableColumn<RoomBooking, String> bRoomCol;
+    @FXML private TableColumn<RoomBooking, String> dateCol;
+    @FXML private TableColumn<RoomBooking, String> sTimeCol;
+    @FXML private TableColumn<RoomBooking, String> eTimeCol;
     
     @FXML private Pane detailsPane;
     @FXML private Pane requestsPane;
     @FXML private Pane modifyPane;
-    
+    @FXML private Pane bookingPane;
     private String name;
     private String username;
     private String password;
@@ -93,6 +101,7 @@ public class Administrator implements Initializable {
     protected ObservableList<RepeatBookingRequest> repeats = FXCollections.observableArrayList();
     protected ObservableList<OverrideRequest> overrides = FXCollections.observableArrayList();
     protected ObservableList<Room> modify = FXCollections.observableArrayList();
+    protected ObservableList<RoomBooking> bookings = FXCollections.observableArrayList();
     
     private AdminModel model = new AdminModel();
 
@@ -159,6 +168,20 @@ public class Administrator implements Initializable {
         rETimeCol.setCellValueFactory(new PropertyValueFactory<>("EndTime"));
         rStatusCol.setCellValueFactory(new PropertyValueFactory<>("Status"));
         repeatTable.setItems(repeats); 
+    }
+    
+    public void viewBookings() throws SQLException {
+        detailsPane.setVisible(false);
+        bookingPane.setVisible(true); 
+        bookings = model.getBookings();
+        idCol.setCellValueFactory(new PropertyValueFactory<>("ID"));
+        userCol.setCellValueFactory(new PropertyValueFactory<>("Owner"));
+        buildCol.setCellValueFactory(new PropertyValueFactory<>("building"));
+        roomCol.setCellValueFactory(new PropertyValueFactory<>("name"));
+        dateCol.setCellValueFactory(new PropertyValueFactory<>("date"));
+        sTimeCol.setCellValueFactory(new PropertyValueFactory<>("startTime"));
+        eTimeCol.setCellValueFactory(new PropertyValueFactory<>("endTime"));
+        bookingTable.setItems(bookings);
     }
     
     public void approveRequest() throws SQLException, ParseException{
@@ -265,12 +288,15 @@ public class Administrator implements Initializable {
         permissionTable.setVisible(true);
         requestsPane.setVisible(true);
         detailsPane.setVisible(false);
+        modifyPane.setVisible(false);
+        bookingPane.setVisible(false);
     } 
     
     public void viewDetails(){
         requestsPane.setVisible(false);
         detailsPane.setVisible(true);
         modifyPane.setVisible(false);
+        bookingPane.setVisible(false);
     }
     
     public void viewModify() throws SQLException{
@@ -278,6 +304,7 @@ public class Administrator implements Initializable {
         requestsPane.setVisible(false);
         detailsPane.setVisible(false);
         modifyPane.setVisible(true);
+        bookingPane.setVisible(false);
         modify = model.getRooms();
         siteCol.setCellValueFactory(new PropertyValueFactory<>("Site"));
         buildingCol.setCellValueFactory(new PropertyValueFactory<>("Building"));
@@ -298,17 +325,21 @@ public class Administrator implements Initializable {
     }
    
     public void addRoom() throws SQLException{
-        boolean exists = false;
-    
-        modifyPane.setVisible(true);
-        detailsPane.setVisible(false);
-        requestsPane.setVisible(false);
+            boolean exists = false;
+            int cap = 0;
+            modifyPane.setVisible(true);
+            detailsPane.setVisible(false);
+            requestsPane.setVisible(false);
         
-        String site = siteName.getText();
-        String building = buildingName.getText();
-        String room = roomName.getText();
-        int cap = Integer.parseInt(capacity.getText());
-        String comp = computers.getText();
+            String site = siteName.getText();
+            String building = buildingName.getText();
+            String room = roomName.getText();
+            try{
+                cap = Integer.parseInt(capacity.getText());
+            }catch(NumberFormatException e){
+                errLabel.setText("Enter a valid capacity");
+            }
+            String comp = computers.getText();
 
         for(Room r : modify){
         
@@ -321,10 +352,10 @@ public class Administrator implements Initializable {
         if(!exists){
             Room r = new Room(site, building, room, cap, comp);
             model.addRoom(r);
-            errorLabel.setText("Room added successfully!");
+            errLabel.setText("Room added successfully!");
             viewModify();
         }
-        else errorLabel.setText("Room already exists");
+        else errLabel.setText("Room already exists");
     }
     
     
@@ -332,9 +363,15 @@ public class Administrator implements Initializable {
         modifyPane.setVisible(true);
         detailsPane.setVisible(false);
         requestsPane.setVisible(false);
-        int selectedIndex = modifyTable.getSelectionModel().getSelectedIndex();
+        int selectedIndex = -1;
+        try{
+            selectedIndex = modifyTable.getSelectionModel().getSelectedIndex();
+        }catch(ArrayIndexOutOfBoundsException e){
+            errLabel.setText("No room has been selected.");
+        }
         Room room = modify.get(selectedIndex);  
         model.removeRoom(room);
+        errLabel.setText("Room removed successfully!");
         viewModify();
     }
     

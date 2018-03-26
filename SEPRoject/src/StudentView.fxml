@@ -201,7 +201,7 @@
                   <Font size="14.0" />
                </font>
             </JFXButton>
-            <JFXComboBox fx:id="buildingBox2" layoutX="10.0" layoutY="80.0" onMouseClicked="#setBuildings" onMouseEntered="#clearLabel" prefHeight="35.0" prefWidth="200.0" promptText="Select a building" visibleRowCount="30" />
+            <JFXComboBox fx:id="buildingBox2" layoutX="10.0" layoutY="80.0" onMouseClicked="#setBuildings2" onMouseEntered="#clearLabel" prefHeight="35.0" prefWidth="200.0" promptText="Select a building" visibleRowCount="30" />
             <TableView fx:id="resultsTable2" layoutX="228.0" layoutY="65.0" onMouseClicked="#showPopup2" prefHeight="338.0" prefWidth="324.0">
                <columns>
                   <TableColumn fx:id="roomCol2" editable="false" prefWidth="108.0" sortable="false" text="Room" />

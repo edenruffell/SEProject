@@ -95,8 +95,6 @@ public class StudentModel {
             preparedS.close();
         }
     }
-    
-    
 
     public ObservableList<String> getSites() throws SQLException {
 
@@ -331,7 +329,6 @@ public class StudentModel {
         }
         return list;
     }
-    
     
     public void saveBooking(Room room, String date, String username, String sTime, String eTime) throws SQLException{
         PreparedStatement ps = null;
