@@ -82,6 +82,7 @@ public class Administrator implements Initializable {
     protected ObservableList<PermissionRequest> permissions = FXCollections.observableArrayList();
     protected ObservableList<RepeatBookingRequest> repeats = FXCollections.observableArrayList();
     protected ObservableList<OverrideRequest> overrides = FXCollections.observableArrayList();
+    protected ObservableList<Room> modify = FXCollections.observableArrayList();
     
     private AdminModel model = new AdminModel();
 
@@ -252,4 +253,54 @@ public class Administrator implements Initializable {
             if(!overrides.get(index).getStatus().equals("Pending")) return false;
         return true;
     } 
+    
+   
+    public void addRoom(){
+        
+        boolean exists = false;
+    
+        modifyPane.setVisible(true);
+        detailsPane.setVisible(false);
+        requestsPane.setVisible(false);
+        
+        
+        
+        
+        String site = siteName.getText();
+        String building = buildingName.getText();
+        String roomname = roomName.getText();
+        int capacity = Integer.parseInt(capacity.getText());
+        String computers = computers.getText();
+                
+                
+        Room room = new Room(site, building, roomname, capacity,computers);
+        
+        
+        for(Room r : modify){
+        
+            if(building.equals(r.getBuildingName()) && room.equals(r.getName())){
+             exists = true;
+             break;
+            }
+        }
+       
+         if(!exists){model.addRoom(room);}
+         else{
+              errorLabel.setText = "Room already exists";
+         }
+    }
+    
+    
+    public void removeRoom(){
+    
+        modifyPane.setVisible(true);
+        detailsPane.setVisible(false);
+        requestsPane.setVisible(false);
+        selectedIndex = modifyTable.getSelectionModel().getSelectedIndex();
+        Room room = modify(selectedIndex);
+        
+        model.removeRoom(room);
+    
+    }
+    
 }
