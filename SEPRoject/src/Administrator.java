@@ -1,6 +1,7 @@
 import com.jfoenix.controls.*;
 import java.net.URL;
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -46,6 +47,8 @@ public class Administrator implements Initializable {
     private String userType;
     
     protected ObservableList<PermissionRequest> permissions = FXCollections.observableArrayList();
+    protected ObservableList<RepeatBookingRequest> repeats = FXCollections.observableArrayList();
+    protected ObservableList<OverrideRequest> override = FXCollections.observableArrayList();
     
     private AdminModel model = new AdminModel();
 
@@ -81,6 +84,63 @@ public class Administrator implements Initializable {
         model.removePRequest(pr, status);
         permissionTable.getItems().remove(selectedIndex);
     }
+    
+    public void denyPRequest() throws SQLException{
+    
+    System.out.println("Entering approve method.");
+        int selectedIndex = permissionTable.getSelectionModel().getSelectedIndex();
+        PermissionRequest pr = permissions.get(selectedIndex);
+        model.removePRequest(pr, "Denied");
+        permissionTable.getItems().remove(selectedIndex);
+    
+    
+    }
+    
+    
+    
+    public void approveRRequest() throws SQLException, ParseException{
+        System.out.println("Entering approve method.");
+        int selectedIndex = repeatTable.getSelectionModel().getSelectedIndex();
+        RepeatBookingRequest rbr = repeats.get(selectedIndex);
+        model.removeRRequest(rbr, "Approved");
+        repeatTable.getItems().remove(selectedIndex);
+    }
+    
+    public void denyRRequest() throws SQLException, ParseException{
+    
+    System.out.println("Entering approve method.");
+        int selectedIndex = repeatTable.getSelectionModel().getSelectedIndex();
+        RepeatBookingRequest rbr = repeats.get(selectedIndex);
+        model.removeRRequest(rbr, "Denied");
+        permissionTable.getItems().remove(selectedIndex);
+    
+    
+    }
+    
+    
+    
+     public void approveORequest() throws SQLException{
+        System.out.println("Entering approve method.");
+        int selectedIndex = overrideTable.getSelectionModel().getSelectedIndex();
+        OverrideRequest or = override.get(selectedIndex);
+        model.removeORequest(or, "Approved");
+        overrideTable.getItems().remove(selectedIndex);
+    }
+    
+    public void denyORequest() throws SQLException{
+    
+    System.out.println("Entering approve method.");
+        int selectedIndex = overrideTable.getSelectionModel().getSelectedIndex();
+        OverrideRequest or = override.get(selectedIndex);
+        model.removeORequest(or, "Denied");
+        overrideTable.getItems().remove(selectedIndex);
+    
+    
+    }
+    
+    
+    
+    
     
     public void updatePW() throws SQLException{
         String oldpw = this.oldpw.getText();
@@ -123,5 +183,10 @@ public class Administrator implements Initializable {
         requestsPane.setVisible(false);
         detailsPane.setVisible(true);
     }
+    
+    
+    
+    
+    
    
 }

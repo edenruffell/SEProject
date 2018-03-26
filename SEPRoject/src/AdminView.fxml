@@ -173,7 +173,7 @@
             <JFXButton fx:id="viewRepeat" buttonType="RAISED" layoutX="200.0" layoutY="50.0" prefHeight="50.0" prefWidth="150.0" style="-fx-border-color: WHITE;" text="Repeat Booking Requests" textAlignment="CENTER" textFill="WHITE" wrapText="true" />
             <JFXButton fx:id="viewPermission" buttonType="RAISED" layoutX="370.0" layoutY="50.0" onAction="#viewPRequests" prefHeight="50.0" prefWidth="150.0" style="-fx-border-color: WHITE;" text="Permission Requests" textFill="WHITE" />
             <JFXButton fx:id="approveRequest" buttonType="RAISED" layoutX="100.0" layoutY="450.0" onAction="#approvePRequest" prefHeight="35.0" prefWidth="150.0" style="-fx-border-color: WHITE;" text="Approve Request" textFill="#00606f" />
-            <JFXButton fx:id="denyRequest" buttonType="RAISED" layoutX="300.0" layoutY="450.0" prefHeight="35.0" prefWidth="150.0" style="-fx-border-color: WHITE;" text="Deny Request" textFill="#00606f" />
+            <JFXButton fx:id="denyRequest" buttonType="RAISED" layoutX="300.0" layoutY="450.0" prefHeight="35.0" prefWidth="150.0" style="-fx-border-color: WHITE;" text="Deny Request" textFill="#00606f"  />
          </children>
       </Pane>
    </children>

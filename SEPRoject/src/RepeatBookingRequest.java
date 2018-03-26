@@ -32,4 +32,9 @@ public class RepeatBookingRequest extends Request{
     
         return status;
     }
+    
+    public String getName(){
+    
+        return roombooking.getOwner();
+    }
 }
