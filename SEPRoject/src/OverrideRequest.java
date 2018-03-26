@@ -1,23 +1,38 @@
 public class OverrideRequest extends Request{
     
-     RoomBooking roombooking;
-     String status;
+    private RoomBooking roombooking;
 
-    public OverrideRequest(int ID, String user, RoomBooking roombooking){
+    public OverrideRequest(int ID, RoomBooking roombooking){
         
         
-        super(ID, user, "Override");
-        status = "Pending";
+        super(ID, roombooking.getOwner(), "Override", "Pending");
         this.roombooking = roombooking;
+    }
+    
+    public OverrideRequest(int ID, RoomBooking roombooking, String status){
+        
+        
+        super(ID, roombooking.getOwner(), "Override", status);
+        this.roombooking = roombooking;
+    }
+
+    public RoomBooking getRoomBooking() {
+        return roombooking;
+    }
+    
+    public String getBuilding() {
+        return roombooking.getBuilding();
     } 
     
-    public String getStatus(){
-    
-    return status;
+    public String getRoom() {
+        return roombooking.getRoom();
     }
     
-    public String getName(){
-    
-    return roombooking.getOwner();
+    public String getDate() {
+        return roombooking.getDate();
     }
+    
+    public String getStartTime() {
+        return roombooking.getStartTime();
+    }    
 }
