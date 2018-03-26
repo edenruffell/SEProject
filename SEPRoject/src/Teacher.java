@@ -390,10 +390,12 @@ public class Teacher extends User implements Initializable {
     public void showPopup(MouseEvent e){
         String currentRoom = roomBox.getSelectionModel().getSelectedItem().toString();
         int index = resultsTable.getSelectionModel().getSelectedIndex();
-        if (resultsTable.getItems().isEmpty()){}
+        try{ if (resultsTable.getItems().isEmpty()){}
         else if(!times.get(index).isAvailable()){}
         else if(!currentRoom.equals(room.getName())) searchError.setText("Results do not match current room. Please press \"Find Times\" again.");
-        else popup.show(JFXPopup.PopupVPosition.TOP, JFXPopup.PopupHPosition.LEFT, e.getX(), e.getY());
+        else popup.show(JFXPopup.PopupVPosition.TOP, JFXPopup.PopupHPosition.LEFT, e.getX(), e.getY());}
+        catch(ArrayIndexOutOfBoundsException a){
+        }
     }
 
     private void initPopUp() {
@@ -486,7 +488,7 @@ public class Teacher extends User implements Initializable {
             String date = datePicker.getValue().toString();
             String chosenRoom = roomBox.getSelectionModel().getSelectedItem().toString();
             String time = times.get(selectedIndex).getTime();
-            roombooking = model.getABooking(chosenRoom, date, time);
+            roombooking = model.getABooking(chosenRoom, date, time, this.username);
             updateAllowance(-1);
             model.updateAllowanceDB(allowance, username);
         

@@ -267,7 +267,7 @@ public class StudentModel {
         } 
     }
     
-    public Room setBookedTimes(Room r, String building, String room, String date){
+    public Room setBookedTimes(Room r, String building, String room, String date) throws SQLException{
         PreparedStatement ps = null;
         ResultSet rs = null;
         Room.Time[] array = r.getTimeArray();
@@ -299,6 +299,8 @@ public class StudentModel {
             }catch (SQLException e){
                 System.out.println(e.getMessage());      
             }
+        ps.close();
+        rs.close();
         return r;
     }
 
@@ -326,8 +328,8 @@ public class StudentModel {
         } finally {
             ps.close();
             rs.close();
-        }
-        return list;
+            return list;
+        }  
     }
     
     public void saveBooking(Room room, String date, String username, String sTime, String eTime) throws SQLException{

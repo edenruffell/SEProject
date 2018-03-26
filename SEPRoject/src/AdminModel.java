@@ -164,7 +164,6 @@ public class AdminModel {
     }
     
     public void removePRequest(PermissionRequest pr, String status) throws SQLException{
-        System.out.println("Entering");
         PreparedStatement ps = null;
 
         String query = "UPDATE PERMISSION SET STATUS = ? "
@@ -226,7 +225,6 @@ public class AdminModel {
     }
 
     public void removeRRequest(RepeatBookingRequest rb, String status) throws SQLException, ParseException{
-        System.out.println("Entering");
         PreparedStatement ps = null;
 
         String query = "UPDATE REPEAT SET STATUS = ? "
@@ -240,7 +238,6 @@ public class AdminModel {
             // update 
             ps.executeUpdate();
             if(status.equals("Approved")){
-                System.out.println("Approved. ");
                 ps.close();
                 
                 
@@ -434,13 +431,5 @@ public class AdminModel {
         } finally {
             preparedS.close();
         }
-    }
-    
-    
-    
-    
-    
-    
-   
-    
+    } 
 }

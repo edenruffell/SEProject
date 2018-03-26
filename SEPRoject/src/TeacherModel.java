@@ -77,7 +77,7 @@ public class TeacherModel extends StudentModel{
         }  
     }
     
-    public RoomBooking getABooking(String room, String date, String time) throws SQLException{
+    public RoomBooking getABooking(String room, String date, String time, String username) throws SQLException{
             PreparedStatement ps = null;
             ResultSet rs = null;
             RoomBooking rb = null;
@@ -93,10 +93,9 @@ public class TeacherModel extends StudentModel{
             ps.setString(2, date);
             ps.setString(3, time);
             rs = ps.executeQuery();
-            System.out.println("get booking");
             while(rs.next()){
                 rb = new RoomBooking(rs.getInt("ID"),
-                        rs.getString("OWNER"),
+                        username,
                         rs.getString("BUILDING"),
                         rs.getString("ROOM"),
                         rs.getString("DATE"),
